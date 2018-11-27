@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL日志列表</title>
+    <script type="text/javascript" src="../Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/swfupload.css?r=20171201132130" />
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 15px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <!--<p>1.&nbsp;</p>
+
+            <p>2.&nbsp;</p>-->
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>日期：</span>
+                        </dt>
+                        <dd>
+                            <input id="End_Date" class="easyui-datetimebox" panelheight="260" style="width:170px;" data-options="showSeconds: false,editable: false">
+                        </dd>
+                    </dl>
+                </li>
+                <!--<li>
+                    <dl>
+                        <dt>
+                            <span>日志内容：</span>
+                        </dt>
+                        <dd>
+                            <input id="LogContents" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>-->
+                <li>
+                    <dl>
+                        <dt>
+                            <span>数据库：</span>
+                        </dt>
+                        <dd>
+                            <input id="SelectDatabase" style="width:170px; " class="easyui-combobox" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>系统：</span>
+                        </dt>
+                        <dd>
+                            <input id="SystemName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>用户名：</span>
+                        </dt>
+                        <dd>
+                            <input id="UserName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>IP地址：</span>
+                        </dt>
+                        <dd>
+                            <input id="IpAddress" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>SQL字符串：</span>
+                        </dt>
+                        <dd>
+                            <input id="SqlString" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+
+                <li>
+                    <dl>
+                        <dt>
+                            <span>SQL参数：</span>
+                        </dt>
+                        <dd>
+                            <input id="SqlParams" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>开始时间：</span>
+                        </dt>
+                        <dd>
+                            <input id="ExecutionStartTime" style="width:170px;" class="easyui-datetimebox" panelheight="260" style="width:170px;" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>
+
+                <li>
+                    <dl>
+                        <dt>
+                            <span>结束时间：</span>
+                        </dt>
+                        <dd>
+                            <input id="ExecutionEndTime" style="width:170px;" class="easyui-datetimebox" panelheight="260" style="width:170px;" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>
+
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" onclick="search()" />
+                        </dd>
+                    </dl>
+
+                </li>
+            </ul>
+        </div>
+        <div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li id="exportExcel">
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'">导出Excel表格</a>&nbsp; &nbsp;
+                    <div id="mm1" style="width:150px;">
+                        <div class="selAll">全部账号</div>
+                        <div class="selected">选中账号</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+    <script type="text/javascript">
+
+        //数据库
+        var database = [
+           { name: "DMS_LOG", value: "DMS_LOG", selected: true },
+           { name: "WS_LOG", value: "WS_LOG" },
+           { name: "CO_LOG", value: "CO_LOG" }
+        ];
+
+        //页面加载完成  再加载表格
+        $(function () {
+
+            $("#SelectDatabase").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: database
+            });
+            //paramsData = {
+            //    action: "GetList",
+            //    sqlDate: "",
+            //    selectDatabase: "",
+            //    sn: "1"
+            //};
+            //GteTable(list, url, columnData, paramsData, idField);
+        });
+
+        var columnData = [[
+              { field: 'ID', checkbox: true },
+              { field: '系统', align: 'center', title: '系统', width: 5 },
+              { field: '用户名', align: 'center', title: '用户名', width: 10 },
+              { field: 'IP地址', align: 'center', title: 'IP地址', width: 15 },
+              { field: 'SQL字符串', align: 'center', title: 'SQL字符串', width: 30 },
+              { field: 'SQL参数', align: 'center', title: 'SQL参数', width: 30 },
+              { field: '执行时间', align: 'center', title: '执行时间', width: 10 },
+              { field: '创建时间', align: 'center', title: '创建时间', width: 10 }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/SqlLogHandler.ashx";
+        var idField = "ID";
+        // 查询操作
+        function search() {
+
+            var sqlDate = $("#End_Date").textbox('getText');
+            var selectDatabase = $("#SelectDatabase").combobox('getValue');
+
+            var systemname = $("#SystemName").textbox('getText');
+            var username = $("#UserName").textbox('getText');
+            var ipaddress = $("#IpAddress").textbox('getText');
+            var sqlstring = $("#SqlString").textbox('getText');
+            var sqlparams = $("#SqlParams").textbox('getText');
+            var executionStartTime = $("#ExecutionStartTime").textbox('getText');
+            var executionEndTime = $("#ExecutionEndTime").textbox('getText');
+
+            if (sqlDate == "") {
+                myMessage('日期不能为空！');
+                return false;
+            }
+
+            if (selectDatabase == "") {
+                myMessage('请选择数据库！');
+                return false;
+            }
+
+            paramsData = {
+                action: "GetList",
+                sqlDate: sqlDate,
+                selectDatabase: selectDatabase,
+                systemname: systemname,
+                username: username,
+                ipaddress: ipaddress,
+                sqlstring: sqlstring,
+                sqlparams: sqlparams,
+                executionstarttime: executionStartTime,
+                executionendtime: executionEndTime,
+                sn: "1"
+            };
+            GteTable(list, url, columnData, paramsData, idField);
+
+           // $.ajax({
+           //     url: "../Handler/SqlLogHandler.ashx",
+           //     data: {
+           //         "action": "ValidationField",
+           //         sqlDate: sqlDate,
+           //         selectDatabase: selectDatabase,
+           //         sn: "1"
+           //     },
+           //     dataType: "json",
+           //     type: "POST",
+           //     success: function (data) {
+           //         if (data.isSuccess == true) {                    
+           //             if (data.message == "1") {
+           //                 GteTable(list, url, columnData, paramsData, idField);
+           //             }
+           //             else if (data.message == "0") {
+           //                 columnData = [[
+           //{ field: 'ID', checkbox: true },
+           //{ field: '系统', align: 'center', title: '系统', width: 5 },
+           //{ field: '用户名', align: 'center', title: '用户名', width: 10 },
+           //{ field: 'IP地址', align: 'center', title: 'IP地址', width: 15 },
+           //{ field: 'SQL字符串', align: 'center', title: 'SQL字符串', width: 30 },
+           //{ field: 'SQL参数', align: 'center', title: 'SQL参数', width: 30 },
+           //{ field: '执行时间', align: 'center', title: '执行时间', width: 10 }
+           //                 ]];
+           //                 GteTable(list, url, columnData, paramsData, idField);
+           //             }
+           //         } else {
+
+           //             myMessage(data.message);
+           //         }
+           //     }
+           // });
+
+        }
+
+        // 导出Excel表格
+        // 导出Excel表格    选中部分
+        $("#exportExcel .selected").on("click", function () {
+
+            var data = $('#list').datagrid('getSelections');
+            var dataList = "";
+            for (var i = 0; i < data.length; i++) {
+                dataList += data[i].ID + ",";
+            }
+            if (dataList.length <= 0) {
+                myMessage("请至少选择一个！")
+                return false;
+            }
+            dataList = dataList.substring(0, dataList.length - 1);
+
+            var exportExcel = "export_excel";
+            var sqlDate = $("#End_Date").textbox('getText');
+            //var logContent = $("#LogContents").textbox('getText');
+            var selectDatabase = $("#SelectDatabase").combobox('getValue');
+
+            var systemname = $("#SystemName").textbox('getText');
+            var username = $("#UserName").textbox('getText');
+            var ipaddress = $("#IpAddress").textbox('getText');
+            var sqlstring = $("#SqlString").textbox('getText');
+            var sqlparams = $("#SqlParams").textbox('getText');
+            var executionStartTime = $("#ExecutionStartTime").textbox('getText');
+            var executionEndTime = $("#ExecutionEndTime").textbox('getText');
+
+            var dataParams = {
+                sqlDate: sqlDate,
+                selectDatabase: selectDatabase,
+                systemname: systemname,
+                username: username,
+                ipaddress: ipaddress,
+                sqlstring: sqlstring,
+                sqlparams: sqlparams,
+                executionstarttime: executionStartTime,
+                executionendtime: executionEndTime,
+                range: "",
+                idlist: dataList,
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/SqlLogHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+
+        });
+
+        // 导出Excel表格    全部
+        $("#exportExcel .selAll").on("click", function () {
+            var exportExcel = "export_excel";
+
+            var sqlDate = $("#End_Date").textbox('getText');
+            //var logContent = $("#LogContents").textbox('getText');
+            var selectDatabase = $("#SelectDatabase").combobox('getValue');
+
+            var systemname = $("#SystemName").textbox('getText');
+            var username = $("#UserName").textbox('getText');
+            var ipaddress = $("#IpAddress").textbox('getText');
+            var sqlstring = $("#SqlString").textbox('getText');
+            var sqlparams = $("#SqlParams").textbox('getText');
+            var executionStartTime = $("#ExecutionStartTime").textbox('getText');
+            var executionEndTime = $("#ExecutionEndTime").textbox('getText');
+
+            var dataParams = {
+                sqlDate: sqlDate,
+                selectDatabase: selectDatabase,
+                systemname: systemname,
+                username: username,
+                ipaddress: ipaddress,
+                sqlstring: sqlstring,
+                sqlparams: sqlparams,
+                executionstarttime: executionStartTime,
+                executionendtime: executionEndTime,
+                range: "all",
+                idlist: "",
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/SqlLogHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+        });
+
+    </script>
+</body>
+</html>

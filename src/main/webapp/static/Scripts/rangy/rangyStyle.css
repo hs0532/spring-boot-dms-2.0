@@ -1,0 +1,8 @@
+﻿.highlight {
+    background-color: yellow;
+    /*text-decoration: line-through;*/
+    cursor: pointer;
+}
+
+.noStyle {
+}

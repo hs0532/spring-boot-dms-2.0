@@ -1,0 +1,3322 @@
+﻿html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form,
+fieldset, legend, img {
+    margin: 0;
+    padding: 0;
+}
+.fontWeigt{
+    font-weight:700;
+}
+/*scroll隐藏谷歌隐藏*/
+.panel-body::-webkit-scrollbar {
+    width: 0px;
+}
+
+/*.menus::-webkit-scrollbar{*/
+/*background: #ccc;*/
+/*width: 20px;*/
+/*}*/
+
+/*.menus::-webkit-scrollbar-thumb {*/
+/*background-color: red;*/
+/*height: 20px;*/
+/*border-radius: 10px;*/
+/*width: 20px;*/
+/*}*/
+
+
+fieldset, img, button {
+    /*input,去掉了*/
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none;
+    /*外面环绕线*/
+}
+
+div, p, li {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+/*去掉原样式中的小黑点*/
+
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "SimSun", "宋体";
+    /*字体的自动识别*/
+}
+
+select, input {
+    vertical-align: middle;
+}
+
+/*输入字居中显示*/
+
+select, input, textarea {
+    font-size: 15px;
+    margin: 0;
+}
+
+input, textarea {
+    outline-color: #ccc;
+    /*外面环绕线*/
+    border: 1px #ddd solid;
+    scrollbar-arrow-color: #ddd;
+    scrollbar-darkshadow-color: #ddd;
+    scrollbar-face-color: #ddd;
+    scrollbar-track-color: #ddd;
+    scrollbar-highlight-color: #ddd;
+    scrollbar-shadow-color: #ddd;
+}
+
+textarea {
+    resize: none;
+    /*不可以随意拖动*/
+    overflow-y: auto;
+    color: #666666;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+    /*  去掉图片底部默认的3像素空白缝隙*/
+}
+
+table {
+    border-collapse: collapse;
+    /*合并外连线*/
+}
+
+body {
+    font: 15px/150% Arial, Verdana, "\5b8b\4f53";
+    /*unitedCode的写法，宋体的写法  */
+    color: #000;
+    /*150%基于当前字体尺寸的百分比行间距*/
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    position: absolute;
+    top: 17px;
+    right: 30px;
+}
+
+    .icon.active {
+        transform: rotate(90deg);
+    }
+
+.clearfix:before, .clearfix:after {
+    /*清除浮动*/
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+    /*IE/7/6*/
+    /*兼容IE6下的写法*/
+}
+
+a {
+    color: #666;
+    /*a 标签是不继承颜色 的*/
+    text-decoration: none;
+}
+
+s, i {
+    /*一般是起装饰作用*/
+    font-style: normal;
+    /*去掉原有的样式*/
+    text-decoration: none;
+    /*去掉下划线或是删除线*/
+}
+
+/*banner*/
+.banner {
+    width: 100%;
+    padding: 0 628px 0 628px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+    .banner .bannerLeft {
+        position: relative;
+        width: 628px;
+        height: 98px;
+        float: left;
+        margin-left: -628px;
+        background: url("images/bannerleft.gif") no-repeat;
+    }
+
+/*左侧文字*/
+.G-college {
+    position: absolute;
+    top: 13px;
+    left: 108px;
+    color: #c9c9c9;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: "微软雅黑";
+    text-shadow: 4px 4px 4px #000;
+}
+
+/*左上角学校logo*/
+.schoolLogo {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    left: 25px;
+    top: 12px;
+}
+
+
+/*第二行文字*/
+.G-paper {
+    position: absolute;
+    top: 53px;
+    left: 105px;
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "微软雅黑";
+    text-shadow: 3px 3px 3px #000;
+}
+
+.banner .middle {
+    width: 100%;
+    height: 98px;
+    float: left;
+    background: url("images/middle.jpg");
+}
+
+.banner .bannerRight {
+    width: 628px;
+    height: 98px;
+    position: absolute;
+    right: 0;
+    background: url("images/bannerleft.gif") no-repeat -879px 0;
+    color: #f9f5f2;
+    font-size: 15px;
+    text-align: right;
+}
+
+/*右侧盒子a标签的文字*/
+.bannerRight p {
+    position: absolute;
+    top: 13px;
+    right: 18px;
+    height: 33px;
+}
+
+.bannerRight .character {
+    top: 39px;
+}
+
+.bannerRight .quitChunk {
+    top: 65px;
+}
+/*登录切换退出--写作助手 4按钮*/
+.quitChunk a {
+    color: #f9f5f2;
+    padding-left: 25px;
+    font-size: 15px;
+    position: relative;
+}
+
+    /*切换 帮助 退出3按钮的图标*/
+    .quitChunk a i {
+        position: absolute;
+        top: -1px;
+        left: 1px;
+        width: 18px;
+        height: 18px;
+    }
+/*切换写作助手样式*/
+#writingHelper i {
+    background: url("../default/images/writingHelper.png") no-repeat 0 0;
+}
+/*切换登陆*/
+#role_change i {
+    background-color: orange;
+    background: url("../default/images/cutover-help-quit.png") no-repeat 0 0;
+}
+
+/*帮助*/
+#help i {
+    background-color: orange;
+    background: url("../default/images/cutover-help-quit.png") no-repeat -22px 0;
+}
+/*退出*/
+#quit i {
+    background-color: green;
+    background: url("../default/images/cutover-help-quit.png") no-repeat -45px 0;
+}
+/*banner结束*/
+
+
+/*左侧盒子 菜单*/
+.leftbox {
+    box-sizing: border-box;
+    color: #feffff;
+    width: 100%;
+    background-color: #2c3b42;
+}
+
+    .leftbox h3 {
+        position: relative;
+        text-align: center;
+        line-height: 40px;
+        background-color: #1f282d;
+    }
+
+        .leftbox h3 i {
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            background: url("images/Administrator-1.png") no-repeat 0 0;
+        }
+
+
+.tier {
+    color: #feffff;
+    display: block;
+    padding-left: 24px;
+    box-sizing: border-box;
+    line-height: 45px;
+    height: 45px;
+    border-left: 3px solid #2c3b42;
+    position: relative;
+}
+
+
+    /*鼠标移动,点击需要添加*/
+    .tier:hover {
+        background-color: #1f282d;
+        border-left: 3px solid #d43923;
+        color: #c73625;
+    }
+
+.hover {
+    color: #c73625 !important;
+    background-color: #1f282d;
+    border-left: 3px solid #d43923 !important;
+}
+
+    .hover .icon {
+        color: #d43923;
+        transform: rotate(90deg);
+    }
+
+.tier i {
+    display: inline-block;
+    width: 18px;
+    height: 17px;
+    margin-right: 20px;
+    background: url("images/icon001.png") no-repeat -1px 0;
+    vertical-align: middle;
+}
+
+.nav > li > a > .detection {
+    background: url("images/icon001.png") no-repeat -20px 0;
+}
+
+.nav > li > a > .resultsManagement {
+    background: url("images/icon001.png") no-repeat -40px 0;
+}
+
+.nav > li > a > .teachers {
+    background: url("images/icon001.png") no-repeat -60px 0;
+}
+
+.nav > li > a > .courseDocument {
+    background: url("images/icon001.png") no-repeat -100px 0;
+}
+
+.nav > li > a > .read {
+    background: url("images/icon001.png") no-repeat -120px 0;
+}
+
+.nav > li > a > .goodPaper {
+    background: url("images/icon001.png") no-repeat -140px 0;
+}
+
+.nav > li > a > .deriveDocument {
+    background: url("images/icon001.png") no-repeat -160px 0;
+}
+
+.nav > li > a > .statisticsMessage {
+    background: url("images/icon001.png") no-repeat -180px 0;
+}
+
+.nav > li > a > .monitorResult {
+    background: url("images/icon001.png") no-repeat -199px 0;
+}
+
+.nav > li > a > .accountEphor {
+    background: url("images/icon001.png") no-repeat -219px 0;
+}
+
+.nav > li > a > .userSet {
+    background: url("images/icon001.png") no-repeat -240px 0;
+}
+
+.nav > li > a > .bailed {
+    background: url("images/icon001.png") no-repeat -280px 0;
+}
+/*二级导航菜单*/
+.towtier {
+    color: #feffff;
+    display: block;
+    padding-left: 24px;
+    box-sizing: border-box;
+    line-height: 45px;
+    border-left: 3px solid #2c3b42;
+    padding-left: 44px;
+}
+
+    .towtier:hover {
+        color: #c73625;
+        border-left: 3px solid #c73625;
+    }
+
+.towtierr {
+    color: #c73625;
+    border-left: 3px solid #c73625;
+}
+
+.towtier i {
+    display: inline-block;
+    width: 18px;
+    height: 12px;
+    /*margin-right: 20px; 换导航的图标，文字间距显得大*/
+    background: url("images/icon001.png") no-repeat -82px -6px;
+    vertical-align: middle;
+}
+
+.secondaryMenu {
+    display: none;
+}
+
+.towtier:hover i,
+.towtier .variation {
+    background: url("images/icon001.png") no-repeat -262px -6px !important;
+}
+
+.main {
+    margin: 5px;
+}
+
+/*右侧盒子*/
+.rightbox {
+    width: 100%;
+    float: left;
+}
+
+/*easyUI tabs高度*/
+.tabs-header .tabs-wrap .tabs .tabs-inner {
+    height: 32px !important;
+}
+
+.tabs-header .tabs-wrap .tabs {
+    height: 33px !important;
+}
+
+/*右侧内容上部分*/
+.rightbox .form {
+    width: 100%;
+    padding: 5px 40px 5px 0;
+    border: 1px solid #d3d3d3;
+    margin-bottom: 11px;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.form {
+    padding: 5px 50px 5px 0;
+}
+
+    .form li {
+        float: left;
+        width: 320px;
+        height: 30px;
+        margin-top: 5px;
+    }
+
+        .form li dl {
+            float: left;
+        }
+
+        .form li dt {
+            display: inline;
+            width: 100px;
+            float: left;
+        }
+
+        .form li dd {
+            display: inline;
+            text-align: left;
+            width: 200px;
+            float: left;
+        }
+
+        .form li span {
+            text-align: right;
+        }
+
+    /*选择按钮*/
+    .form input[type='radio'] {
+        margin: 0 3px;
+    }
+
+/*查询按钮 红色*/
+.formBtn {
+    padding: 0 5px;
+    border: none;
+    outline: none;
+    height: 29px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #ed5565;
+}
+
+    .formBtn:hover {
+        background-color: #e34a51;
+    }
+
+/*右侧下半部分的按钮*/
+.boxbtn {
+    margin-bottom: 9px;
+}
+/*每条数据的 操作 样式*/
+.deleteStyle {
+    color: #609ec7;
+}
+
+    .deleteStyle:hover {
+        color: #1189cc;
+    }
+/*List.html结束*/
+
+/*Add.html开始*/
+.addForm {
+    color: #333;
+    box-sizing: border-box;
+    width: 1000px;
+    padding-top: 32px;
+    padding-bottom: 20px;
+}
+
+.addFormBuildTow li,
+.addFormBuild li {
+    box-sizing: border-box;
+    float: left;
+    margin: 5px 0;
+}
+    /*addFormBuild 是包含ul*/
+    /*左边的文字靠右对齐*/
+    .addFormBuildTow li:nth-child(odd),
+    .addFormBuild li:nth-child(odd) {
+        width: 220px;
+        margin-right: 5px;
+        text-align: right;
+        /*border: 1px solid blue;*/
+    }
+
+    .addFormBuildTow li:nth-child(even),
+    .addFormBuild li:nth-child(even) {
+        width: 775px;
+        /*border: 1px solid red;*/
+    }
+
+/*提交任务书*/
+
+.addForm li {
+    box-sizing: border-box;
+    float: left;
+    margin: 5px 0;
+}
+
+    .addForm li:nth-child(odd) {
+        width: 19%;
+        margin-right: 2px;
+        text-align: right;
+        /*border: 1px solid blue;*/
+    }
+
+    .addForm li:nth-child(even) {
+        width: 80%;
+        /*border: 1px solid red;*/
+    }
+
+.selectBox {
+    float: left;
+    margin-right: 20px;
+}
+
+/*课题题目 自己结构的样式 用UI可删除此类*/
+.addsubject {
+    width: 100%;
+    height: 60px;
+}
+/*专业下拉为距离左侧距离 leftdistance*/
+.Addcareer {
+    margin-left: 30px;
+}
+/*提示文字  红  绿 */
+.error {
+    color: #64322b;
+    font-weight: bold;
+}
+
+.correct {
+    padding-left: 120px;
+    color: #0b8902;
+    font-weight: bold;
+}
+/*两行单选的左边距 设置的来源1.类型1*/
+.addStepsizeL {
+    margin-left: 8px;
+}
+
+.addStepsizeR {
+    margin-left: 26px;
+}
+/*团队课题部分开始*/
+/*团队选项时声明文字*/
+.statement {
+    color: #a6a4a5;
+    font-size: 12px;
+}
+
+.addcollege {
+    width: 207px;
+    height: 180px;
+    border: 1px solid #000;
+    float: left;
+    margin-right: 50px;
+    margin-left: 10px;
+}
+/*个别的 li间距*/
+.addFormBuildTow .near,
+.addFormBuild .near {
+    margin-top: -2px;
+}
+
+/*查询按钮的样式 有所不同 层叠*/
+.teamRefer {
+    height: 23px;
+    margin-left: 55px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+
+/*banner*/
+.R-banner {
+    width: 100%;
+    padding: 0 628px 0 628px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+    .R-banner .R-bannerLeft {
+        position: relative;
+        width: 628px;
+        height: 98px;
+        float: left;
+        margin-left: -628px;
+        background: url("images/bannerleft.gif") no-repeat;
+    }
+
+/*左侧文字*/
+.college {
+    position: absolute;
+    top: 13px;
+    left: 28px;
+    color: #fff;
+    font-size: 24px;
+    font-family: "微软雅黑";
+    text-shadow: 4px 4px 4px #000;
+}
+
+左上角学校logo .schoolLogo {
+    width: 70px;
+    height: 70px;
+}
+
+
+/*第二行文字*/
+.paper {
+    position: absolute;
+    top: 53px;
+    left: 25px;
+    color: #fff;
+    font-size: 30px;
+    font-family: "微软雅黑";
+    text-shadow: 3px 3px 3px #000;
+}
+
+.R-banner .R-middle {
+    width: 100%;
+    height: 98px;
+    float: left;
+    background: url("images/middle.jpg");
+}
+
+.R-banner .R-bannerRight {
+    width: 628px;
+    height: 98px;
+    position: absolute;
+    right: 0;
+    background: url("images/bannerleft.gif") no-repeat -880px 0;
+    color: #f9f5f2;
+    font-size: 15px;
+    text-align: right;
+}
+
+/*右侧盒子a标签的文字*/
+.R-bannerRight p {
+    position: absolute;
+    right: 18px;
+    height: 33px;
+}
+
+.R-bannerRight .character {
+    top: 30px;
+}
+
+.R-bannerRight .R-quitChunk {
+    top: 62px;
+}
+/*帮助 退出2按钮*/
+.R-quitChunk a {
+    color: #f9f5f2;
+    padding-left: 25px;
+    position: relative;
+    margin-left: 18px;
+}
+
+    /* 帮助 退出2按钮的图标*/
+    .R-quitChunk a i {
+        position: absolute;
+        top: -1px;
+        left: 1px;
+        width: 18px;
+        height: 18px;
+        background-color: red;
+        background: url("../default/images/cutover-help-quit.png") no-repeat -22px 0;
+    }
+    /*退出*/
+    .R-quitChunk a:nth-child(2) i {
+        background-color: orange;
+        background: url("../default/images/cutover-help-quit.png") no-repeat -22px 0;
+        background: url("../default/images/cutover-help-quit.png") no-repeat -45px 0;
+    }
+/*头部结束*/
+
+/*内容开始*/
+.R-content {
+    border: 1px solid #ccc;
+    height: 635px;
+    background: url("images/R-zhongxin.png");
+}
+/*内容中的选择模块*/
+.R-elect {
+    box-sizing: border-box;
+    width: 588px;
+    margin: 0 auto;
+    margin-top: 40px;
+    box-shadow: 0px 4px 19px 3px #e3e2e5;
+    border-top: 9px solid #ef1c24;
+    background-color: #fff;
+}
+/*选择模块的上部分h1*/
+.R-electhead {
+    font-family: "Microsoft YaHei", "微软雅黑";
+    text-align: center;
+    border-bottom: 1px solid #d4d4d5;
+}
+/*h1下面的选择下拉框*/
+.R-year {
+    color: #666;
+    font-size: 19px;
+}
+
+/*选择模块的下部分*/
+.head-font {
+    padding: 27px 0;
+    text-align: center;
+    font-weight: bold;
+    color: #323232;
+}
+/*提示的学年文字*/
+.R-text {
+    width: 284px;
+    margin: 2px auto 10px auto;
+    text-align: left;
+    color: red;
+}
+/*包含角色的ul*/
+.R-electbody > ul {
+    padding-top: 15px;
+}
+/*每一个角色a*/
+.R-every {
+    font-size: 19px;
+    display: block;
+    line-height: 55px;
+    padding-left: 156px;
+    margin-bottom: 5px;
+    color: #666;
+}
+/*角色前面的标志*/
+.R-iconlog {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin-right: 30px;
+    background: url("images/R-hongse-he.png") no-repeat -36px 0;
+    vertical-align: middle;
+}
+/*鼠标移入角色的样式*/
+.R-every:hover {
+    background-color: #fbf0f1;
+    color: #e13649;
+}
+    /*鼠标移入时l图标的样式*/
+    .R-every:hover .R-iconlog {
+        background: url("images/R-hongse-he.png") no-repeat 1px 0;
+    }
+/*Role.html结束*/
+
+
+/*typelist.html开始*/
+/*提示框内*/
+.hint li {
+    margin: 20px 0;
+}
+/*增删改查的的a样式*/
+.listA {
+    color: #3c8cbd;
+}
+.up,.below{
+   display:inline-block;
+   width:20px;
+   height:18px;
+   vertical-align:sub;
+}
+.up{
+   background:url("../default/images/BSsx.gif") no-repeat 0 -53px;
+}
+.up:hover{
+    background:url("../default/images/BSsx.gif") no-repeat 0 -35px;
+}
+.below{
+   background:url("../default/images/BSsx.gif") no-repeat 0 2px;
+}
+.below:hover{
+    background:url("../default/images/BSsx.gif") no-repeat 0 -16px;
+}
+
+    .listA:hover {
+        color: #1189cc;
+        text-decoration: underline;
+    }
+
+
+/* 详情页css   star */
+.gxf_problem_box {
+    margin: 5px;
+}
+
+.gxf_problem h2 {
+    font: 700 14px/42px 'Microsoft yahei';
+    padding-left: 24px;
+    position: relative;
+}
+
+    .gxf_problem>div>h2>span {
+        display: block;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        left: 4px;
+        top: 16px;
+        background: url("../default/images/sanjiao.png") no-repeat 0 0;
+    }
+
+        .gxf_problem>div>h2>span.sanjiao_active {
+            background: url("../default/images/sanjiao.png") no-repeat -12px 0;
+        }
+
+.gxf_problem .active h2 {
+    color: #ed5565;
+}
+
+.gxf_pro_content {
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    /*margin-right: 20px;*/
+    font: 14px/20px 'Microsoft yahei';
+    padding:  15px ;
+}
+.gxf_pro_content_word{
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    /*margin-right: 20px;*/
+    font: 14px/20px 'Microsoft yahei';
+    padding: 0 10px ;
+}
+
+.gxf_pro_top .gxf_pro_content {
+    background-color: #fbf0f1;
+    border: 1px solid #f7d0d4;
+    font: 14px/20x 'Microsoft yahei';
+    padding: 15px;
+}
+
+.gxf_pro_content > span {
+    margin-right: 80px;
+}
+
+    .gxf_pro_content > span:last-child {
+        margin-right: 0;
+    }
+/* 课题详情单 表格 样式 */
+
+
+.gxf_project_detadil_ul li {
+    float: left;
+    height: 32px;
+    width: 350px;
+}
+
+.detadil_txt_left {
+    display: inline-block;
+    width: 120px;
+    text-align: right;
+    line-height: 30px;
+}
+
+.detadil_txt_right {
+    width: 230px;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+
+/* 下部表格样式 */
+/* 审核不通过 */
+.txt_red {
+    color: #f00;
+}
+/* 审核通过 */
+.txt_green {
+    color: #0b8902 !important;
+}
+/* 待审核 */
+.txt_yellow {
+    color: #e79b00 !important;
+}
+
+
+.gxf_pro_table table {
+    font: 14px/20px 'microsoft yahei';
+    /*margin-right: 20px;*/
+}
+
+    .gxf_pro_table table tr td {
+        border: 1px solid #ccc;
+        /*background-color: #fafafa;*/
+        padding: 10px;
+        min-height: 30px;
+    }
+
+
+    .gxf_pro_table table td p:first-child {
+        float: left;
+        min-height: 80px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .gxf_pro_table table td p:last-child {
+        float: right;
+        margin: 10px;
+    }
+
+    .gxf_pro_table table td.gxf_table_left {
+        padding: 32px;
+    }
+/*审核意见样式*/
+.gxf_pro_table table td p.examinationReport {
+    float: left;
+    min-height: 80px;
+    width: 100%;
+    margin-top: 10px;
+    text-indent: 0em;
+}
+
+.text-right {
+    text-align: right;
+}
+
+    .text-right span {
+        margin: 0 20px;
+    }
+
+.updata_check_detail{
+     float: left;
+     margin: 10px;
+}
+.gxf_pro_table textarea {
+    vertical-align: top;
+    outline: none;
+    margin-top: 5px;
+}
+
+.gxf_Btn {
+    margin-left: 80px;
+}
+/* 详情页css   end */
+
+
+/*     公告页样式 开始*/
+.gxf_teacher_container {
+    margin: 5px;
+    border: 1px solid #ccc;
+    /*border-radius: 10px;*/
+}
+
+.gxf_teacher_tabs {
+    width: 100%;
+}
+
+    .gxf_teacher_tabs ul {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        padding-top: 10px;
+    }
+
+        .gxf_teacher_tabs ul li {
+            float: left;
+            height: 37px;
+            line-height: 37px;
+            margin: 0 0 10px 10px;
+        }
+
+            .gxf_teacher_tabs ul li a {
+                display: block;
+                height: 37px;
+                padding: 0 20px;
+            }
+
+                .gxf_teacher_tabs ul li a.active, .gxf_teacher_tabs ul li a:hover {
+                    background-color: #dd4b39;
+                    color: #fff;
+                }
+
+
+.gxf_tacher_content {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.teacher_tabs_container {
+    display: none;
+}
+
+    .teacher_tabs_container.active {
+        display: block;
+    }
+
+    .teacher_tabs_container ul {
+        /*margin-top: 10px;
+        margin-bottom: 10px;*/
+    }
+
+    .teacher_tabs_container li {
+        margin: 12px 20px;
+        font: 14px/24px 'Microsoft YaHei';
+        border-bottom: 1px dashed #ccc;
+        overflow: hidden;
+    }
+
+        .teacher_tabs_container li.lastBorder {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .teacher_tabs_container li p {
+            padding-left: 24px;
+            padding-right: 140px;
+            position: relative;
+        }
+
+        .teacher_tabs_container li span {
+            display: block;
+            width: 100px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .teacher_tabs_container li i {
+            display: block;
+            width: 7px;
+            height: 7px;
+            background: url("../Themes/default/images/ml_b1.png") no-repeat 0 0;
+            position: absolute;
+            left: 10px;
+            top: 9px;
+        }
+
+    .teacher_tabs_container a:hover {
+        color: #48a6d5;
+    }
+
+        .teacher_tabs_container a:hover i {
+            background: url("../Themes/default/images/ml_b1.png") no-repeat 0 -22px;
+        }
+
+#teacher-page {
+    margin: 20px;
+}
+
+    #teacher-page table {
+        float: right;
+    }
+
+/* teachertab 教师用户信息 结束*/
+
+
+
+/*系统设置页面开始 System目录下 Add.html */
+/*最大的盒子*/
+.SAcontent {
+    width: 1300px;
+    margin: 0 auto;
+    /*同body*/
+}
+/*检测设置*/
+.SAdetection {
+    font-family: "Microsoft YaHei", "微软雅黑";
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    padding-top: 12px;
+    border: 1px solid #cccccc;
+}
+/*盒子上部分的标题*/
+.SAtitle {
+    box-sizing: border-box;
+    height: 26px;
+    padding-left: 16px;
+    line-height: 26px;
+    border-left: 4px solid #ed5565;
+}
+/*头部下边的盒子*/
+.SAbelow {
+    box-sizing: border-box;
+    padding: 0 18px 0 18px;
+}
+/*详细的设置盒子*/
+.SAdetail {
+    box-sizing: border-box;
+    margin-top: 6px;
+    border-top: 1px solid #eeeeee;
+}
+
+    .SAdetail input[type="radio"] {
+        margin-right: 6px;
+    }
+/*设置选项的ul盒子*/
+.SAset-box {
+    padding-top: 2px;
+}
+
+    .SAset-box li {
+        margin: 11px;
+        color: #333333;
+    }
+
+/*li 中左边的盒子*/
+.SA-title {
+    box-sizing: border-box;
+    width: 227px;
+    float: left;
+    text-align: right;
+    margin-right: 5px;
+    border: 1px solid #fff;
+}
+/*li 中右边的盒子*/
+.SA-select {
+    box-sizing: border-box;
+    float: left;
+    /*border: 1px solid red;*/
+}
+.boxrow{
+    padding-bottom:10px;
+}
+.boxrow>.inputBox{
+    float:left;
+    width:1%;
+}
+.boxrow>.text-box{
+    float:right;
+    width:98%;
+}
+.margl {
+    margin-left: 20px;
+}
+.margrone{
+    margin-right: 10px;
+}
+.margr {
+    margin-right: 20px;
+}
+.A_line{
+    text-decoration:underline;
+}
+.margin-r-long{
+    margin-right:170px;
+}
+.padd-t-b{
+    padding:20px 0;
+}
+
+
+.iptwidt {
+    width: 47px !important;
+    height: 23px;
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
+}
+/*带颜色的右边盒子*/
+.SAstyle {
+    border: 1px solid #d3a253;
+    border-radius: 3px;
+    background-color: #fff5e0;
+    padding: 5px 20px 5px 16px;
+}
+/*指导教师申报的input*/
+
+/*申报课题模式设置*/
+.SAiptmr {
+    margin-right: 100px;
+}
+
+/*任务书模式设置按钮距离*/
+.SAmt {
+    margin-top: 12px;
+}
+/*评分权重设置*/
+.SAtext {
+    color: #919397;
+}
+/*系统设置页面开始 System目录下 Add.html 結束*/
+/* 学生列表css   开始 */
+
+
+.gxf_studentList_tabs > ul {
+    margin-bottom: 10px;
+}
+
+    .gxf_studentList_tabs > ul > li {
+        float: left;
+        margin-right: 20px;
+    }
+
+.gxf_studentList_tabs .form .checkedBox {
+    height: 54px;
+}
+
+/* 学生列表css 结束 */
+
+
+/*Academy.html 开始*/
+/*新增院系按钮*/
+.margb {
+    margin-bottom: 20px;
+}
+
+.margt {
+    margin-top: 20px;
+}
+/*新增院系弹框内样式 dt的文字*/
+.text-r {
+    text-align: right !important;
+}
+/*新增院系弹框内 修改弹框的样式 层叠掉框架样式*/
+.text-l {
+    text-align: left !important;
+}
+
+
+/* Details.html 开始*/
+.Dnews {
+    font-family: "Microsoft YaHei", "微软雅黑";
+    font-size: 14px;
+    padding: 0 22px 0 15px;
+    /*width: 996px;*/
+    border: 1px solid #e0e0e0;
+}
+    /*详情页上部分的文章头部*/
+    .Dnews .Dheadline {
+        padding-top: 24px;
+        color: #000;
+        border-bottom: 1px solid #e4e4e4;
+    }
+
+.Dheadline h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+}
+/*发表时间*/
+.DTime {
+    padding: 17px 0 22px 0;
+    color: #7d7d7d;
+}
+.Darticle {
+    padding-top: 10px;
+}
+.Darticle p {
+    line-height: 26px;
+    text-indent: 2em;
+    overflow-x: auto;
+}
+/*下载字样*/
+.Ddownload {
+    display: inline-block;
+    color: #ed7985;
+    margin: 20px 0;
+    padding-left: 15px;
+    background: url("./images/xiazai.png") no-repeat;
+}
+
+    .Ddownload:hover {
+        color: #dd1b2a;
+    }
+
+/*上/下一篇的盒子*/
+.Dtwo {
+    border-top: 1px solid #e4e4e4;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 10px;
+}
+
+    .Dtwo a {
+        width: 231px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #77a8cd;
+        margin-right: 39px;
+    }
+
+        .Dtwo a:hover {
+            color: #1189cc;
+        }
+
+/*CurrentSchoolYear.html页面     学年设置*/
+/*添加新学年弹框，默认隐藏的盒子*/
+.conceal-box {
+    margin-top: 15px;
+    border-top: 1px dashed #ccc;
+    padding: 15px 0;
+}
+
+
+
+
+/*学年设置页面 CurrentSchoolYear.html 开始*/
+
+.CYscreen-box {
+    margin-top: 15px;
+    border: 1px solid #ccc;
+}
+
+
+/*=======opt 选择学生 ==go=========*/
+
+.Opt {
+    padding: 10px;
+    font-size: 12px;
+    font-family: "微软雅黑";
+    color: #333;
+}
+
+.optLef {
+    float: left;
+    width: 210px;
+    height: 400px;
+    overflow: hidden;
+    overflow-y: auto;
+    border: 1px solid #e87e25;
+    padding: 0 0 0 2px;
+    background: #fff;
+}
+
+    .optLef li {
+        width: auto !important;
+        text-align: left !important;
+        float: none;
+        padding: 0 !important;
+    }
+
+
+.Opt .optLef:last-child {
+    /*border-left: 0;*/
+    margin-left: 20px;
+}
+
+.optDl {
+}
+
+    .optDl dt {
+        position: relative;
+        padding: 3px 5px 3px 26px;
+        background: #fff;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+    }
+
+        .optDl dt:hover {
+            background: #e5e5e5;
+            color: #000;
+        }
+
+.optDdOl li {
+    padding: 3px 5px 3px 26px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    width: auto !important;
+    text-align: left !important;
+    float: none;
+}
+
+    .optDdOl li:hover {
+        background: #ededed;
+        color: #000;
+    }
+
+.dott {
+    height: 0;
+    width: 0;
+    font-size: 0;
+    border: 5px solid transparent;
+    border-top: 5px solid #333;
+    position: absolute;
+    top: 10px;
+    left: 8px;
+}
+
+.optDl.optClosed .dott {
+    height: 0;
+    width: 0;
+    font-size: 0;
+    border: 5px solid transparent;
+    border-left: 5px solid #333;
+    position: absolute;
+    top: 6px;
+    left: 11px;
+}
+
+.optDl.optClosed dd {
+    display: none;
+}
+
+.optUl {
+}
+
+    .optUl li {
+        padding: 3px 15px;
+        background: #fff;
+        color: #333;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .optUl li:hover {
+            background: #ededed;
+            color: #000;
+        }
+
+            .optUl li:hover .optLiDel {
+                background: url(images/optDel2.png) 0 0 no-repeat;
+            }
+
+
+.optLiDel {
+    position: absolute;
+    left: 165px;
+    top: 4px;
+    display: block !important;
+    width: 15px;
+    height: 15px;
+    /*background: url(images/optDel1.png) 0 0 no-repeat;*/
+    border-radius: 50%;
+    display: none;
+    padding: 0 !important;
+}
+
+.optUl li:hover .optLiDel {
+    display: block !important;
+}
+
+/*.optLiDel:hover {
+    background: url(images/optDel2.png) 0 0 no-repeat;
+}*/
+
+.optSpan {
+    border: 0 none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px 0 20px;
+    color: #7a7a78;
+    font-family: "微软雅黑";
+}
+
+.stuteaDisabled .optLef {
+    background: #ededed;
+    color: #000;
+}
+
+.stuteaDisabled .optUl li {
+    background: #ededed;
+    color: #000;
+    cursor: default;
+}
+
+.stuteaDisabled .optDdOl li {
+    background: #ededed;
+    color: #000;
+    cursor: default;
+}
+
+.stuteaDisabled .optDl dt {
+    background: #ededed;
+    color: #000;
+    cursor: default;
+}
+
+.stuteaDisabled li:hover .optLiDel {
+    display: none;
+}
+/*=======opt 选择学生 ==end==20170309=======*/
+
+/*======= 顶部提示框样式 开始 =======*/
+.gxf_underline {
+    color: #3c8cbd;
+    text-decoration: underline;
+    padding-right: 18px;
+    position: relative;
+}
+
+    .gxf_underline > i {
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        right: -5px;
+        top: -1px;
+        /*background-color: red;*/
+        background: url("images/xiazai.png") no-repeat 0 0;
+    }
+
+.gxf_tips {
+    margin: 30px 5px 0px 5px;
+    border: 1px solid #ccc;
+    padding: 20px 40px;
+    position: relative;
+}
+
+    .gxf_tips .gxf_tip {
+        border: 1px solid #ccc;
+        padding: 5px 10px 5px 30px;
+        background-color: #fff;
+        color: #dd4b39;
+        position: absolute;
+        top: -18px;
+        left: 30px;
+    }
+
+        .gxf_tips .gxf_tip > i {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            width: 16px;
+            height: 16px;
+            background: url("images/tips.png") no-repeat 0 0;
+        }
+
+    .gxf_tips p {
+        font: 12px/18px "microsoft yahei";
+    }
+
+    .gxf_tips .text_bold {
+        font-weight: bold;
+    }
+
+/*======= 顶部提示框样式 结束 =======*/
+
+/* 导出文档类型设置页面开始;  ExportType.html*/
+.Etitlt-box {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 22px 0;
+}
+/*列表的标题*/
+.Etitle {
+    width: 130px;
+    font-size: 13px;
+    color: #444;
+    float: left;
+}
+
+.Etitle-two {
+    float: left;
+    padding-left: 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#output_div_content {
+    width: 805px !important;
+    padding: 5px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+
+/*======= 统计页面样式 开始 =======*/
+
+.gxf_statistics {
+    margin: 5px;
+    margin-bottom: 0;
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
+
+    .gxf_statistics .gxf_statistics_navBar ul {
+        background: url("images/navbarBg.png") repeat-x;
+        border-bottom: 1px solid #dd4b39;
+    }
+
+    .gxf_statistics .gxf_statistics_navBar li {
+        float: left;
+        font: 16px/37px "microsoft yehei";
+    }
+
+        .gxf_statistics .gxf_statistics_navBar li a {
+            display: block;
+            height: 37px;
+            padding: 0 20px;
+        }
+
+            .gxf_statistics .gxf_statistics_navBar li a.selected {
+                background-color: #dd4b39;
+                color: #fff;
+            }
+
+            .gxf_statistics .gxf_statistics_navBar li a:hover {
+                background-color: #dd4b39;
+                color: #fff;
+            }
+
+.gxf_statistics_container .main {
+    margin-top: 0;
+}
+
+.gxf_statistics_container .rightbox .form {
+    border-top: none;
+}
+
+.gxf_statistics_content {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 30px 100px;
+}
+
+/*=======opt 选择学生 ==go=========*/
+
+.Opt {
+    padding: 10px;
+    font-size: 12px;
+    font-family: "微软雅黑";
+    color: #333;
+}
+
+.optLef {
+    float: left;
+    width: 210px;
+    height: 400px;
+    overflow: hidden;
+    overflow-y: auto;
+    border: 1px solid #e87e25;
+    padding: 0 0 0 2px;
+    background: #fff;
+}
+
+.Opt .optLef:last-child {
+    /*border-left: 0;*/
+    margin-left: 20px;
+}
+
+.optDl {
+}
+
+    .optDl dt {
+        position: relative;
+        padding: 3px 5px 3px 26px;
+        background: #fff;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+    }
+
+        .optDl dt:hover {
+            background: #e5e5e5;
+            color: #000;
+        }
+
+.optDdOl li {
+    padding: 3px 5px 3px 26px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+}
+
+    .optDdOl li:hover {
+        background: #ededed;
+        color: #000;
+    }
+
+.dott {
+    height: 0;
+    width: 0;
+    font-size: 0;
+    border: 5px solid transparent;
+    border-top: 5px solid #333;
+    position: absolute;
+    top: 10px;
+    left: 8px;
+}
+
+.optDl.optClosed .dott {
+    height: 0;
+    width: 0;
+    font-size: 0;
+    border: 5px solid transparent;
+    border-left: 5px solid #333;
+    position: absolute;
+    top: 6px;
+    left: 11px;
+}
+
+.optDl.optClosed dd {
+    display: none;
+}
+
+.optUl {
+}
+
+    .optUl li {
+        padding: 3px 15px;
+        background: #fff;
+        color: #333;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .optUl li:hover {
+            background: #ededed;
+            color: #000;
+        }
+
+.optLiDel {
+    position: absolute;
+    left: 165px;
+    top: 4px;
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: url("images/optDel1.png") repeat-x;
+    border-radius: 50%;
+    display: none;
+}
+
+.optUl li:hover .optLiDel {
+    display: block;
+}
+
+.optLiDel:hover {
+    background: url("images/optDel1.png") repeat-x;
+}
+
+.optSpan {
+    border: 0 none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px 0 20px;
+    color: #7a7a78;
+    font-family: "微软雅黑";
+}
+
+.stuteaDisabled .optLef {
+    background: #ededed;
+    color: #000;
+}
+
+.stuteaDisabled .optUl li {
+    background: #ededed;
+    color: #000;
+    cursor: default;
+}
+
+.stuteaDisabled .optDdOl li {
+    background: #ededed;
+    color: #000;
+    cursor: default;
+}
+
+.stuteaDisabled .optDl dt {
+    background: #ededed;
+    color: #000;
+    cursor: default;
+}
+
+.stuteaDisabled li:hover .optLiDel {
+    display: none;
+}
+/*=======opt 选择学生 ==end==20170309=======*/
+
+
+
+
+
+
+/*======= 统计页面a标签数字加下划线 =======*/
+.num_underline {
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+/*======= 录入课题 选择部分专业时 院系 专业样式 =======*/
+.gxf_showAcademies > div,
+.marg-t-b {
+    margin: 5px 0;
+}
+.padd-l{
+    padding-left:72px;
+}
+.opinion{
+    float:left;
+    width:72px;
+    margin-left:-72px;
+}
+.opinion-text{
+    float:left;
+}
+
+.gxf_showAcademiesBg {
+    position: relative;
+    margin-left: 3px;
+}
+
+.gxf_showAcademiesClick1 {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    background: url("images/spinner_arrows.png") no-repeat -32px 0;
+}
+
+.gxf_showAcademiesClick2 {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    background: url("images/tagbox_icons.png") no-repeat -16px 0;
+}
+
+/*  开题报告（中期，论文...） 提交样式  */
+.gxf_report_box > li > p {
+    width: 970px;
+    line-height: 20px;
+    margin: 10px 0;
+    border-left: 3px solid #ef5565;
+    padding: 0 10px;
+}
+
+.gxf_report_box {
+    margin: 10px 0;
+}
+
+.gxf_report_box > li > p > span {
+    margin-left: 10px;
+}
+
+table img{
+    display: inline-block;
+    max-width: 100%;
+}
+
+.clearBtn {
+    padding: 0 5px;
+    outline: none;
+    height: 29px;
+    color: #000;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #fafafa;
+}
+
+    .clearBtn:hover {
+        background: #f1f1f1;
+    }
+
+
+
+/*学生角色 外文译文开始*/
+.WZ-content {
+    height: 100%;
+}
+
+.WZ-leftBox, .WZ-rightBox {
+    font-family: "微软雅黑";
+    box-sizing: border-box;
+    width: 49.6%;
+    height: 100%;
+    padding-top: 1%;
+    float: left;
+    border: 1px solid #cccccc;
+    border-top: 3px solid #dd4b39;
+}
+
+.WZ-rightBox {
+    float: right;
+}
+
+/*大盒子中的上部分头部盒子*/
+.WZ-TopBox {
+    padding: 0 2% 0 2%;
+    height: 20%;
+}
+
+.WZ-titleTop {
+    height: 100%;
+    border-bottom: 1px solid #cccccc;
+}
+
+    .WZ-titleTop h4 {
+        color: #333333;
+        line-height: 26px;
+        padding-bottom: 1%;
+    }
+
+    /*上部分头部盒子里的p标签*/
+    .WZ-titleTop p {
+        color: #a9a9a9;
+        font-size: 13px;
+        margin-top: 0.2%;
+    }
+
+/*大盒子中的下部分内容盒子*/
+.WZ-BottomBox {
+    padding: 0 2%;
+    height: 80%;
+    overflow: hidden;
+}
+
+.WZ-contentButton {
+    padding-top: 2%;
+    overflow: auto;
+    height: 98%;
+    /*border: 1px solid red;*/
+}
+
+    .WZ-contentButton p {
+        color: #666666;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+/*外文译文结束*/
+
+
+
+
+/*论文详情章节 ThesisSection.html*/
+/*上下两部分,上:详细数据;  下:列表*/
+/*detailBox为 上*/
+.WZN-detailBox {
+    font-family: "Microsoft YaHei", "微软雅黑";
+    border: 1px solid #cccccc;
+}
+
+    /*上:也分为上下*/
+    .WZN-detailBox .WZN-tieleTop {
+        padding: 14px 0 14px 14px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+.WZN-tieleTop h4 {
+    color: #333333;
+    line-height: 26px;
+    float: left;
+}
+
+/*标题后面跟的小图片*/
+.WZN-embellish {
+    float: left;
+    width: 60px;
+    height: 20px;
+    background-color: #ed5565;
+    vertical-align: bottom;
+    margin-left: 15px;
+}
+
+/*标题下的时间 作者等 WZN-lis是ul*/
+.WZN-lis li {
+    width: 25%;
+    float: left;
+    color: #666666;
+    font-size: 14px;
+    line-height: 40px;
+}
+
+.WZN-a {
+    line-height: 40px;
+    font-size: 14px;
+    color: #4c95f3;
+    display: inline-block;
+    width: 120px;
+    height: 23px;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: sub;
+    text-overflow: ellipsis;
+    line-height: 29px;
+}
+
+    .WZN-a:hover {
+        color: #58aad7;
+    }
+
+.WZN-omit {
+    display: inline-block;
+    width: 120px;
+    height: 23px;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: sub;
+    text-overflow: ellipsis;
+    line-height: 29px;
+}
+
+/*下部分*/
+.WZN-contentBottom {
+    background-color: #fafafa;
+    padding: 20px 0 26px 14px;
+    color: #737373;
+}
+
+.WZN-table {
+    width: 100%;
+}
+
+    .WZN-table td {
+        /*width: 25%;*/
+        padding: 5px 0;
+    }
+
+.WZN-colors {
+    color: #ed5565 !important;
+}
+
+/*跨语言检测*/
+.WZN-box {
+    float: left;
+}
+
+.WZN-percent {
+    display: inline-block;
+    width: 50px;
+    height: 18px;
+    background-color: red;
+    vertical-align: middle;
+}
+
+.WZN-textf {
+    float: left;
+    margin-top: 5px;
+}
+
+.selectBox {
+    float: left;
+    margin-right: 20px;
+}
+
+.margt {
+    margin-top: 10px;
+}
+/*论文详情章节 ThesisSection.html 结束*/
+
+/*论文详情 最大标红 时间样式*/
+.WZ-author {
+    float: left;
+    margin-right: 32px;
+}
+
+/* 检测结果复制比 */
+.per_g {
+    background-image: url(../default/images/pmlc_icon1.gif);
+    width: 38px;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+    background-position: left center;
+    text-align: left;
+    height: 17px;
+    line-height: 17px;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.per_y {
+    background-image: url(../default/images/pmlc_icon2.gif);
+    width: 38px;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+    background-position: left center;
+    text-align: left;
+    height: 17px;
+    line-height: 17px;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.per_o {
+    background-image: url(../default/images/pmlc_icon3.gif);
+    width: 38px;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+    background-position: left center;
+    text-align: left;
+    height: 17px;
+    line-height: 17px;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.per_r {
+    background-image: url(../default/images/pmlc_icon4.gif);
+    width: 38px;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+    background-position: left center;
+    text-align: left;
+    height: 17px;
+    line-height: 17px;
+    display: inline-block;
+    font-size: 12px;
+}
+
+
+
+/*论文详情开始*/
+
+.WZN-g h2 {
+    font: 700 14px/42px 'Microsoft yahei';
+    padding-left: 24px;
+    position: relative;
+}
+
+    .WZN-g h2 span {
+        display: block;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        left: 4px;
+        top: 16px;
+        background: url("../default/images/sanjiao.png") no-repeat 0 0;
+    }
+
+.WZN-table-box {
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    padding-right: 124px;
+    padding-bottom: 26px;
+    font-size: 14px;
+    color: #969696;
+    font-family: 'Microsoft yahei';
+}
+
+    .WZN-table-box td {
+        width: 25%;
+        vertical-align: top;
+    }
+
+        .WZN-table-box td div {
+            float: left;
+            box-sizing: border-box;
+            padding-left: 2px;
+            margin-top: 26px;
+            width: 50%;
+        }
+
+.WZN-lrtable td div {
+    box-sizing: border-box;
+    float: left;
+}
+
+.WZN-lrtable td {
+    border: 1px solid #ccc;
+    min-height: 44px;
+    background-color: #f5f6f5;
+    font-family: 'Microsoft yahei';
+    font-size: 14px;
+}
+
+.WZN-lrtable-l {
+    width: 10%;
+    padding-right: 10px;
+    height: 44px;
+    line-height: 48px;
+    text-align: right;
+    color: #333333;
+}
+
+.WZN-lrtable-r {
+    color: #969696;
+    min-height: 44px;
+    width: 90%;
+    line-height: 20px;
+    padding: 12px 96px 12px 12px;
+    background-color: #fff;
+}
+
+
+/*写作助手*/
+/*下拉的盒子*/
+.WZN-pull-box {
+    /*height: 94px;*/
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
+
+    .WZN-pull-box h5 {
+        font-family: "Microsoft YaHei", "微软雅黑";
+        font-size: 14px;
+        padding-left: 24px;
+        line-height: 40px;
+        /*border: 1px solid #dadada;*/
+        background-color: #fafafa;
+        position: relative;
+    }
+
+.WZN-text {
+    color: #969696;
+    margin-left: 5px;
+}
+
+/*标题右侧的箭头*/
+.WZN-direction {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    right: 22px;
+    top: 8px;
+    background: url("images/shangxiajiantou.png") no-repeat -27px 0px;
+}
+
+    /*点击时候箭头换掉*/
+    .WZN-direction:hover,
+    .WZN-direction-change {
+        cursor: pointer;
+        background: url("images/shangxiajiantou.png") no-repeat;
+    }
+
+/*.点击按钮,显示隐藏切换的盒子*/
+.WZN-invisible {
+    padding: 18px 30px 8px 30px;
+    border-top: 1px solid #dadada;
+    display: none;
+}
+
+/*提示信息,文字*/
+.WZN-hint {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding-left: 8px;
+    font-size: 13px;
+    font-family: "Microsoft YaHei", "微软雅黑";
+    color: #929292;
+}
+
+.WZN-ul {
+    padding-left: 28px;
+    padding-bottom: 20px;
+    font-family: "Microsoft YaHei", "微软雅黑";
+    font-size: 14px;
+    color: #666666;
+}
+
+/*li带有虚线*/
+.WZN-lis-dotted li {
+    border-bottom: 1px dashed #dcdcdc;
+}
+
+    .WZN-lis-dotted li a {
+        display: inline-block;
+        margin-right: 12px;
+    }
+
+        .WZN-lis-dotted li a:hover {
+            color: #000;
+        }
+
+.WZN-star {
+    font-size: 20px;
+    cursor: pointer;
+}
+/*课题审批情况下的左右盒子*/
+.WZN-approve-left,
+.WZN-approve-right {
+    width: 91.6%;
+    float: left;
+}
+
+.WZN-approve-right {
+    border-left: 1px solid #cccccc;
+}
+
+.WZN-approve-left {
+    width: 130px;
+    font-size: 12px;
+    font-weight: 700;
+    box-sizing: border-box;
+    padding: 42px 36px;
+}
+
+.WZN-approve-right-top {
+    padding: 8px 0 10px 18px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.WZN-approve-right-botton {
+    padding: 8px 0 10px 18px;
+    min-height: 64px;
+}
+/*论文详情结束*/
+
+/*题录摘要弹窗样式开始*/
+.topicAbstract {
+    padding: 10px 10px 5px;
+    border-bottom: 1px dashed #d8d8d8;
+    text-align: left;
+}
+
+/*文献检测指标开始*/
+.ulThesisIndex {
+    color: #666;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+    .ulThesisIndex li {
+        height: 30px;
+        line-height: 30px;
+        margin-left: 10px;
+        float: left;
+    }
+
+    .ulThesisIndex label {
+        margin-left: 5px;
+        color: #666;
+    }
+
+    .ulThesisIndex .rUsp {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+        background: url(images/sp_wu.gif) no-repeat left center;
+        vertical-align: middle;
+    }
+
+    .ulThesisIndex .rUsp_on {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+        vertical-align: middle;
+        background: url(images/sp_you.gif) no-repeat left center;
+    }
+/*文献检测指标结束*/
+/*附件列表*/
+.ad-p1 {
+    padding-left: 90px;
+}
+
+    .ad-p1 b {
+        /*padding-left: 5px;*/
+        display: inline-block;
+        margin-left: 20px;
+        width: 7px;
+        height: 7px;
+        background: url(images/shanchu.png) no-repeat;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+        .ad-p1 b:hover {
+            background-position: right top;
+        }
+/* ========两两 对比页面样式调整=========== */
+.gxf-leftBox {
+    padding-top: 130px;
+    position: relative;
+}
+
+.gxf_TopBox {
+    height: 130px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+    .gxf_TopBox .WZ-titleTop {
+        border: none;
+    }
+
+.gxf_contentbox {
+    padding-right: 0;
+    border-top: 1px solid #ccc;
+    height: 100%;
+}
+
+    .gxf_contentbox .WZ-contentButton {
+        padding-top: 0;
+        height: 100%;
+    }
+
+.txt_blue {
+    color: blue;
+    cursor: pointer;
+}
+
+.txt_red {
+    color: red;
+    cursor: pointer;
+}
+
+.right_txt_blue {
+    color: blue;
+}
+
+.right_txt_red {
+    color: red;
+}
+
+.WZ-contentButton p, .WZ-contentButton p span {
+    text-indent: 2em;
+}
+/* =======两两 对比页面样式调整  结束 ========*/
+/*Home.html 开始*/
+.my-subject {
+    padding: 14px 24px;
+    border: 1px solid #cfcfcf;
+    background-color: #fafafa;
+}
+
+.subject-nuber {
+    color: #c5001c;
+    font-weight: bold;
+}
+
+.my-subject > p {
+    color: #979797;
+    margin-bottom: 5px;
+}
+
+    .my-subject > p a {
+        display: inline-block;
+    }
+
+.main-l {
+    margin-left: 30px;
+}
+
+.radiusBtn {
+    border: 1px solid #c5001c;
+    cursor: pointer;
+    display: inline-block;
+    color: #c5001c;
+    padding: 0px 10px;
+    border-radius: 50px;
+}
+
+    .radiusBtn:hover {
+        opacity: 0.6;
+    }
+
+.my-row { /*background-color: pink;*/
+    height: 38px;
+    padding-left: 104px;
+    line-height: 38px;
+}
+
+.my-row-l {
+    float: left;
+    width: 104px;
+    margin-left: -104px;
+    text-align: right;
+    height: 30px;
+    color: #979797;
+    /*background-color: red;*/
+}
+
+.my-row-r {
+    float: left;
+    width: 100%;
+    height: 30px;
+    color: #313030;
+    /*background-color: orange;*/
+}
+
+    .my-row-r div {
+        width: 30%;
+        height: 30px;
+        float: left;
+    }
+
+.a-text {
+    color: #c5001c;
+    display: inline-block;
+    width: 120px;
+}
+
+    .a-text:hover {
+        opacity: 0.6;
+    }
+/*指导教师、联系方式*/
+.my-subject div:nth-child(5) {
+    padding-left: 0px;
+    padding-top: 5px;
+    border-top: 1px solid #cfcfcf;
+    margin-top: 5px;
+}
+/*指导老师盒子*/
+.my-teacher .my-row-l,
+.my-relation .my-row-l {
+    width: 100px;
+    margin-left: -100px;
+}
+
+.my-teacher .my-row-r,
+.my-relation .my-row-r {
+    color: #636363;
+    font-weight: bold;
+}
+
+.my-teacher {
+    padding-left: 100px;
+    float: left;
+    width: 50%;
+    height: 30px;
+}
+
+.teacher-icon,
+.tel {
+    width: 20px;
+    height: 20px;
+    vertical-align: sub;
+    display: inline-block;
+    background: url("images/xueshengtu.png");
+}
+
+.tel {
+    background: url("images/xueshengtu.png") -20px;
+}
+
+.my-relation {
+    padding-left: 100px;
+    float: left;
+    width: 50%;
+    height: 30px;
+}
+/*过程文档信息*/
+/*允许修改文字颜色*/
+.redcolor {
+    color: #c5001c;
+    font-size:13px;
+}
+
+.wd-row {
+    padding-left: 146px;
+    border: 1px solid #e3e3e3;
+    border-bottom: none;
+}
+
+.wd-row-btm {
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.wd-row-l {
+    float: left;
+    text-align: right;
+    color: #313030;
+    line-height: 50px;
+    background-color: #f5f6f5;
+    border-right: 1px solid #e3e3e3;
+    width: 146px;
+    margin-left: -146px;
+}
+
+.wd-row-r {
+    padding-left: 26px;
+    width: 100%;
+    float: left;
+    line-height: 50px;
+}
+
+    .wd-row-r div {
+        float: left;
+        width: 50%;
+        line-height: 50px;
+    }
+
+    .wd-row-r .row-r-left {
+        width: 24%;
+    }
+
+.wd-nosub {
+    color: #979797;
+}
+/*评审答辩和成绩信息*/
+.font-style {
+    color: #000;
+    font-weight: 700;
+}
+
+/*老师们给出成绩展示行*/
+.tea-row>div{
+    width:30%;
+    float:left;
+    height:30px;
+}
+/*答辩的信息展示行*/
+.answer>div{
+       width:27.4%;
+
+}
+.somber{
+    color:#313030;
+}
+/*导出文档*/
+/*说明文字样式*/
+.explain {
+    padding-left: 24px;
+}
+
+.radio-margl {
+    margin-left: 15px;
+}
+
+.color-red {
+    color: red;
+    font-weight: 700;
+}
+
+.wd-explain {
+    font-weight: bold;
+    color: #313030;
+    padding-left: 20px;
+    line-height: 50px;
+    background-color: #fafafa;
+    height: 50px;
+    border: 1px solid #cfcfcf;
+}
+
+.wd-bdb {
+    font-weight: 400;
+    border-top: none;
+    background-color: #fff;
+    padding-left: 48px;
+}
+
+.exportBtn-box {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+    .exportBtn-box:hover {
+        opacity: 0.6;
+    }
+
+    .exportBtn-box > span {
+        position: absolute;
+        left: 14px;
+        top: 2px;
+        width: 18px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+.exportBtn {
+    padding: 4px 16px 4px 36px;
+    border-radius: 3px;
+    background-color: #fff;
+    border: 1px solid #d73824;
+    color: #d73824;
+    cursor: pointer;
+}
+
+.exporticon {
+    background: url("images/xueshengtu.png")-80px;
+}
+
+.downloadicon {
+    background: url("images/xueshengtu.png")-99px;
+}
+/*Home.html 结束*/
+
+/* 答辩样式 开始*/
+.gxf_answer > li {
+    margin: 12px;
+}
+
+.gxf_answer_content {
+    width: 100px;
+    float: left;
+    text-align: right;
+    line-height: 24px;
+}
+
+.gxf_answer_common {
+    float: left;
+    text-align: left;
+    line-height: 24px;
+}
+
+.gxf_left_selected {
+    float: left;
+    width: 120px;
+    text-align: right;
+    line-height: 40px;
+    font-size: 16px;
+}
+
+.gxf_right_selected {
+    float: left;
+    width: 650px;
+    text-align: left;
+}
+
+    .gxf_right_selected > span {
+        display: inline-block;
+        padding: 2px 20px 2px 8px;
+        background: #ededed;
+        vertical-align: middle;
+        margin-top: 6px;
+        border-radius: 8px;
+        position: relative;
+        margin-left: 5px;
+    }
+
+        .gxf_right_selected > span > i {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            width: 7px;
+            height: 7px;
+            background: url("../default/images/shanchu.png") no-repeat 0 0;
+            cursor: pointer;
+        }
+
+            .gxf_right_selected > span > i:hover {
+                background: url("../default/images/shanchu.png") no-repeat -8px 0;
+            }
+/* 答辩样式 结束*/
+
+/*选题分析页面AnalysisOfTopics.html开始*/
+
+/*已保存历史分析，收藏题录，按钮*/
+.history-collect a {
+    display: inline-block;
+    color: #ed5564;
+    margin-right: 15px;
+    border: 1px solid #ed5564;
+    padding: 0 8px;
+}
+
+.history-collect i {
+    display: inline-block;
+    vertical-align: text-bottom;
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+}
+
+.history > i {
+    background: url("./images/TaskAnalyze.png");
+    transition: all 0.2s;
+}
+
+.collect > i {
+    background: url("./images/TaskAnalyze.png") -15px;
+    transition: all 0.2s;
+}
+
+.history:hover i {
+    transform: rotate(720deg);
+}
+
+.collect:hover i {
+    transform: rotate(720deg);
+}
+
+/*推荐关键词的样式*/
+.search-box .antistop {
+    display: inline-block;
+    cursor: pointer;
+    padding: 2px 8px;
+    margin-left: 5px;
+    color: #ed5669;
+    background-color: #f3f4f6;
+}
+/*选题分析 保存本次分析 不点击样式*/
+.initial-btn {
+    display: inline-block;
+    cursor: pointer;
+    color: #666;
+    padding: 5px 15px;
+    background-color: #fff;
+    border: 1px solid #aaaaaa;
+}
+
+    .initial-btn:hover {
+        color: #fff3f3;
+        background-color: #ed5564;
+        border: 1px solid #ed5564;
+    }
+
+.initial-btn-sign {
+    color: #fff3f3;
+    background-color: #ed5564;
+    border: 1px solid #ed5564;
+}
+
+/*选题分析选的盒子*/
+.analyze-box {
+    margin-top: 34px;
+}
+
+/*选题分析选的tab*/
+.tabs-box {
+    /*display: none;*/
+}
+
+/*span的盒子*/
+.nav-tab {
+    height: 39px;
+    line-height: 38px;
+    border: 1px solid #e0e0e0;
+    background: url("images/navbarBg.png") top;
+    border-bottom: 1px solid #de4b37;
+}
+
+    .nav-tab span {
+        cursor: pointer;
+        display: inline-block;
+        padding: 0 20px;
+    }
+
+        .nav-tab span:hover {
+            color: #fff;
+            background-color: #de4b37;
+        }
+
+.spansty {
+    color: #fff;
+    background-color: #de4b37;
+}
+/*换一换*/
+.nav-tab .trade-text {
+    display: none; /*默认隐藏*/
+    float: right;
+    margin-right: 50px;
+    font-weight: 700;
+    color: #75bae3;
+}
+
+    .nav-tab .trade-text:hover .trade-logo {
+        transform: rotate(540deg);
+    }
+
+.nav-tab .trade-logo {
+    transition: all 0.2s;
+    display: inline-block;
+    margin-right: 4px;
+    width: 17px;
+    height: 16px;
+    background: url("./images/TaskAnalyze.png") -90px;
+    vertical-align: middle;
+}
+/*内容区域的盒子*/
+.content-body > div {
+    display: none;
+}
+
+/*相关文献推荐块*/
+/*被引频率*/
+.frequency {
+    font-weight: 400;
+}
+
+/*收藏心*/
+/*默认是灰色空心*/
+.collect-heart {
+    display: inline-block;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    background: url("./images/TaskAnalyze.png") -31px;
+    vertical-align: middle;
+}
+    /*鼠标滑过彩色空心*/
+    .collect-heart:hover {
+        background: url("./images/TaskAnalyze.png") -46px;
+    }
+/*点击收藏彩色实心*/
+.collect-heart-true {
+    background: url("./images/TaskAnalyze.png") -61px;
+}
+/*摘要*/
+.abstract {
+    color: #b2b5b5;
+}
+
+/*摘要文字*/
+.abstract-text {
+    line-height: 26px;
+}
+
+    .abstract-text::selection {
+        color: red;
+        background-color: darkorange;
+    }
+
+/*点击加载*/
+.click-load {
+    padding: 5px;
+    cursor: pointer;
+}
+
+/*相关文献块tab2结束*/
+
+/*提纲推荐块开始tab3*/
+/*提纲盒子outline*/
+.outline {
+}
+
+
+
+/*左浮动*/
+.f-left {
+    float: left;
+}
+
+/*右浮动*/
+.f-right {
+    float: right;
+}
+
+.outline-title {
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+    /*标题下的第一个图标*/
+    .outline-title > i {
+        display: inline-block;
+        cursor: pointer;
+        width: 14px;
+        height: 15px;
+        vertical-align: middle;
+        background-color: red;
+        background: url("./images/TaskAnalyze.png") -77px;
+    }
+
+.list-ul > li {
+    line-height: 26px;
+}
+
+/*提纲推荐块tab3完成*/
+/*关联分析块tab4开始*/
+
+/*学者名字的宽度*/
+.name-xuezhe-box {
+    width: 60%;
+}
+
+    .name-xuezhe-box > span {
+        display: inline-block;
+        line-height: 40px;
+        text-align: center;
+        width: 12%;
+        height: 40px;
+    }
+/*关联分析块tab4结束*/
+/*选题分析页面AnalysisOfTopics.html结束*/
+
+/*收藏页面SelectCollect.html开始*/
+
+/*删除收藏图标 鼠标移到标题上显示*/
+.h-box:hover .delete-collect {
+    display: inline-block;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    background: url("./images/tagbox_icons.png") -16px;
+    vertical-align: middle;
+}
+/*收藏页面SelectCollect.html结束*/
+
+/*==成绩-评分表--自定义表格模块==20170113go==*/
+.tab-review {
+    border-collapse: collapse;
+    width: 100%;
+    color: #333;
+}
+
+table.tab-review td {
+    border-right: 1px solid #dbdbda;
+    text-align: center;
+}
+
+table.tab-review tr {
+    height: 30px;
+}
+
+.tab-h {
+    padding: 2px 10px;
+    text-align: left;
+    /*color: #199501;*/
+}
+
+.tab-lef {
+    padding: 7px 10px;
+    text-align: left;
+    text-align: justify;
+    text-justify: newspaper;
+    *text-justify: inter-ideograph;
+}
+
+.tableTail {
+    color: red;
+    padding: 7px 10px;
+    text-align: left;
+    text-align: justify;
+    text-justify: newspaper;
+    *text-justify: inter-ideograph;
+}
+
+table.tab-review .tr1 {
+    background: #fff;
+    font-weight: bold;
+    border-top: 1px solid #dbdbda;
+    border-bottom: 1px solid #dbdbda;
+    border-left: 1px solid #dbdbda;
+}
+
+table.tab-review .tr2 {
+    background: #fff;
+    border-left: 1px solid #dbdbda;
+    border-bottom: 1px solid #dbdbda;
+}
+
+table.tab-review .tr3 {
+    background: #fff;
+    border-left: 1px solid #dbdbda;
+}
+
+table.tab-review .tr4 {
+    background: #fff;
+    border-top: 1px solid #dbdbda;
+    border-bottom: 1px solid #dbdbda;
+    color: #666;
+    border-left: 1px solid #dbdbda;
+}
+
+.tab-review .tr2, .tab-review .tr3, .tab-review .tr4 {
+    line-height: 20px;
+}
+
+.rev-inp {
+    width: 50px;
+    border: 1px solid #d9d9d9;
+    padding: 3px 5px;
+    text-align: center;
+}
+
+.btn_Blist {
+    padding: 20px 0;
+    text-align: center;
+}
+/*==成绩-评分表--自定义表格模块==20170113end==*/
+/* 划词样式 */
+#postilDetailContent {
+    height: 150px;
+    width: 760px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    overflow-y: initial;
+    background: #f0f0f0;
+}
+/*禁止点击按钮样式*/
+.forbid{
+    background-color:#f4f4f5;
+    color:#909399;
+    border:1px solid #d3d4d6;    
+}
+.forbid:hover{
+    background-color:#909399;
+    color:#fff;
+}
+.gxf_report_detail {
+    padding-left: 20px;
+}
+
+    .gxf_report_detail > div > p {
+        line-height: 20px;
+        margin: 6px 0;
+        width: 980px;
+    }
+
+.gxf_task_secondTitle {
+    margin-bottom: 10px;
+}
+
+.gxf_task_secondTitle_detail {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+}
+
+.gxf_task_secondTitle_Title {
+    font: 400 14px/20px 'Microsoft YaHei';
+    font-size: 14px;
+    color: #444;
+    position: relative;
+    padding-left: 14px;
+    margin: 6px 0;
+}
+
+    .gxf_task_secondTitle_Title > i {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: url('./images/dot.png') no-repeat;
+        top: 7px;
+        left: 2px;
+    }
+
+.gxf_task_secondTitle_content {
+    padding: 5px 14px;
+}
+
+    .gxf_task_secondTitle_content > p {
+        text-indent: 2em;
+    }
+/*指导教师 AnswerQueryAarrange.html开始*/
+/*展示块*/
+.answer-tab {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border-color: #dbdbda;
+}
+/*SchoolWeight.html 教秘权限页面*/
+  .libox{
+     padding-left:158px;
+}
+.lileftbox{
+    margin-left:-158px;
+    width:158px;
+}
+.name-winth{
+    display:inline-block;
+    width:130px;
+    text-align:right;
+}
+
+/*绑定手机号css*/
+.gxf_phoneBg{
+    width: 100%;
+    min-height: 100%;
+    background: url('images/R-zhongxin.png') no-repeat 0 0;
+    background-size:100% 100%;
+}
+.gxf_phoneBox{
+    width: 700px;
+    height: 500px;
+     margin: 80px auto 0;
+     background-color: #fff;
+     border: 1px  solid  #ccc;
+     border-bottom: 6px solid #555;
+}
+
+.gxf_phoneBox>h2{
+    background: #ae292a;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 40px; 
+    color: #fff;
+}
+.gxf_phoneContent{
+    height: 340px;
+    padding-top: 20px;
+}
+
+.gxf_phone_topTxt{
+    color:#ed5565;
+    margin-left: 30px;
+}
+
+.gxf_phoneContent>ul{
+    width: 600px;
+    height:300px;
+    margin: 60px auto;
+}
+
+.gxf_phone_tipsTxt{
+    color:#ed5565;
+    font-size: 12px;
+    line-height: 20px;
+    width: 300px;
+}
+
+.gxf_phone_left{
+    float:left;
+    width: 220px;
+    text-align: right;
+    line-height: 30px;
+}
+.gxf_phone_right{
+    float: left;
+    width:380px;
+    text-align: left;
+    line-height: 30px;
+}
+
+.gxf_phoneBottom{
+    height: 60px;
+    background: #f1f1f1;
+    padding-top: 20px;
+    padding-left: 40px;
+}
+
+.gxf_phoneBottom>p{
+    line-height: 24px;
+    color: #666;
+    font-size: 12px;
+}
+
+/* 自定义表 */
+.gxf_designTable_content{
+    padding: 0 15px 10px;
+    background: #fafafa;
+    border: 1px solid #ccc;
+}
+
+.gxf_designTable_box {
+    margin: 0;
+}
+
+.gxf_designTable_box > li > p {
+    width: 100%;
+    line-height: 20px;
+    margin: 10px 0;
+    border-left: 3px solid #22B3C8;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.gxf_designTable_box > li  .designTable_radio{
+    width:100%; 
+    background:#fff;
+    border:1px solid #ddd; 
+    padding:8px 0;
+    box-sizing:border-box;
+}
+.gxf_designTable_box > li > p > span {
+    margin-left: 10px;
+}
+
+/*  二级标题 */
+.gxf_designTable_secondTitle{
+    padding-left: 20px;
+}
+
+.gxf_designTable_secondTitle_Title{
+    font-size: 14px;
+    font-weight: 400;
+    color: #444;
+    position: relative;
+    padding-left: 14px;
+    margin: 6px 0;
+}
+
+.gxf_designTable_secondTitle_Title>i{
+        position: absolute;
+    width: 8px;
+    height: 8px;
+    background: url(./images/o.png) no-repeat 0 0;
+    top: 7px;
+    left: 2px;
+}
+.gxf_designTable_detailes{
+    /*background-color: #fff;*/
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+}
+

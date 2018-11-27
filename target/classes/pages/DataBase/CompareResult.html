@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <title>CompareResult</title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/easyui.css?r=20171201132130" />
+</head>
+<body>
+    
+    <div id="" class="gxf_tips" style="margin-bottom: 10px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <p id="tipsDetail"> </p>
+        </div>
+    </div>
+
+    <div class="main">
+        <div style="margin: 10px;">
+            <input class="formBtn" id="all_selected" type="button" value="同步升级全部" />
+            <input class="formBtn margl" id="sel_selected" type="button" value="同步升级选中" />
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+    <script>
+        var oldSchoolNum = getUrlParam("oldSchoolNum");
+        var newSchoolNum = getUrlParam("newSchoolNum");
+
+        $(function () {
+            var tempText = "<span style='font-weight: 700; font-size: 18px; color: #f00;'>学校（" + oldSchoolNum + "）与标准库（"+newSchoolNum + "）进行对比。</span>";
+            $("#tipsDetail").html(tempText);
+
+            GetCompareResult();
+        });
+
+        /**
+         * 获取比对结果
+         */
+        function GetCompareResult() {
+            var columnData = [[
+                { field: 'Id', checkbox: true },
+                { field: 'ConstraintTypeText', align: 'center', title: '类型', width: 20 },
+                { field: 'Name', align: 'center', title: '名称', width: 20 },
+                { field: 'OperationText', align: 'center', title: '操作', width: 20 },
+                { field: 'TableName', align: 'center', title: '表名', width: 30 },
+                { field: 'Remark', align: 'center', title: '备注', width: 40 }
+            ]];
+            var objectId = $("#list");
+            var url = "../Handler/DatabaseHandler.ashx";
+            var paramsData = {
+                action: "GetCompareResult",
+                oldSchoolNum: oldSchoolNum,
+                newSchoolNum: newSchoolNum,
+                sn: 1
+            };
+            var idField = "Id";
+
+            // 加载列表
+            GteTable(objectId, url, columnData, paramsData, idField, false);
+        }
+        
+        // 升级全部
+        $("#all_selected").on("click", function () {
+           
+            var data = {
+                action: "UpdateDatabase",
+                sn:1,
+                newSchoolNum: newSchoolNum,
+                oldSchoolNum:oldSchoolNum
+            }
+            updateSchoolLib(data,"您要升级全部吗？");
+        });
+
+        // 升级选中
+        $("#sel_selected").on("click", function () {
+            var data = $('#list').datagrid('getSelections');
+            var chosenIds = "";
+            var chosenText = "";
+            for (var i = 0; i < data.length; i++) {
+                chosenIds += data[i]["Id"] + ",";
+                chosenText += data[i]["Name"] + "(" + data[i]["ConstraintTypeText"] + ")" + ",";
+            }
+            if (chosenIds.length <= 0) {
+                myMessage("请至少选择一个进行升级！")
+                return;
+            }
+            chosenIds = chosenIds.substring(0, chosenIds.length - 1);
+            chosenText = chosenText.substring(0, chosenText.length - 1);
+
+            var data = {
+                action: "UpdateDatabase",
+                sn: 1,
+                newSchoolNum: newSchoolNum,
+                oldSchoolNum:oldSchoolNum,
+                chosenIds: chosenIds
+            }
+
+            updateSchoolLib(data, "您确定要升级选中（" + chosenText + "）吗？");
+        });
+
+        // 升级
+        function updateSchoolLib(data, text) {
+            if ($("#delmessagebox").html() == undefined || $("#delmessagebox").html() == "") {
+                $("body").append('<div id="delmessagebox" class="easyui-dialog" style="width:500px;height:300px; padding:10px;" data-options="closed:true"></div>');
+            }
+
+            $('#delmessagebox').text(text);
+            $('#delmessagebox').dialog({
+                title: '同步升级学校',
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/DatabaseHandler.ashx",
+                            data: data,
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                if (data.isSuccess) {
+                                    $("#delmessagebox").dialog("close");
+                                    myMessage(data.message);
+                                    $('#list').datagrid('reload');//重新加载
+                                    $('#list').datagrid("unselectAll");
+                                } else {
+                                    alert(data.message);
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            },
+                            complete: function () {
+                                //$('#list').datagrid("unselectAll");
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#delmessagebox").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#delmessagebox").dialog("open");
+            $('#delmessagebox').window('center');
+        };
+
+    </script>
+</body>
+</html>

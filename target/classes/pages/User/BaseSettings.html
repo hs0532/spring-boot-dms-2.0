@@ -1,0 +1,3160 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <title></title>
+   
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+</head>
+<body>
+    <div class="main">
+        <div class=" clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学年：</span>
+                        </dt>
+                        <dd>
+                            <select id="schoolyear" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="SAdetection">
+            <h4 class="SAtitle">检测设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                检测用户名：
+                            </div>
+                            <div class="SA-select">
+                                <input id="check_username" name="check_username" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                检测密码：
+                            </div>
+                            <div class="SA-select">
+                                <input id="check_password" name="check_password" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix" style="width: 1024px;">
+                            <div class="SA-title">
+                                组号：
+                            </div>
+                            <div class="SA-select" style="width:780px;">
+                                <div style="width: 170px; float:left;"> <input id="check_zuhao" name="check_zuhao" class="easyui-textbox" style="width: 170px;"/>  </div>
+                                <span id="zuhaocount" style="width: 600px; float:left; margin-left: 10px;"></span>
+                            </div>
+                        </li>
+                        <li class="clearfix" style="width: 1024px;">
+                            <div class="SA-title">
+                                导出组号：
+                            </div>
+                            <div class="SA-select" style="width:780px;">
+                                <div style="width: 170px; float:left;"><input id="check_daochuzuhao" name="check_zuhao" class="easyui-textbox" /></div>
+                                <span id="daochuzuhaocount" style="width: 600px; float:left; margin-left: 10px;"></span>
+                            </div>
+                        </li>
+
+                        <li class="clearfix" style="width: 1024px;">
+                            <div class="SA-title">
+                                检测上传功能：
+                            </div>
+                            <div class="SA-select" style="width:780px;">
+                                <div style="width: 170px; float:left;"><input id="check_shangchuan" name="check_zuhao" class="easyui-textbox" /></div>
+                                <span id="jianceshangchuan" style="width: 600px; float:left; margin-left: 10px;"></span>
+                            </div>
+                        </li>
+
+                        <li class="clearfix check_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="check_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="SAdetection">
+            <h4 class="SAtitle">系统名称设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                系统名称：
+                            </div>
+                            <div class="SA-select">
+                                <input id="system_names" name="system_names" class="easyui-textbox" />
+                            </div>
+                        </li>
+                   
+                        <li class="clearfix domain_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="system_name_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="SAdetection">
+            <h4 class="SAtitle">学校名称和校徽图片设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否显示学校名称和校徽图片：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <div class="SA-select">
+                                    <input id="domainsyx" type="radio" name="domains_pic" value="1" /><label for="domainsyx">允许</label>
+                                    <input id="domainsbyx" class="margl" type="radio" name="domains_pic" value="0" /><label for="domainsbyx">不允许</label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="clearfix domain_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="domains_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="SAdetection">
+            <h4 class="SAtitle">域名设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                系统名称：
+                            </div>
+                            <div class="SA-select">
+                                <input id="system_name" name="system_name" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                域名：
+                            </div>
+                            <div class="SA-select">
+                                <input id="domain_name" name="domain_name" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                校徽图片：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <input id="txtFileName" class="easyui-textbox" style="width:169px;" data-options="readonly:true" />
+                                <span id="spanButtonPlaceholder"></span>
+                                <div id="divFileProgressContainer" style="">
+                                </div>
+                                <input type="hidden" id="file_id" value="" />
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否显示学校名称和校徽图片：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <div class="SA-select">
+                                    <input id="domainyx" type="radio" name="domain_pic" value="1" /><label for="domainyx">允许</label>
+                                    <input id="domainbyx" class="margl" type="radio" name="domain_pic" value="0" /><label for="domainbyx">不允许</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="clearfix domain_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="domain_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="SAdetection">
+            <h4 class="SAtitle">短信设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">                     
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否开启管理员短信功能：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <div class="SA-select">
+                                    <input id="adminmessageopen" type="radio" name="adminmessage" value="1" /><label for="adminmessageopen">是</label>
+                                    <input id="adminmessageclose" class="margl" type="radio" name="adminmessage" value="0" /><label for="adminmessageclose">否</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否开启教师短信功能：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <div class="SA-select">
+                                    <input id="teachermessageopen" type="radio" name="teachermessage" value="1" /><label for="teachermessageopen">是</label>
+                                    <input id="teachermessageclose" class="margl" type="radio" name="teachermessage" value="0" /><label for="teachermessageclose">否</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="clearfix message_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="set_message_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="SAdetection">
+            <h4 class="SAtitle">导入学生最大数设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                导入学生最大数：
+                            </div>
+                            <div class="SA-select">
+                                <input id="studentsnum_max" name="system_names" class="easyui-textbox" />
+                                <span style="color:red">*空值为不限制，0为禁止导入！</span>
+                            </div>
+                        </li>
+
+                        <li class="clearfix studentsnum_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="studentsnum_max_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="SAdetection">
+            <h4 class="SAtitle">学生批量导入功能</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否开启学生批量导入功能：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <div class="SA-select">
+                                    <input id="batchimportopen" type="radio" name="batchimport" value="1" /><label for="batchimportopen">是</label>
+                                    <input id="batchimportclose" class="margl" type="radio" name="batchimport" value="0" /><label for="batchimportclose">否</label>
+                                </div>
+                            </div>
+                        </li>
+                       
+                        <li class="clearfix message_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="set_batchimport_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!--是否开通写作助手-->
+        <div class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">是否开通写作助手</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <form id="SAset-boxs">
+                        <ul class="SAset-box">
+
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否开通写作助手：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="xzzs_y" type="radio" name="xzzs" value="1" /><label for="xzzs_y">是</label>
+                                    <input id="xzzs_f" class="margl" type="radio" name="xzzs" value="0" /><label for="xzzs_f">否</label>
+                                </div>
+                            </li>
+
+                            <li class="clearfix Xiezuozhushou">
+                                <div class="SA-title"></div>
+                                <div class="SA-select">
+                                    <input id="set_Xiezuozhushou" type="button" class="formBtn" value="保存设置" />
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--是否启用开题答辩-->
+        <div class="SAdetection">
+            <h4 class="SAtitle">是否启用开题答辩</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否启用开题答辩功能：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <div class="SA-select kaitidabian">
+                                    <input id="kqktdb" type="radio" name="ktdb" value="1" /><label for="kqktdb">是</label>
+                                    <input id="bkqktdb" class="margl" type="radio" name="ktdb" value="0" /><label for="bkqktdb">否</label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="clearfix message_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="ktdb_btn" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--是否开启申请答辩-->
+        <div class="SAdetection">
+            <h4 class="SAtitle">是否开启申请答辩</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否开启申请答辩：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="domain_pic" name="check_password" class="easyui-textbox" />-->
+                                <div class="SA-select shenqingdabian">
+                                    <input id="kqsqdb" type="radio" name="sqdb" value="1" /><label for="kqsqdb">是</label>
+                                    <input id="bkqsqdb" class="margl" type="radio" name="sqdb" value="0" /><label for="bkqsqdb">否</label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="clearfix message_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="sqdb_btn" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="SAdetection">
+            <h4 class="SAtitle">课题标题相似性判断规则设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                与同年数据相似的比例：
+                            </div>
+                            <div class="SA-select">
+                                <input id="similar_current" name="check_username" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                比较几年的数据：
+                            </div>
+                            <div class="SA-select">
+                                <input id="similar_years" name="check_username" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                与近几年数据相似的比例：
+                            </div>
+                            <div class="SA-select">
+                                <input id="similar_history" name="check_password" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                与往年相似最大数量：
+                            </div>
+                            <div class="SA-select">
+                                <input id="similar_quantity" name="check_password" class="easyui-textbox" />
+                            </div>
+                        </li>
+                        <li class="clearfix similar_button">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="similar_button" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--检测设置-->
+        <div class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">检测设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <form id="SAset-box">
+                        <ul class="SAset-box">
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:226px;">
+                                    设置检测模式：
+                                </div>
+                                <div class="SA-select">
+                                    <!--<input id="default_number" type="radio" name="qiyong" value="0" onclick="close_set_time_box()" /><label for="default_number">默认检测模式</label>-->
+                                    <input id="set_number_radio" type="radio" name="qiyong" value="1" checked="checked" /><label for="set_number_radio">
+                                        设置检测次数
+                                    </label>
+                                    <input id="set_number" name="cishu" class="margl iptwidt easyui-textbox" style="max-width:48px;height:22px;" />
+                                </div>
+                            </li>
+                            <li class="clearfix" id="set_time_box" style="display:none;">
+                                <div class="SA-title">
+                                    &nbsp;
+                                </div>
+                                <div class="SA-select">
+                                    <input id="set_time_checkbox" type="checkbox" onclick="open_time_box()" />开启时间控制
+                                    <input class="main-l" id="set_yes" type="checkbox" onclick="open_academiestime_box()" /><label for="set_yes">允许院系单独进行检测的时间控制（院系单独设置的时间与学校设置的时间互不相关）</label>
+                                </div>
+                            </li>
+                            <li class="clearfix" id="time_box" style="display:none;">
+                                <div class="SA-title">
+                                    &nbsp;
+                                </div>
+                                <div class="SA-select">
+                                    <table id="TimeList" style="width:600px;"></table>
+                                </div>
+                            </li>
+                            <li class="clearfix" id="auditing">
+                                <div class="SA-title" style="width:17%;">
+                                    设置<i name="zdjs_role"></i>检测模式：
+                                </div>
+                                <div class="SA-select" style="width:82%">
+                                    <input id="teacher_checkbox_no" type="radio" name="teacherheckStatic" value="0" checked />
+                                    <label for="teacher_checkbox_no">不设置（论文上传成功即可检测，如果设置了检测起止时间，将在截止时间到期后开始检测最新提交的那一篇，截止时间到期前可以多次提交修改版本）</label>
+                                    <br>
+                                    <input id="teacher_checkbox_yes" type="radio" name="teacherheckStatic" value="2" />
+                                    <label for="teacher_checkbox_yes">
+                                        需要指导教师确认检测（导师确认检测后才能检测，导师可以选择在确认检测前、确认检测后以及检测结果出具后对学生论文进行审核）
+                                    </label><br>
+                                    <input id="teacher_checkbox_aduit" type="radio" name="teacherheckStatic" value="1" />
+                                    <label for="teacher_checkbox_aduit">
+                                        需要指导教师审核通过后检测
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许<i name="zdjs_role"></i>查看检测结果：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="yx" type="radio" name="tears" value="0" /><label for="yx">允许</label>
+                                    <input id="byx" class="margl" type="radio" name="tears" value="1" /><label for="byx">不允许</label>
+                                </div>
+                            </li>
+                            <!--新增-->
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许<i name="jm_role"></i>查看检测结果：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="jm" type="radio" name="secretary" value="0" /><label for="jm">允许</label>
+                                    <input id="jmn" class="margl" type="radio" name="secretary" value="1" /><label for="jmn">不允许</label>
+                                </div>
+                            </li>
+
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许<i name="jyfzr_role"></i>查看检测结果：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="zyfz" type="radio" name="head" value="0" /><label for="zyfz">允许</label>
+                                    <input id="zyfzn" class="margl" type="radio" name="head" value="1" /><label for="zyfzn">不允许</label>
+                                </div>
+                            </li>
+
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许<i name="yz_role"></i>查看检测结果：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="yz" type="radio" name="dean" value="0" /><label for="yz">允许</label>
+                                    <input id="yzn" class="margl" type="radio" name="dean" value="1" /><label for="yzn">不允许</label>
+                                </div>
+                            </li>
+                            <!--新增完成-->
+                            <li class="clearfix">
+                                <div class="SA-title" style=" width:242px;">
+                                    是否允许学生查看检测结果：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="yx1" type="radio" name="sturs" value="0" /><label for="yx1">允许</label>
+                                    <input id="byx1" class="margl" type="radio" name="sturs" value="1" /><label for="byx1">不允许</label>
+                                    <input id="byx2" class="margl" type="radio" name="sturs" value="2" /><label for="byx2">教师审阅后查看</label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="SA-title">
+                                </div>
+                                <div class="SA-select SAstyle xuesheng">
+                                    <input id="xuesheng1" type="radio" name="stureport" value="0" /><label for="xuesheng1">仅文字复制比</label>
+                                    <input id="xuesheng2" class="margl" type="radio" name="stureport" value="1" /><label for="xuesheng2">简洁报告单</label>
+                                    <input id="xuesheng3" class="margl" type="radio" name="stureport" value="2" /><label for="xuesheng3">全文标明引文报告单</label>
+                                    <input id="xuesheng4" class="margl" type="radio" name="stureport" value="3" /><label for="xuesheng4">去除本人报告单</label>
+                                    <input id="xuesheng5" class="margl" type="radio" name="stureport" value="4" /><label for="xuesheng5">全文对照报告单</label>
+                                </div>
+                            </li>
+                            <!--是否允许学生查看成绩-->
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许学生查看成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="stu_score" type="radio" name="student_score" value="0" /><label for="yz">允许</label>
+                                    <input id="stu_score_no" class="margl" type="radio" name="student_score" value="1" /><label for="yzn">不允许</label>
+                                </div>
+                            </li>
+                            <li class="clearfix set_detection">
+                                <div class="SA-title"></div>
+                                <div class="SA-select">
+                                    <input id="set_detection" type="button" class="formBtn" value="保存设置" />
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+
+                <!--列表-->
+                <!-- tab的权重展示 -->
+                <div class="gxf_statistics" style="margin:0;">
+                    <div class="gxf_statistics_navBar">
+                        <ul class="clearfix">
+                            <li>
+                                <a id="statisticsBySubmitter" class="selected" href="javascript:;">院系</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--选项卡下的三个导航栏-->
+                <div class="gxf_statistics_container" style="padding-top:10px;">
+                    <div>
+                        <div class="rightbox clearfix">
+                            <ul class="form clearfix" style="border-top:solid 1px #d3d3d3;">
+                                <li>
+                                    <dl>
+                                        <dt>
+                                            <span>学院名称：</span>
+                                        </dt>
+                                        <dd>
+                                            <input id="academy_Name" class="easyui-textbox" style="width: 170px;" />
+                                        </dd>
+                                    </dl>
+                                </li>
+                                <li class="search">
+                                    <dl>
+                                        <dt>
+                                            <span>&nbsp;</span>
+                                        </dt>
+                                        <dd>
+                                            <input class="formBtn" type="button" value="查询" onclick="academy_search()" />
+                                        </dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--页面主列表-->
+                <table id="List" style="width:100%;"></table>
+            </div>
+        </div>
+
+        <!--指导记录设置-->
+        <div class="SAdetection">
+            <h4 class="SAtitle">指导记录设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">
+                                是否设定指导记录提交次数：
+                            </div>
+                            <div class="SA-select">
+                                <input id="no_log_set" type="radio" name="ProjectLog" value="0" /><label for="no_log_set">不设定</label>
+                                <input id="log_set" type="radio" name="ProjectLog" value="1" class="margl" /><label for="log_set">设定</label>
+                                <input id="set_log_number" name="number" class="margl iptwidt easyui-textbox" style="max-width:48px;height:22px;" />
+                            </div>
+                        </li>
+
+                        <li class="clearfix" id="time_tow" style="display:none">
+                            <div class="SA-title">
+                                &nbsp;
+                            </div>
+                            <div class="SA-select">
+                                <table id="boxTime" style="width:600px;"></table>
+                            </div>
+                        </li>
+
+                        <li class="clearfix ProjectLog_set">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="ProjectLog_set" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--申报课题模式设置-->
+        <form id="shenbao" class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">申报课题模式设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <ul class="SAset-box" id="checkboxBOX">
+                        <li class="clearfix" style="padding-left: 40px;">
+                            谁可以申报课题：   <input id="laoshi" type="checkbox" value="1" class="margl" /> <label for="laoshi"><i name="zdjs_role"></i>申报</label>
+                            <input id="xuesheng" class="margl" value="2" type="checkbox" /><label for="xuesheng">学生申报</label>
+                            <input id="shenbao_btn" class="formBtn margl" type="button" value="保存设置" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <!--指导教师申报-->
+        <div class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">申报课题设置和选题设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title" style="width:242px;">每一位教师最多可以申报几个课题：</div>
+                            <div class="SA-select">
+                                <input id="limit" class="easyui-textbox" style="max-width:50px" />*以教师申报为准（包括等待审核、审核通过和审核不通过的数）
+                            </div>
+                        </li>
+                        <!--<li class="clearfix">
+                            <div class="SA-title" style="width:242px;">每一位教师最多可以达成几个双选关系：</div>
+                            <div class="SA-select">
+                                <input id="txt_shuangxuan" class="easyui-textbox" style="max-width:50px" />*包括全部类型的课题，含师生互选（教师和学生申报）、指定学生和团队课题（团队课题按学生数计算）
+                            </div>
+                        </li>-->
+                        <li class="clearfix">
+                            <div class="SA-title" style="width:242px;">学生选题时最多可以选择几个课题：</div>
+                            <div class="SA-select">
+                                <input id="txt_ketishu" class="easyui-textbox" style="max-width:50px" />*仅对学生选题生效，每位学生最多可达成1个双选；未被导师确认的学生可重新选择或被分配课题
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title" style="width:242px;">每一课题最多几个学生选择：</div>
+                            <div class="SA-select">
+                                <input id="txt_xueshengshu" class="easyui-textbox" style="max-width:50px" />*仅对学生选题生效，每个课题最多可达成1人双选；未被导师确认的学生可以重新选择或被分配课题
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title" style="width:242px;"></div>
+                            <div class="SA-select">
+                                <input id="teacher_tasknumber" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--修改课题模式设置-->
+        <div class="SAdetection">
+            <h4 class="SAtitle">修改课题模式设置</h4>
+            <div class="SAbelow">
+                <div class="SAdetail">
+                    <ul class="SAset-box" id="SecretaryCheckBox">
+                        <li class="clearfix">
+                            <div class="SA-title" style="width:19%;">
+                                审核通过后课题修改模式：
+                            </div>
+                            <div class="SA-select" style="width:80%">
+                                <input id="one" name="danxuan" type="radio" value="0" /><label for="one">直接修改模式：有权限的<i name="jm_role"></i>可以修改课题信息，也可以允许教师或学生修改</label>
+                                <br />
+                                <input id="tow" type="radio" name="danxuan" value="1" /><label for="tow">经申请修改模式：需要课题申报人提交修改课题相关申请并经审核通过，有权限的<i name="jm_role"></i>才可以进行修改（不允许教师和学生进行修改）</label>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="SA-title" style="width:19%;">
+                                <i name="jm_role"></i>权限：
+                            </div>
+                            <div class="SA-select" style="width:80%">
+                                <input id="jxms_two" type="checkbox" /><label for="jxms_two"><i name="jm_role"></i>不可以解除师生双选关系</label>
+                                <br />
+                                <input id="jxms_three" type="checkbox" /><label for="jxms_three"><i name="jm_role"></i>不可以修改课题（直接修改模式下，不能修改也不能允许教师或者学生修改课题；经申请修改模式下，不能修改课题）</label>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="SA-title" style="width:19%;"></div>
+                            <div class="SA-select">
+                                <input id="btn_jxmsqx" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--任务书模式设置-->
+        <form id="shenhemoshi" class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">任务书审核模式</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">任务书是否需要审核：</div>
+                            <div class="SA-select" id="box_shms">
+                                <input type="radio" name="moshi" value="1" id="sh" /><label for="sh">需要审核</label>
+                                <br />
+                                <input type="radio" name="moshi" value="2" id="bsh" /><label for="bsh">不需要审核（由系统自动审核通过）</label>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">任务书由谁填写具体内容：</div>
+                            <div class="SA-select" id="box_tijiao">
+                                <input type="radio" name="tijiao" value="1" id="zdjs" /><label for="zdjs"><i name="zdjs_role"></i>填写</label>
+                                <br />
+                                <input type="radio" name="tijiao" value="2" id="xsdt" /><label for="xsdt">学生替<i name="zdjs_role"></i>填写（须由<i name="zdjs_role"></i>最终确定内容）</label>
+                                <br />
+                                <input id="taskbook_type" type="button" class="formBtn SAmt" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <!--超权限测试-->
+        <form id="jurisdiction_control" class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">超权限检测和最终版提交的权限设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title">设置教学秘书权限：</div>
+                            <div class="SA-select shms">
+                                <input type="radio" name="radio" value="0" id="cs" /><label for="cs">允许教学秘书具备该权限（默认）</label>
+                                <br />
+                                <input type="radio" name="radio" value="1" id="cs1" /><label for="cs1">不允许教学秘书具备该权限</label>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title">设置院长权限：</div>
+                            <div class="SA-select shms">
+                                <input type="radio" name="yuanzhangradio" value="0" id="cs2" /><label for="cs2">允许院长书具备该权限（默认）</label>
+                                <br />
+                                <input type="radio" name="yuanzhangradio" value="1" id="cs3" /><label for="cs3">不允许院长具备该权限</label>
+                                <br />
+                                <input id="jurisdiction_btn" type="button" class="formBtn SAmt" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <!--盲评设置-->
+        <form id="blind" class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">盲评设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title"></div>
+                            <div class="SA-select mangping">
+                                <input type="radio" class="SAiptmr" name="moshi" value="0" id="bkqmx" /><label for="bkqmx">不开启盲评</label>
+                                <input type="radio" name="moshi" value="1" id="kqmx" /><label for="kqmx">开启盲评</label>
+                                <input id="blind_btn" type="button" style="margin-left: 90px" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <!-- 成绩模式设置-->
+        <div class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">成绩模式设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+                        <li class="clearfix">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <p class="SAtext">
+                                    <span style="color:red;">*</span>
+                                    设置学生成绩在系统里的显示模式
+                                </p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="SA-title"></div>
+
+                            <form class="SA-select" id="class_pattern">
+                                <input type="radio" name="scoringtype" value="1" id="djms" /><label for="djms">等级模式</label>
+                                <input class="margl" type="radio" name="scoringtype" value="2" id="fsms" /><label for="fsms">分数模式</label>
+                                <input class="margl" type="radio" name="scoringtype" value="3" id="djfsms" /><label for="djfsms">等级（分数）模式</label>
+                            </form>
+                        </li>
+                        <li class="clearfix chengji">
+                            <div class="SA-title ">
+                                设定分数段个数：
+                            </div>
+                            <div class="SA-select">
+                                <!--<input id="no_log_set" type="radio" name="ProjectLog" value="0" /><label for="no_log_set">不设定</label>-->
+                                <!--<input id="log_set" type="radio" name="ProjectLog" value="1" class="margl" /><label for="log_set">设定</label>-->
+                                <input id="set_results_numbers" name="number" class="margl iptwidt easyui-textbox" style="max-width:48px;height:22px;" />
+                                <p class="SAtext">
+                                    <span style="color:red;">*</span>
+                                    分数段依次由高到低，各段之间不能重叠分数，分数可保留一位小数。
+
+                                    <!--说明:1.各项权重仅能填写<span style="color:red;">0-1的数字（支持保留2位小数）</span>，若填写0表示不使用该项权重<br />
+                                    &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;2.系统计算学生成绩时取用权重优先级别为：<span style="color:red;">课题类型>专业>院系>学校</span>-->
+                                </p>
+                            </div>
+                        </li>
+                        <li class="clearfix chengji" id="results_tow" style="display:none">
+                            <div class="SA-title ">
+                                &nbsp;
+                            </div>
+                            <div class="SA-select">
+                                <table id="boxResults" style="width:800px;"></table>
+                            </div>
+                        </li>
+
+                        <!--<li class="clearfix">
+                            <div class="SA-title"></div>
+                            <div class="SA-select SAstyle chengji">
+                                优秀：<input id="excellentStart" class="easyui-textbox" style="max-width:37px" />&nbsp;&nbsp;至
+                                <span style="margin:0 20px 0 4px">
+                                    <input id="excellentEnd" class="easyui-textbox" style="max-width:37px" />
+                                </span>
+                                良好：<input id="goodStart" class="easyui-textbox" style="max-width:37px" />&nbsp;&nbsp;至
+                                <span style="margin:0 20px 0 4px">
+                                    <input id="goodEnd" class="easyui-textbox" style="max-width:37px" />
+                                </span>
+                                中等：<input id="midStart" class="easyui-textbox" style="max-width:37px" />&nbsp;&nbsp;至
+                                <span style="margin:0 20px 0 4px">
+                                    <input id="midEnd" class="easyui-textbox" style="max-width:37px" />
+                                </span>
+                                及格：<input id="passStart" class="easyui-textbox" style="max-width:37px" />&nbsp;&nbsp;至
+                                <span style="margin:0 20px 0 4px">
+                                    <input id="passEnd" class="easyui-textbox" style="max-width:37px" />
+                                </span>
+                                不及格：<input id="noPassStart" class="easyui-textbox" style="max-width:37px" />&nbsp;&nbsp;至
+                                <span style="margin:0 0px 0 4px">
+                                    <input id="noPassEnd" class="easyui-textbox" style="max-width:37px" />
+                                </span>
+                                <br />
+                            </div>
+                        </li>-->
+                        <li class="clearfix">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="performance_set" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    
+        
+
+        <!--检测次数弹窗-->
+        <div style="width:0px;height:0px;overflow:hidden;">
+            <div id="time_input_box" class="easyui-dialog" data-options="closed:true" style="width:500px;height:200px; text-align:center; padding-top:10px;">
+                <ul class="addFormBuild">
+                    <li style="width:130px;">开始时间：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="start_date" class="easyui-datetimebox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: false">
+                        <input type="hidden" id="hidden_type" />
+                    </li>
+                    <li style="width:130px;">结束时间：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="end_date" class="easyui-datetimebox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: false">
+                    </li>
+                    <li style="width:130px;"></li>
+                    <li style=" width:240px;  text-align:left;  margin-top:20px; ">
+                        <input class=" formBtn" id="save_btn" type="button" name="name" value="确认并返回" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="width:0px;height:0px;overflow:hidden;">
+            <!--检测次数弹窗-->
+            <div id="time_input_boxs" class="easyui-dialog" data-options="closed:true" style="width:500px;height:200px; text-align:center; padding-top:10px;">
+                <ul class="addFormBuild">
+                    <li style="width:130px;">开始时间：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="start_date" class="easyui-datetimebox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: false">
+                        <input type="hidden" id="hidden_type" />
+                    </li>
+                    <li style="width:130px;">结束时间：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="end_date" class="easyui-datetimebox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: false">
+                    </li>
+                    <li style="width:130px;"></li>
+                    <li style=" width:240px;  text-align:left;  margin-top:20px; ">
+                        <input class=" formBtn" id="save_btn" type="button" name="name" value="确认并返回" />
+                    </li>
+                </ul>
+            </div>
+            <!--查看时的弹框及列表-->
+            <!--<div id="consignorModel" class="easyui-dialog" data-options="closed:true" style="text-align:center; width:600px; min-height: 200px;">
+                <table id="see" style="width:100%;"></table>
+            </div>-->
+
+        </div>
+
+        <!--院系检测时间控制-->
+        <div style="width:0px;height:0px;overflow:hidden;">
+            <!--查看学校设置的时间控制-->
+            <!--<div id="consignorModel" class="easyui-dialog" data-options="closed:true" style="text-align:center; width:600px; min-height: 200px;">
+                <table id="see" style="width:100%;"></table>
+            </div>-->
+
+            <div id="consignorModel" class="easyui-dialog" data-options="closed:true" style="text-align:center; width:750px; min-height: 260px;">
+                <form id="SAset-box">
+                    <ul class="SAset-box">
+                        <!--<li class="clearfix">
+                    <div class="SA-title" style="width:260px;">
+                        设置检测次数：
+                    </div>
+                    <div class="SA-select">
+                        <span id="set_number"></span>
+                        <a id="college_time" href="#" class="listA main-l">查看学校设置的时间控制</a>
+                    </div>
+                </li>-->
+
+                        <li class="clearfix">
+                            <!--<div class="SA-title" style="width:260px;">
+                                设置本院的时间控制：
+                            </div>-->
+                            <div class="SA-select" id="text_no">                            
+                                               
+                            </div>
+                            <div class="SA-select" id="texttable">
+
+                                <table id="see" style="width:700px;"></table>
+
+                            </div>
+                        </li>
+                        <li class="clearfix" id="time_box" style="display:none;">
+                            <div class="SA-title" style="width:260px;"></div>
+                            <div class="SA-select">
+                                <input id="set_Acdetection" style="display:none;" type="button" class="formBtn" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <!--检测次数弹窗-->
+            <div id="actime_input_box" class="easyui-dialog" data-options="closed:true" style="width:500px;height:200px; text-align:center; padding-top:10px;">
+                <ul class="addFormBuild">
+                    <li style="width:130px;">开始时间：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="acstart_date" class="easyui-datetimebox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: false">
+                        <input type="hidden" id="hidden_type" />
+                    </li>
+                    <li style="width:130px;">结束时间：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="acend_date" class="easyui-datetimebox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: false">
+                    </li>
+                    <li style="width:130px;"></li>
+                    <li style=" width:240px;  text-align:left;  margin-top:20px; ">
+                        <input class=" formBtn" id="acsave_btn" type="button" name="name" value="确认并返回" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!--成绩段设置弹窗-->
+        <div style="width:0px;height:0px;overflow:hidden;">
+            <div id="results_input_box" class="easyui-dialog" data-options="closed:true" style="width:500px;height:200px; text-align:center; padding-top:10px;">
+                <ul class="addFormBuild">
+                    <li style="width:130px;">名称：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="level_name" class="easyui-textbox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: true">
+                        <input type="hidden" id="hidden_type" />
+                    </li>
+                    <li style="width:130px;">开始分数：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="start_score" class="easyui-textbox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: true">
+                        <input type="hidden" id="hidden_type" />
+                    </li>
+                    <li style="width:130px;">结束分数：</li>
+                    <li style="width:240px;  text-align:left">
+                        <input id="end_score" class="easyui-textbox" panelheight="260" style="width:150px;" data-options="showSeconds: false,editable: true">
+                    </li>
+                    <li style="width:130px;"></li>
+                    <li style=" width:240px;  text-align:left;  margin-top:20px; ">
+                        <input class=" formBtn" id="scoresave_btn" type="button" name="name" value="确认并返回" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:inline="none">
+        var planid = 0;
+        var sn = getUrlParam('sn');
+        var url = "../Handler/BaseSettingsHandler.ashx?action=SetComain&sn=" + sn + "";
+        var params = {};
+        var file_type = "*.png";
+        var swfu;
+
+        var userDefinedRoles = [];
+        $(document).ready(function () {
+            load_school_year();//获取计划编号
+            swfu = swfinit(url, params, file_type)
+            //// 获取用户所有角色
+            //GetUserRoles();
+            ////动态输入单选角色名称
+            //$("i[name='zdjs_role']").text(getRoleName(3));//指导教师
+            //$("i[name='jm_role']").text(getRoleName(5));//教秘
+            //$("i[name='jyfzr_role']").text(getRoleName(4));//专业负责人
+            //$("i[name='yz_role']").text(getRoleName(6))//院长
+
+            //是否显示成绩加载角色
+            //$("i[name='pyzj_role']").text(getRoleName(9));//专业负责人
+            //获取组号
+            GetNoCount();
+            //获取导出组号
+            GetDeriveNoCount();
+            //检测上传功能
+            GetDetectUploadCount();
+            //获取检测账号
+            GetCheckInfo();
+            //获取域名设置
+            GetDomain();
+
+            //获取是否开通短信功能
+            GetMessage();
+            //获取是否开通写作助手
+            GetWritingHelper();
+
+            //获取课题标题相似性判断规则
+            GetProjectTitleRule();
+
+            //getDetection();//获取检测设置
+
+            //获取指导记录
+            //GetGuide();
+
+            //GetProject();//获得课题申报模式和教学秘书设置
+
+            //GetProjectLimit();//获取指导教师申报课题数
+
+            //getPerformance();//获取成绩
+            $("#set_number").textbox({
+                onChange: function (newvalue, oldvalue) {
+                    if (newvalue != "") {
+                        $("#set_time_box").show();//显示两个多选
+                        if (newvalue != "" && $("#set_time_checkbox").prop("checked")) {
+                            //$("#set_yes").attr("disabled", false);
+                            reload_list();
+                        };
+                    } else {
+                        $("#set_time_box,#time_box").hide();//多选和列表隐藏
+                        $("#set_yes").attr({"checked": false, "disabled": false });
+                        //$("#set_yes").attr({
+                        //    "checked": false,
+                        //    "disabled": false
+                        //});
+                    };
+
+                }
+            });                   
+
+       
+
+        })
+     
+        //
+        function refreshmethods()
+        {
+            // 获取用户所有角色
+            GetUserRoles();
+
+            //动态输入单选角色名称
+            $("i[name='zdjs_role']").text(getRoleName(3));//指导教师
+            $("i[name='jm_role']").text(getRoleName(5));//教秘
+            $("i[name='jyfzr_role']").text(getRoleName(4));//专业负责人
+            $("i[name='yz_role']").text(getRoleName(6))//院长
+       
+
+            GetStudentSMaxNum();//获取导入学生最大数
+
+            getDetection();//获取检测设置
+            //获取指导记录
+            GetGuide();
+            //获取指导记录
+            GetGuide();
+            GetProject();//获得课题申报模式和教学秘书设置
+            GetProjectLimit();//获取指导教师申报课题数
+            getPerformance();//获取成绩
+        }
+        function plan_select(sel_id) {
+            if (sel_id == undefined) {
+                planid = $("#plan").combobox('getValue');
+            }
+            else {
+                planid = sel_id;
+            }
+            refreshmethods();
+        }
+        function load_school_year() {
+            $.ajax({
+                url: "../Handler/ManagerHandler.ashx?sn=" + sn,
+                data: { "action": "GetPlanList" },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess == true) {
+                        $("#schoolyear").combobox({
+                            valueField: '计划编号',
+                            textField: '学年',
+                            onClick: function (record) {
+                                if ( record["计划编号"] != "")
+                                    plan_select(record["计划编号"]);
+                            }                        
+                        });
+
+                        var temp_ar = new Array();
+
+                        $.each(data.rows, function (i, n) {
+                            if (data.rows[i]["是否默认学年"] == "1") {
+                                temp_ar.push({ "计划编号": data.rows[i]["计划编号"], "学年": data.rows[i]["学年"], "selected": true });
+                                planid = data.rows[i]["计划编号"];
+                            }
+                            else {
+                                temp_ar.push({ "计划编号": data.rows[i]["计划编号"], "学年": data.rows[i]["学年"] });
+                            }
+                        });
+
+                        $("#schoolyear").combobox("loadData", temp_ar);
+                      
+                        refreshmethods();                     
+                    }
+                    else {
+                        $('.set_detection').hide();
+                        $('.ProjectLog_set').hide();
+
+                        $('#shenbao_btn').hide();
+                        $('#btn_jxmsqx').hide();
+                        $('#taskbook_type').hide();
+                        $('#jurisdiction_btn').hide();
+                        $('#blind_btn').hide();
+
+                        $('#teacher_tasknumber').hide();
+                        $('#performance_set').hide();
+                        //if (data.total == 0) {
+                            //if (cur_role_id == "1") {
+                            //    $("#show_title").text("填写学年");
+                            //    $("#school_year_select").hide();
+                            //    $("#add_school_year_box").show();
+                            //    $("#add_school_year_button").on("click", add_school_year);
+                            //}
+                       // }
+                    }
+                }
+            });
+        }
+
+        function getRoleName(role) {
+            var roleName = "";
+            if (userDefinedRoles && userDefinedRoles.length > 0) {
+                $.each(userDefinedRoles,
+                    function (index, item) {
+                        if (item.value == role) {
+                            roleName = item.name;
+                            return false;
+                        }
+                    });
+            }
+            return roleName;
+        }
+        function GetUserRoles() {
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?sn=" + sn + "&planid=" + planid + "",
+                data: { "action": "GetRoleName" },
+                async: false,
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess == true) {
+                        userDefinedRoles = [];
+                        //全部自定义角色
+                        var roleTypes = data.dataList.roleTypes;
+                        if (roleTypes && roleTypes.length > 0) {
+                            $.each(roleTypes,
+                                function (index, item) {
+                                    if (!checkValIsUndefinedOrNull(item.名称) && !checkValIsUndefinedOrNull(item.自定义编号)) {
+                                        var role = {};
+                                        role["name"] = item.名称;
+                                        role["value"] = item.自定义编号;
+                                        if ($.inArray(role, userDefinedRoles) < 0) {
+                                            userDefinedRoles.push(role);
+                                        }
+                                    }
+                                });
+
+                        }
+                        try {
+                            var rolesText = JSON.stringify(userDefinedRoles);
+                            $("#hdUserDefinedRoles").val(rolesText);
+                        } catch (e) { }
+                    }
+
+
+                }
+            });
+        }
+        //获取所有的组号
+        function GetNoCount() {
+          
+            $.ajax({
+                url: "../Handler/ManagerHandler.ashx?action=GetAllNo&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    var texthtml = "";
+                    if (data.isSuccess) {
+                        var nocountstring = data.dataList;
+                        texthtml += '<i>' + nocountstring + '</i>';
+                       
+                    } else {
+                        myMessage(data.message);
+                    };
+                    $("#zuhaocount").html(texthtml);
+                }
+             
+                
+            });
+        };
+
+        //获取所有的导出组号
+        function GetDeriveNoCount() {
+
+            $.ajax({
+                url: "../Handler/ManagerHandler.ashx?action=GetAllDeriveNo&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    var texthtml = "";
+                    if (data.isSuccess) {
+                        var nocountstring = data.dataList;
+                        texthtml += '<i>' + nocountstring + '</i>';
+
+                    } else {
+                        myMessage(data.message);
+                    };
+                    $("#daochuzuhaocount").html(texthtml);
+                }
+
+
+            });
+        };
+
+        //获取所有的检测上传功能
+        function GetDetectUploadCount() {
+
+            $.ajax({
+                url: "../Handler/ManagerHandler.ashx?action=GetAllDetectUploadNo&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    var texthtml = "";
+                    if (data.isSuccess) {
+                        var nocountstring = data.dataList;
+                        texthtml += '<i>' + nocountstring + '</i>';
+
+                    } else {
+                        myMessage(data.message);
+                    };
+                    $("#jianceshangchuan").html(texthtml);
+                }
+
+
+            });
+        };
+        //获取检测账号
+        function GetCheckInfo() {
+            $('.check_button').hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetCheckInfo&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        $('#check_username').textbox('setValue', data.rows[0]["检测用户名"]);
+                        $('#check_password').textbox('setValue', data.rows[0]["检测密码"]);
+                        if (data.rows[0]["组号"]!='0') {
+                            $('#check_zuhao').textbox('setValue', data.rows[0]["组号"]);
+                        }
+                        if (data.rows[0]["导出组号"] != '0') {
+                            $('#check_daochuzuhao').textbox('setValue', data.rows[0]["导出组号"]);
+                        }
+
+                        $('#check_shangchuan').textbox('setValue', data.rows[0]["检测上传功能"]);
+                        
+                      
+                        $('.check_button').show();
+                    } else {
+                        myMessage(data.message);
+                    };
+                }
+            });
+        };
+        //提交检测设置
+        $("#check_button").click(function () {
+            SetCheckInfo();
+        });
+        //提交检测设置
+        function SetCheckInfo() {
+            var check_username = $('#check_username').textbox('getValue');
+            var check_password = $('#check_password').textbox('getValue');
+            var check_zuhao = $('#check_zuhao').textbox('getValue');
+            var check_daochuzuhao = $('#check_daochuzuhao').textbox('getValue');//导出组号
+            var check_shangchuan = $('#check_shangchuan').textbox('getValue');//检测上传功能
+
+
+            var checkusername = getByteLen(check_username);
+            var checkpassword = getByteLen(check_password);
+            var istrue = true;
+            if (checkusername > 30) {
+                istrue = false;
+                myMessage('检测用户名请小于30字符');
+                return false;
+            }
+            if (checkpassword > 32) {
+                istrue = false;
+                myMessage('检测密码请小于32字符');
+                return false;
+            }
+            if (!isInt(check_zuhao)) {
+                myMessage('组号请输入整数，默认值为0！');
+                return false;
+
+            };
+            if (!isInt(check_daochuzuhao)) {
+                myMessage('导出组号请输入整数，默认值为0！');
+                return false;
+            };
+            if (!isInt(check_shangchuan)) {
+                myMessage('检测上传功能请输入整数！');
+                return false;
+            };
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetCheckInfo",
+                type: "post",
+                dataType: "json",
+                data: {
+                    check_username: check_username,
+                    check_password: check_password,
+                    check_zuhao: check_zuhao,
+                    check_daochuzuhao: check_daochuzuhao,
+                    check_shangchuan: check_shangchuan,
+                    sn: sn
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                    if (data.isSuccess) {
+                        //refreshTab("用户列表");
+                        //closeTab(getCurrentTabTitle());
+                    }
+                }
+            });
+        };
+
+        //获取域名设置
+        function GetDomain() {
+            $('.domain_button').hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetDomain&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        $('#system_name').textbox('setValue', data.rows[0]["系统名称"]);
+                        $('#system_names').textbox('setValue', data.rows[0]["系统名称"]);
+                        $('#domain_name').textbox('setValue', data.rows[0]["前缀"]);
+                        $('#txtFileName').textbox('setValue', data.rows[0]["前缀"] + ".png");
+                        $("input[type='radio'][name='domain_pic'][value='" + data.rows[0]["是否显示学校名称"] + "']").attr("checked", "checked");
+                        $("input[type='radio'][name='domains_pic'][value='" + data.rows[0]["是否显示学校名称"] + "']").attr("checked", "checked");
+                        $('.domain_button').show();
+                    } else {
+                        myMessage(data.message);
+
+                    };
+                }
+            });
+        }
+        //域名设置
+        $("#domain_button").click(function () {
+            var system_name = $("#system_name").textbox("getValue");
+            var domainname = $("#domain_name").textbox("getValue");
+            var namelength = getByteLen(domainname);
+            var systemnamelength = getstrLen(system_name);
+            if (systemnamelength > 50) {
+                istrue = false;
+                myMessage('系统名称请小于50个字');
+                return false;
+            }
+            if (namelength <= 50) {
+                var fileid = $("#file_id").val();
+                var list = {};
+                list["system_name"] = $("#system_name").textbox("getValue"); //系统名称
+                list["domain_name"] = $("#domain_name").textbox("getValue"); //域名
+                list["domain_pic"] = $("input[type='radio'][name='domain_pic']:checked").val();//是否显示学校
+                if (fileid.length == 0) {
+                    $.ajax({
+                        url: "../Handler/BaseSettingsHandler.ashx?action=SetComain&sn=" + sn + "",
+                        type: "post",
+                        dataType: "json",
+                        data: list,
+                        success: function (data) {
+                            myMessage(data.message);
+                            if (data.isSuccess) {
+                                //refreshTab("用户列表");
+                                //closeTab(getCurrentTabTitle());
+                            }
+                        }
+                    });
+
+                }
+                else {
+                    swfu.setPostParams(list);
+                    swfu.startUpload(fileid);
+                    document.getElementById("divFileProgressContainer").style.display = "";
+                }
+            }
+            else {
+                myMessage('请小于50字符');
+            }
+
+        });
+
+        //系统名称设置
+        $("#system_name_button").click(function () {
+            var system_name = $("#system_names").textbox("getValue");
+                  
+            var systemnamelength = getstrLen(system_name);
+            if (systemnamelength > 50) {
+                istrue = false;
+                myMessage('系统名称请小于50个字');
+                return false;
+            }                    
+                var list = {};
+                list["system_name"] = $("#system_names").textbox("getValue"); //系统名称                         
+                    $.ajax({
+                        url: "../Handler/BaseSettingsHandler.ashx?action=SetSystemName&sn=" + sn + "",
+                        type: "post",
+                        dataType: "json",
+                        data: list,
+                        success: function (data) {
+                            myMessage(data.message);
+                            if (data.isSuccess) {
+                                //refreshTab("用户列表");
+                                //closeTab(getCurrentTabTitle());
+                            }
+                        }
+                    });
+        });
+        //是否显示学校设置
+        $("#domains_button").click(function () {
+            var list = {};                  
+            list["domains_pic"] = $("input[type='radio'][name='domains_pic']:checked").val();//是否显示学校                           
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetSchoolName&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                data: list,
+                success: function (data) {
+                    myMessage(data.message);
+                    if (data.isSuccess) {
+                        //refreshTab("用户列表");
+                        //closeTab(getCurrentTabTitle());
+                    }
+                }
+            });
+        });
+        //上传后刷新
+        function ReturnFresh() {
+            //refreshTab("用户列表");
+            //closeTab(getCurrentTabTitle());
+        }
+        //获取是否开通短信设置
+     
+        function GetMessage() {
+            $(".message_button").hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetWritingHelper&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        $("input[type='radio'][name='adminmessage'][value='" + data.rows[0]["管理员短信功能"] + "']").attr("checked", "checked");
+                        $("input[type='radio'][name='teachermessage'][value='" + data.rows[0]["教师短信功能"] + "']").attr("checked", "checked");
+                        $("input[type='radio'][name='batchimport'][value='" + data.rows[0]["学生批量导入功能"] + "']").attr("checked", "checked");
+                        $(".message_button").show();
+                    } else {
+                        myMessage(data.message);
+
+                    };
+                }
+            });
+        }
+        //是否开通短信设置
+        $("#set_message_button").click(function () {
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetMessage&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                //data: list,
+                data: {
+                    adminmessage: $("input[type='radio'][name='adminmessage']:checked").val(),// 
+                    teachermessage: $("input[type='radio'][name='teachermessage']:checked").val()// 
+                },
+                success: function (data) {
+
+                    myMessage(data.message);
+                }
+            });
+        });
+
+        //studentsmaxnum
+        //获取导入学生最大数
+        function GetStudentSMaxNum() {
+            $('.studentsnum_button').hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetStudentsMaxNum&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        $('#studentsnum_max').textbox('setValue', data.rows[0]["导入学生最大数"]);
+                   
+                        $('.studentsnum_button').show();
+                    } else {
+                        myMessage(data.message);
+
+                    };
+                }
+            });
+        }
+
+  
+
+        //设置导入学生最大数
+        $("#studentsnum_max_button").click(function () {
+
+            var studentsmaxnum = $("#studentsnum_max").textbox("getValue");        
+            //if (!isInt(studentsmaxnum)) {
+            //    myMessage('导入学生最大数请输入整数！');
+            //    return false;
+            //};
+            if (isInt(studentsmaxnum) || studentsmaxnum=="") {
+              
+            } else {
+                myMessage('导入学生最大数请输入整数！');
+                return false;
+            }
+            var list = {};
+            list["studentsmaxnum"] = $("#studentsnum_max").textbox("getValue"); //   
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetStudentsMaxNum&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: list,               
+                success: function (data) {
+
+                    myMessage(data.message);
+                }
+            });
+        });
+
+
+        //是否开通学生批量导入功能
+        $("#set_batchimport_button").click(function () {
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetBatchImport&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                //data: list,
+                data: {
+                    batchimport: $("input[type='radio'][name='batchimport']:checked").val()
+                },
+                success: function (data) {
+
+                    myMessage(data.message);
+                }
+            });
+        });
+
+        //获取是否开通写作助手
+        function GetWritingHelper() {
+            $(".Xiezuozhushou").hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetWritingHelper&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        $("input[type='radio'][name='xzzs'][value='" + data.rows[0]["开通写作助手"] + "']").attr("checked", "checked");
+                        $(".Xiezuozhushou").show();
+                    } else {
+                        myMessage(data.message);
+
+                    };
+                }
+            });
+        }
+        //是否开通写作助手设置
+        $("#set_Xiezuozhushou").click(function () {
+            $.ajax({
+                url: "../Handler/WriteaidHandler.ashx?action=SetWriteaidState&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                //data: list,
+                data: {
+                    state: $("input[type='radio'][name='xzzs']:checked").val(),// 是否开通写作助手
+                },
+                success: function (data) {
+
+                    myMessage(data.message);
+                }
+            });
+        });
+        //获取课题标题相似性判断规则
+        function GetProjectTitleRule() {
+            //$('.similar_button').hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetProjectTitleRule&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        $('#similar_current').textbox('setValue', data.rows[0]["同年复制比"]);
+                        $('#similar_years').textbox('setValue', data.rows[0]["年份"]);
+                        $('#similar_history').textbox('setValue', data.rows[0]["复制比"]);
+                        $('#similar_quantity').textbox('setValue', data.rows[0]["数量"]);
+                        //$('.similar_button').show();
+                    } else {
+                        myMessage(data.message);
+                    };
+                }
+            });
+        }
+
+        //设置课题标题相似性判断规则
+        $("#similar_button").click(function () {
+            var similar_current = $('#similar_current').textbox('getValue');
+            var similar_years = $('#similar_years').textbox('getValue');
+            var similar_history = $('#similar_history').textbox('getValue');
+            var similar_quantity = $('#similar_quantity').textbox('getValue');
+
+            if (similar_current == "1" || similar_current == "-1") { }
+            else {
+                if (!isfloat(similar_current)) {
+                    myMessage('与同年数据相似的比例请保留两位小数！');
+                    return false;
+                }
+                else {
+                    if (parseFloat(similar_current) <= 0 || parseFloat(similar_current) > 1) {
+                        myMessage('与同年数据相似的比例范围（0-1）！');
+                        return false;
+
+                    }
+                }
+            }
+
+            if (similar_history == "1" || similar_history == "-1") { }
+            else {
+                if (!isfloat(similar_history)) {
+                    myMessage('与近几年数据相似的比例请保留两位小数！');
+                    return false;
+                }
+                else {
+                    if (parseFloat(similar_history) <= 0 || parseFloat(similar_history) > 1) {
+                        myMessage('与近几年数据相似的比例范围（0-1）！');
+                        return false;
+
+                    }
+                }
+            }
+
+            if (!isInt(similar_years)) {
+                myMessage('比较几年的数据请输入整数！');
+                return false;
+            };
+            if (!isInt(similar_quantity)) {
+                myMessage('与往年相似最大数量请输入整数！');
+                return false;
+            };
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetProjectTitleRule",
+                type: "post",
+                dataType: "json",
+                data: {
+                    similar_current: similar_current,
+                    similar_years: similar_years,
+                    similar_history: similar_history,
+                    similar_quantity: similar_quantity,
+                    sn: sn
+                },
+                success: function (data) {
+
+                    myMessage(data.message);
+                }
+            });
+
+        });
+
+
+        function reload_list() {
+
+            $("#time_box").show();
+
+            if (user_set_number != $("#set_number").textbox("getText")) {
+                var temp_data = new Array();
+                if ($.trim($("#set_number").textbox("getText")) == 0) {
+                    myMessage("请输入大于零的正整数");                  
+                    return false;
+                };
+                for (var i = 0; i < $("#set_number").textbox("getText") ; i++) {
+                    temp_data.push({ "次数": i + 1, "开始时间": "", "结束时间": "" });
+                }
+                //console.log(temp_data)
+
+                GteTableJson(time_list, time_columnData, temp_data, false);
+            }
+            else {
+                GteTableJson(time_list, time_columnData, user_set_time, false);
+            }
+        };
+
+        function open_time_box() {
+            if ($("#set_time_checkbox").prop("checked")) {
+                reload_list();
+            }
+            else {
+                $("#set_yes").prop("checked", false);
+                $("#time_box").hide();
+            };
+        };
+
+        function open_academiestime_box() {
+            if ($("#set_yes").prop("checked")) {
+                $("#set_time_checkbox").prop("checked", true);
+                reload_list();
+            } else {
+                //$("#set_time_checkbox").prop("checked")
+            }
+                    
+        };
+
+        var time_columnData = [[
+    { field: '次数', align: 'center', title: '次数', width: 100 },
+    { field: '开始时间', align: 'center', title: '开始时间', width: 200 },
+    { field: '结束时间', align: 'center', title: '结束时间', width: 200 },
+    {
+        field: 'operate', title: '操作', align: 'center', width: 100,
+        formatter: function (value, row, index) {
+            var str =
+                '<a class="listA" href="javascript:show_time_input_box(' + index + ')">设置时间</a>';
+            return str;
+        }
+    }
+        ]];
+        var time_list = $("#TimeList");
+
+        var user_set_number = 0;
+        var user_set_time = new Array();
+
+        function show_time_input_box(index) {
+            $("#save_btn").unbind();
+
+            var row = time_list.datagrid('getRows')[index];
+            $("#time_input_box").dialog({
+                title: '设置文论第' + row["次数"] + '次起止时间',
+                width: 500,
+                height: 200,
+                top: 50,
+                left: 500,
+                modal: true
+            });
+            $("#time_input_box").dialog('open');//打开弹窗
+            $('#time_input_box').window('center');
+
+            $("#start_date").datetimebox("setValue", dateFormat(row["开始时间"], 'MM/dd/yyyy hh:mm:ss'));
+            $("#end_date").datetimebox("setValue", dateFormat(row["结束时间"], 'MM/dd/yyyy hh:mm:ss'));
+
+            $("#save_btn").on("click", function () {
+                var rows = time_list.datagrid('getRows');
+
+                var start = $("#start_date").datetimebox("getValue");
+                var end = $("#end_date").datetimebox("getValue");
+
+                if (start == "") {
+                    myMessage("请填写开始时间！");
+                    return;
+                }
+                if (end == "") {
+                    myMessage("请填写结束时间！");
+                    return;
+                }
+
+                rows[index]["开始时间"] = start;
+                rows[index]["结束时间"] = end;
+
+                time_list.datagrid('loadData', rows);
+
+                $("#time_input_box").dialog('close');//关闭弹框
+            });
+        }
+
+        //学院时间设置框
+        function acshow_time_input_box(index) {
+            $("#save_btn").unbind();
+
+            var row = $("#see").datagrid('getRows')[index];
+            $("#actime_input_box").dialog({
+                title: '设置文论第' + row["次数"] + '次起止时间',
+                width: 500,
+                height: 200,
+                top: 50,
+                left: 500,
+                modal: true
+            });
+            $("#actime_input_box").dialog('open');//打开弹窗
+            $('#actime_input_box').window('center');
+
+            $("#acstart_date").datetimebox("setValue", dateFormat(row["开始时间"], 'MM/dd/yyyy hh:mm:ss'));
+            $("#acend_date").datetimebox("setValue", dateFormat(row["结束时间"], 'MM/dd/yyyy hh:mm:ss'));
+
+            $("#acsave_btn").on("click", function () {
+                
+                var rows = $("#see").datagrid('getRows');
+
+                var start = $("#acstart_date").datetimebox("getValue");
+                var end = $("#acend_date").datetimebox("getValue");
+
+                if (start == "") {
+                    myMessage("请填写开始时间！");
+                    return;
+                }
+                if (end == "") {
+                    myMessage("请填写结束时间！");
+                    return;
+                }
+
+                rows[index]["开始时间"] = start;
+                rows[index]["结束时间"] = end;
+
+                $("#see").datagrid('loadData', rows);
+
+                $("#actime_input_box").dialog('close');//关闭弹框
+            });
+        }
+        //获取检测设置
+        function getDetection() {
+            $('.set_detection').hide();
+        
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetCheckCount&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+
+                    $("#set_number").textbox("setValue", data.rows[0]["检测次数"]);
+                    //仅文字....
+                    var stureports = $('input[name="stureport"]');
+                    $.each(stureports, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["报告单权限"]) {
+                            $(this).prop("checked", true);
+                        }
+                    })
+
+                    //检测模式
+                    var stureports = $('input[name="teacherheckStatic"]');
+                    $.each(stureports, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["检测模式"]) {
+                            $(this).prop("checked", true);
+                        }
+                    })
+
+                    //学生
+                    var sturss = $('input[name="sturs"]');
+                    $.each(sturss, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["检测结果"]) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+
+                    if (data.rows[0]["检测结果"] == 1) {
+                        $(".xuesheng").hide();
+                    };
+
+                    if (data.rows[0]["审核后检测"] == "1") {
+                        $("#auditing_checkbox").prop("checked", true);
+                    }
+                    else {
+                        $("#auditing_checkbox").prop("checked", false);
+                    }
+
+                    $('input[name="sturs"]').click(function () {
+                        if ($(this).val() == 1) {
+                            $(".xuesheng").hide(300);
+                        } else {
+                            $(".xuesheng").show(300);
+                        };
+                    });
+
+                    //教师
+                    var tearss = $('input[name="tears"]');
+                    $.each(tearss, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["教师检测结果"]) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+                    //教学秘书
+                    var secretary = $('input[name="secretary"]');
+                    $.each(secretary, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["教学秘书检测结果"]) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+                    //专业负责人
+                    var head = $('input[name="head"]');
+                    $.each(head, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["专业负责人检测结果"]) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+                    //院长
+                    var dean = $('input[name="dean"]');
+                    $.each(dean, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["院长检测结果"]) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+                    //学生是否能查看成绩
+                    var dean = $('input[name="student_score"]');
+                    $.each(dean, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["学生查看成绩"]) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+
+                    var inputs = $('input[name="qiyong"]');
+
+                    $.each(inputs, function (i, v) {
+                        if (v.defaultValue == data.rows[0]["启用"]) {
+                            $(this).prop("checked", true);
+                            if (data.rows[0]["启用"] == "1") {
+
+                                //$('#set_number').textbox('textbox').focus();
+
+                                $("#set_time_box").show();
+
+                                //$("#auditing_checkbox").prop("checked", true);
+
+                                if (data.rows[0]["是否启用时间"] == "1") {
+                                    if (data.rows[0]["是否院系检测时间"] == 1) {
+                                        $("#set_yes").prop("checked", true);
+                                    } else {
+                                        $("#set_yes").prop("checked", false);
+                                    }
+                                    $("#set_time_checkbox").prop("checked", true);
+
+                                    $("#time_box").show();
+
+                                    user_set_number = data.rows[0]["检测次数"];
+                                    user_set_time = [];
+                                    $.each(data.rows, function (i, v) {
+                                        user_set_time.push({ "次数": data.rows[i]["次数"], "开始时间": data.rows[i]["开始时间"], "结束时间": data.rows[i]["结束时间"] });
+                                    });
+                                    GteTableJson(time_list, time_columnData, user_set_time, false);
+                                } else {
+                                    $("#set_yes").attr({ "checked": false });
+                                    //$("#set_yes").attr({ "checked": false, "disabled": true });
+                                    $("#set_time_checkbox").prop("checked", false);
+                                    $("#time_box").hide();
+                                }
+
+                            } else {
+                                user_set_time = [];
+                                user_set_number = 0;
+                                $("#set_number").textbox({ readonly: true });
+                            }
+                        };
+                    });
+                    //获取检测设置
+                    GteTable(objectIdDetection, urlDetection, columnDataDetection, paramsDataDetection, idFieldDetection);//初始化列表
+
+                    $('.set_detection').show();
+                }
+            });
+        };
+
+        $("#set_detection").on("click", function () {
+           
+            var reg = /^[0-9]{1,}$/;
+            var set_number = $("#set_number").val();
+            if (set_number == 0 || !reg.test(set_number)) {
+                close_loading();
+                myMessage("请输入大于零的正整数！");           
+                return false;
+            };
+            if (planid==0||planid==""||planid==undefined||planid==null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+
+            //$.ajax({
+            //    url: "../Handler/UserHandler.ashx?action=GetUserRoleName",
+            //    type: "post",
+            //    dataType: "json",
+            //    async: false,//同步处理
+            //    success: function (data) {
+            //        if (data.isSuccess) {
+            //            var userInfo = data.dataList.userInfo;
+            //            if (userInfo[0]["状态"] == '2' || userInfo[0]["状态"] == '3') {
+            //                if (set_number > 3) {
+            //                    alert("试用和临时用户检测次数不能超过3次");
+            //                    return false;
+            //                }
+            //            }
+            //        };
+            //    }
+            //});
+
+            var temp_url_params = "";
+            if ($("#set_yes").prop("checked")) {//判断允许院系单
+                temp_url_params += "&check_yes=1";
+            };
+
+            if ($("#set_time_checkbox").prop("checked")) {
+                temp_url_params += "&checktime=1";
+
+                var list_data = time_list.datagrid("getRows");
+                var url_time = "&timestring=";
+                for (var i = 0; i < list_data.length; i++) {
+                    if (list_data[i]["开始时间"] == "") {
+                        myMessage("第" + list_data[i]["次数"] + "次没有填写开始时间！");
+                        return;
+                    }
+                    if (list_data[i]["结束时间"] == "") {
+                        myMessage("第" + list_data[i]["次数"] + "次没有填写结束时间！");
+                        return;
+                    }
+                    url_time += "$" + list_data[i]["次数"] + "," + list_data[i]["开始时间"] + "," + list_data[i]["结束时间"];
+                }
+
+                temp_url_params += url_time;
+            };
+            open_loading();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SaveCheckSet&sn=" + sn + "&planid=" + planid + "" + temp_url_params,
+                type: "post",
+                dataType: "json",
+                data: $("#SAset-box").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+                    getDetection();
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+
+        });
+        //-------------下部分列表----------------------------
+        //主页面列表
+        var columnDataDetection = [[
+            { field: '学院编号', align: 'center', title: '学院编号', width: 60 },
+            { field: '学院名称', align: 'center', title: '学院名称', width: 60 },
+            { field: '检测次数', align: 'center', title: '检测次数', width: 60 },
+            //{ field: '是否院系检测时间', align: 'center', title: '是否开启院系检测', width: 60 },
+            {
+                field: 'operate', title: '操作', align: 'center', width: 40,
+                formatter: function (value, row, index) {
+                    var str="";
+                    //var isopen = row["是否院系检测时间"];
+                    //if (isopen==1) {
+                    //    str += '<a class="listA" href="javascript:examine(\'' + index + '\')"  >查看</a>';
+                    //}
+                    //else {
+                    //    str += '<a class="listA" href="javascript:examine(\'' + index + '\')"  >设置</a>';
+                    //}
+                    str += '<a class="listA" href="javascript:examine(\'' + index + '\')"  >查看</a>';
+                   return str;
+                }
+            }
+        ]];
+        var objectIdDetection = $("#List");
+        var urlDetection = "../Handler/BaseSettingsHandler.ashx?action=GetCheckSetTimeList&sn=" + sn + "&planid=" + planid + "";
+        var paramsDataDetection = {
+            xymc: ""
+        };
+        var idFieldDetection = "显示模式";
+
+        // 主页面列表查询院系
+        function academy_search() {
+            var paramsDataDetection = {
+                xymc: $("#academy_Name").textbox('getText')
+            };
+            GteTable(objectIdDetection, urlDetection, columnDataDetection, paramsDataDetection, idFieldDetection);//初始化列表
+        };
+
+        //操作方法查看
+        function examine(index) {
+            var row = $("#List").datagrid("getData").rows[index];
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx",
+                data: {
+                    "action": "GetCheckCount",
+                    sn: sn,
+                    planid:planid,
+                    ID: row['ID'],
+                    xybh: row['学院编号']
+                },
+                dataType: "json",
+                type: "post",
+                success: function (data) {
+                    if (data.isSuccess) {
+
+                        var rank_Data = [[
+                          { field: '次数', align: 'center', title: '次数', width: 100 },
+                          { field: '开始时间', align: 'center', title: '开始时间', width: 250 },
+                          { field: '结束时间', align: 'center', title: '结束时间', width: 250 },
+                           {
+                               field: 'operate', title: '操作', align: 'center', width: 100,
+                               formatter: function (value, row, index) {
+                                   var str =
+                                       '<a class="listA" href="javascript:acshow_time_input_box(' + index + ')">设置时间</a>';
+                                   return str;
+                               }
+                           }
+                        ]];
+                        var rank = $("#see");
+                        GteTableJson(rank, rank_Data, data.rows, false);
+                        $("#consignorModel").dialog({ title: "查看" + row['学院名称'] + "检测时间" });
+                        $("#consignorModel").dialog('open').window('center');
+
+                        if (data.rows[0]["启用"] == "1") {
+                            if (data.rows[0]["是否启用时间"] == "1" && data.rows[0]["是否院系检测时间"] == "1") {
+                                $("#time_box,#set_Acdetection").show();
+                                user_set_time.splice(0, user_set_time.length)
+                                for (var i = 1 ; i <= data.rows[0]["检测次数"]; i++) {
+                                    user_set_time.push({ "次数": i, "开始时间": "", "结束时间": "" });
+                                };
+                                $.each(data.rows, function (i, v) {
+                                    user_set_time[i]["开始时间"] = v["开始时间"] ? v["开始时间"] : "";
+                                    user_set_time[i]["结束时间"] = v["结束时间"] ? v["结束时间"] : "";
+                                });
+                                $("#text_no").hide();
+                                $("#texttable").show();
+                                GteTableJson(rank, rank_Data, data.rows, false);
+                            } else {
+                               
+                                $("#texttable").hide();
+                                $("#text_no").show();
+                                $("#text_no").text("无权限设置");
+                            };
+                        } else {
+                            user_set_time = [];
+                            user_set_number = 0;
+                        };
+
+                      
+                    } else {
+                        myMessage(data.message);
+                    };
+                }
+            });
+        };
+
+        //操作方法 设置
+        //保存设置
+        $("#set_Acdetection").on("click", function () {
+          
+            var url_time = "&timestring=";
+            var list_data = $("#see").datagrid("getRows");
+            for (var i = 0; i < list_data.length; i++) {
+                if (list_data[i]["开始时间"] == "") {
+                    myMessage("第" + list_data[i]["次数"] + "次没有填写开始时间！");
+                    return;
+                };
+                if (list_data[i]["结束时间"] == "") {
+                    myMessage("第" + list_data[i]["次数"] + "次没有填写结束时间！");
+                    return;
+                };
+                url_time += "$" + list_data[i]["次数"] + "," + list_data[i]["开始时间"] + "," + list_data[i]["结束时间"];
+            };
+            open_loading();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SaveAcademiesCheckTime&sn=" + sn + "" + url_time,
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //console.log(data)
+                    myMessage(data.message);
+                 
+                    $('#List').datagrid('reload'); //重新加载
+                    //getDetection(); //获取检测设置
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+
+
+
+        //指导记录 开始
+        //获取指导记录
+        function GetGuide() {
+            $('.ProjectLog_set').hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetSystemTime&type=4&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        var inputs = $("input[name='ProjectLog']");
+                        $.each(inputs, function (i, v) {
+                            if (v.defaultValue == data.rows[0]["指导记录设置"]) {
+                                $(this).prop("checked", true);
+                                if (v.defaultValue == 0) {
+                                    $("#set_log_number").textbox({ readonly: true })//禁用文本
+                                } else {
+                                    //表示有次数
+                                    //放在缓存里
+                                    cache = data.rows;
+                                    $('#set_log_number').textbox('setValue', data.rows[0]["指导记录提交次数"]);
+                                    showTab(data.rows);//方法展现列表
+
+                                };
+                            };
+                        });
+                        $('.ProjectLog_set').show();
+                    } else {                      
+                        myMessage(data.message);
+                    };
+                }
+            });
+        };
+
+        $("#set_log_number").textbox({
+            onChange: function (newvalue, oldvalue) {
+                if (newvalue != oldvalue && $("#log_set").prop("checked")) {
+                    showTab("")//只要输入框值改变就 从新执行显示列表
+                };
+            }
+        });
+
+        //指导记录设置前操作
+        $("input[name='ProjectLog']").click(function () {
+            if ($(this).val() == 0) {
+                $("#set_log_number").textbox({ readonly: true })//禁用文本
+                $('#set_log_number').textbox('setValue', "");
+                $("#time_tow").hide();//隐藏框
+            } else {
+                $("#set_log_number").textbox({ readonly: false });//启用文本
+                $("#set_log_number").textbox({
+                    onChange: function (newvalue, oldvalue) {
+                        if (newvalue < 1 && $("#log_set").prop("checked")) {
+                            myMessage("请输入大于零的次数");
+                            return false;
+                        }
+                        if (newvalue != oldvalue && $("#log_set").prop("checked")) {
+                            showTab("")//只要输入框值改变就 从新执行显示列表
+                        } else if (newvalue != oldvalue && $("#no_log_set").prop("checked")) {
+                            $('#set_log_number').textbox('setValue', "");
+                        };
+                    }
+                });
+            };
+        });
+
+
+        var time_log_list = $("#boxTime");
+        var time_log_columnData = [[
+         { field: '次数', align: 'center', title: '次数', width: 100 },
+         { field: '开始时间', align: 'center', title: '开始时间', width: 200 },
+         { field: '结束时间', align: 'center', title: '结束时间', width: 200 },
+         {
+             field: 'operate', title: '操作', align: 'center', width: 100,
+             formatter: function (value, row, index) {
+                 var str = '<a class="listA" href="javascript:timefun(' + index + ')">设置时间</a>'; return str;
+             }
+         }]];
+
+        //显示方法
+        function showTab(data) {
+            $("#time_tow").show();
+            if (data.length) {
+                temp_log_data = data;
+            } else {
+                var temp_log_data = [];
+                for (var i = 1; i <= $('#set_log_number').textbox('getValue') ; i++) {
+                    temp_log_data.push({ "次数": i, "开始时间": "", "结束时间": "" });
+                };
+            };
+
+            GteTableJson(time_log_list, time_log_columnData, temp_log_data, false);
+        };
+
+        //点击设置时间
+        function timefun(index) {
+            $("#save_btn").unbind();//弹框里确定按钮
+            var row = time_log_list.datagrid('getRows')[index];
+            $("#start_date").datetimebox("setValue", dateFormat(row["开始时间"], 'MM/dd/yyyy hh:mm:ss'));//给弹框的时间组件赋值
+            $("#end_date").datetimebox("setValue", dateFormat(row["结束时间"], 'MM/dd/yyyy hh:mm:ss'));//给弹框的时间组件赋值
+
+            $("#time_input_box").dialog({
+                title: '设置文论第' + row["次数"] + '次起止时间',
+                showType: null,
+                style: {
+                },
+                modal: true
+            });
+            $("#time_input_box").dialog('open');//打开弹窗
+            $('#time_input_box').window('center');//位置
+            //弹框里确定按钮
+            $("#save_btn").on("click", function () {
+                var rows = time_log_list.datagrid('getRows');
+                var start = $("#start_date").datetimebox("getValue");//取得弹框时间的值
+                var end = $("#end_date").datetimebox("getValue");//取得弹框时间的值
+                if (start == "") {
+                    myMessage("请填写开始时间！");
+                    return;
+                };
+                if (end == "") {
+                    myMessage("请填写结束时间！");
+                    return;
+                };
+                rows[index]["开始时间"] = start;//如果值不为空赋给点击的行
+                rows[index]["结束时间"] = end;
+
+                time_log_list.datagrid('loadData', rows);
+
+                $("#time_input_box").dialog('close');
+            });
+        }
+
+        //提交指导记录
+        $("#ProjectLog_set").click(function () {
+            SetGuide();
+        });
+        //提交指导记录方法
+        function SetGuide() {
+            var qiyong = $("input[name='ProjectLog']:checked ").val();
+            if (qiyong == 1 && $('#set_log_number').textbox('getValue') == "") {
+                myMessage("提交失败，请设置次数，并填写时间后再提交!");
+                return false;
+            }
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            var cishu;
+            var timestring = "";
+            if (qiyong == 1) {
+                cishu = $('#set_log_number').textbox('getValue');
+                var rows = $("#boxTime").datagrid('getRows');
+                for (var i = 1; i <= cishu; i++) {
+                    if (!rows[i - 1]["开始时间"] || !rows[i - 1]["结束时间"]) {
+                        myMessage("请输入第" + i + "次时间！");
+                        return false;
+                    };
+                    timestring += '$' + i + ',' + rows[i - 1]["开始时间"] + ',' + rows[i - 1]["结束时间"];
+                };
+            };
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SaveSystemTime&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    qiyong: qiyong,
+                    cishu: cishu,
+                    type: 4,//指导记录
+                    timestring: timestring
+                },
+                success: function (data) {
+                    GetGuide();
+                    myMessage(data.message);
+                }
+            });
+        };
+        //指导记录 完成
+
+        //获取课题申报模式 、 教学秘书权限 、获取任务书审核模式、获取任务书提交模式、盲评、获取是否启用开题答辩
+        function GetProject() {
+            $('#shenbao_btn').hide();
+            $('#btn_jxmsqx').hide();
+            $('#taskbook_type').hide();
+            $('#jurisdiction_btn').hide();
+            $('#blind_btn').hide();
+            $('#ktdb_btn').hide();
+            $('#sqdb_btn').hide();
+            sqdb_btn
+            //btn_jxmsqx
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetProjectType&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        //获取任务书审核模式
+                        var inputs = $('#box_shms input[name="moshi"]');
+                        $.each(inputs, function (i, v) {
+                            if (v.defaultValue == data.rows[0]["任务书模式"]) $(this).prop("checked", true);
+                        });
+                        //获取任务书审核模式完成
+
+                        //获取任务书提交模式
+                        var inputs = $('#box_tijiao input[name="tijiao"]');
+                        $.each(inputs, function (i, v) {
+                            if (v.defaultValue == data.rows[0]["任务书提交模式"]) $(this).prop("checked", true);
+                        });
+                        //获取任务书提交模式完成
+
+                        //获取盲评
+                        var inputs = $('.mangping>input[name="moshi"]');
+                        $.each(inputs, function (i, v) {
+                            if (v.defaultValue == data.rows[0]["盲评设置"]) {
+                                $(this).prop("checked", true);
+                            };
+                        });
+                        //获取盲评完成
+
+                        //超权限检测和最终版提交的权限设置的接收。
+                        $("#jurisdiction_control input[name='radio']").eq(data.rows[0]['教学秘书超权限检测与最终版提交']).prop("checked", true);
+                        $("#jurisdiction_control input[name='yuanzhangradio']").eq(data.rows[0]['院长超权限检测与最终版提交']).prop("checked", true);
+                        //超权限检测和最终版提交的权限设置的接收完成。
+
+                        //获取启用开题答辩
+                        var inputs = $('.kaitidabian>input[name="ktdb"]');
+                        $.each(inputs, function (i, v) {
+                            if (v.defaultValue == data.rows[0]["启用开题答辩"]) {
+                                $(this).prop("checked", true);
+                            };
+                        });
+                        //获取启用开题答辩完成
+
+                        //获取开启申请答辩
+                        var inputs = $('.shenqingdabian>input[name="sqdb"]');
+                        $.each(inputs, function (i, v) {
+                            if (v.defaultValue == data.rows[0]["开启申请答辩"]) {
+                                $(this).prop("checked", true);
+                            };
+                        });
+                        //获取开启申请答辩完成
+
+
+                        if (data.rows[0]["课题模式"] == 0) {
+                            $('#checkboxBOX  input[type="checkbox"]').prop("checked", true);
+                        };
+                        if (data.rows[0]["课题模式"] == 1) {
+                            $('#checkboxBOX  input[type="checkbox"]').eq(0).prop("checked", true);
+
+                        };
+                        if (data.rows[0]["课题模式"] == 2) {
+                            $('#checkboxBOX  input[type="checkbox"]').eq(1).prop("checked", true);
+                        };
+                        //教学秘书权限 获取
+                        $("input[name='danxuan']").eq(data.rows[0]["申请教学秘书修改课题"]).prop("checked", true);//单选
+                        if (data.rows[0]["教学秘书是否可以解除双选"] == 1) {
+                            $("#jxms_two").prop("checked", true);
+                        } else {
+                            $("#jxms_two").prop("checked", false);
+                        };
+                        if (data.rows[0]["教学秘书可以修改课题"] == 1) {
+                            $("#jxms_three").prop("checked", true);
+                        } else {
+                            $("#jxms_three").prop("checked", false);
+                        };
+                        $('#shenbao_btn').show();
+                        $('#btn_jxmsqx').show();
+                        $('#taskbook_type').show(); 
+                        $('#jurisdiction_btn').show();
+                        $('#blind_btn').show();
+                        $('#ktdb_btn').show();
+                        $('#sqdb_btn').show();
+                    };
+                }
+            }); //获得申报模式完毕
+        }
+        //获取课题申报模式 、 教学秘书权限 、获取任务书审核模式、获取任务书提交模式、盲评完成
+        function GetProjectLimit() {
+            $('#teacher_tasknumber').hide();
+            //获取指导教师申报课题数
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetLimitData&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    //close_loading();
+                    if (data.isSuccess) {
+                        $("#limit").textbox("setValue", data.rows[0]["上限值"]);
+                        $("#txt_shuangxuan").textbox("setValue", data.rows[0]["双选关系数"]);
+                        $("#txt_ketishu").textbox("setValue", data.rows[0]["学生选题数"]);
+                        $("#txt_xueshengshu").textbox("setValue", data.rows[0]["每一课题学生选择数"]);
+                        $('#teacher_tasknumber').show();
+                    };
+                }
+            });
+        };
+
+        //申报课题模式设置
+        $("#shenbao_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            var tmp;
+            if ($("#laoshi").prop("checked")) tmp = 1;
+
+            if ($("#xuesheng").prop("checked")) tmp = 2;
+
+            if ($("#laoshi").prop("checked") && $("#xuesheng").prop("checked")) tmp = 0;
+
+            if (!$("#laoshi").prop("checked") && !$("#xuesheng").prop("checked")) {
+                myMessage("至少选一项");            
+                return false;
+            };
+            open_loading();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetProjectType&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: { moshi: tmp },
+                success: function (data) {
+                    myMessage(data.message);
+                    //alert(data.message);
+                    GetProject();
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+
+        });
+        //申报课题模式设置完成
+
+
+        //指导教师申报课题数设置
+        $("#teacher_tasknumber").click(function () {
+
+            open_loading();
+            //var reg = new RegExp("^[0-9]+$");
+            //if (isNaN(tmp)) {
+            //    close_loading();
+            //    alert("上限值是数字类型");
+            //    return false;
+            //};
+            var tmp = $("#limit").val();
+            if (tmp.length > 0) {
+                if (!isNumber(tmp) || tmp == 0) {
+                    close_loading();
+                    myMessage("每一位教师最多可以申报几个课题只能是整数只能是大于0的整数!");
+                    return false;
+                }
+            }
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            //var shuangxuan = $("#txt_shuangxuan").val();
+            //if (shuangxuan.length > 0) {
+            //    if (!isNumber(shuangxuan)) {
+            //        close_loading();
+            //        alert("每一位教师最多可以达成几个双选关系只能是整数");
+            //        return false;
+            //    };
+            //}
+            var ketishu = $("#txt_ketishu").val();
+            if (ketishu.length > 0) {
+                if (!isNumber(ketishu) || ketishu == 0) {
+                    close_loading();
+                    myMessage("学生选题时最多可以选择几个课题只能是大于0的整数!");
+                    return false;
+                };
+            }
+            var xueshengshu = $("#txt_xueshengshu").val();
+            if (xueshengshu.length > 0) {
+                if (!isNumber(xueshengshu) || xueshengshu == 0) {
+                    close_loading();
+                    myMessage("每一课题最多几个学生选择只能是大于0的整数!");
+
+                    return false;
+                };
+            }
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetLimitData&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    ShangXian: tmp,
+                    //shuangxuan: shuangxuan,
+                    ketishu: ketishu,
+                    xueshengshu: xueshengshu
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                    GetProjectLimit();
+
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+
+        });
+        //指导教师申报课题数设置完成
+
+        //设置教学秘书
+        $("#btn_jxmsqx").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            var jxms_two = 0;
+            var jxms_three = 0;
+            if ($("#jxms_two").prop("checked")) {
+                jxms_two = 1;
+            };
+            if ($("#jxms_three").prop("checked")) {
+                jxms_three = 1;
+            };
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetSecretaryProject&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    jxms_one: $("input[name='danxuan']:checked").val(),//得到单选的值
+                    jxms_two: jxms_two,
+                    jxms_three: jxms_three
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                    GetProject();
+                }
+            });
+        });
+
+
+        //任务书审核模式
+        $("#taskbook_type").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            open_loading();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetTaskType&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#shenhemoshi").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+        //任务书审核模式完成
+
+        //超权限检测和最终版提交的权限设置
+        $("#jurisdiction_btn").click(function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            open_loading();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetSecretaryCheck&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    jxms_check: $("#jurisdiction_control input[name='radio']:checked").val(),
+                    yuanzhang_check: $("#jurisdiction_control input[name='yuanzhangradio']:checked").val()
+                },
+                success: function (data) {
+                    //GetProject();
+                    myMessage(data.message);
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+
+        //盲评设置
+        $("#blind_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            open_loading();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetMangPing&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#blind").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+        //盲评设置完成
+
+        //获得成绩模式
+        $("#set_results_numbers").textbox({
+            onChange: function (newvalue, oldvalue) {
+                if (newvalue < 1) {
+                    myMessage("请输入大于零的次数");
+                    return false;
+                }
+                if (newvalue != oldvalue) {
+                    showresultsTab("")//只要输入框值改变就 从新执行显示列表
+                } else if (newvalue != oldvalue) {
+                    $('#set_results_numbers').textbox('setValue', "");
+                };
+            }
+        });
+        var time_results_list = $("#boxResults");
+        var time_results_columnData = [[
+         //{ field: '类型', align: 'center', title: '次数', width: 100 },
+         { field: '分级名称', align: 'center', title: '分级名称', width: 200 },
+         { field: '开始分数', align: 'center', title: '开始分数', width: 200 },
+         { field: '结束分数', align: 'center', title: '结束分数', width: 200 },
+         {
+             field: 'operate', title: '操作', align: 'center', width: 200,
+             formatter: function (value, row, index) {
+                 var str = "";
+                 str += '<a class="listA" href="javascript:fenshuduan(' + index + ')">设置分数段</a>&nbsp;|&nbsp;';
+                 str += '<a class="listA" onclick="delfenshuduan(' + row["ID"] + ',' + index + ')" >删除</a>';
+                 return str;
+             }
+         }]];
+
+        //显示方法
+        function showresultsTab(data) {
+            $("#results_tow").show();
+            if (data.length) {
+                temp_results_data = data;
+            } else {
+                var temp_results_data = [];
+                var count= $('#set_results_numbers').textbox('getValue');
+                for (var i = 1; i <= count ; i++) {
+                    if (i==1) {
+                        temp_results_data.push({ "类型": i, "分级名称": "优秀", "开始分数": "90", "结束分数": "100" });
+                    }
+                    else if (i == 2) {
+                        temp_results_data.push({ "类型": i, "分级名称": "良好", "开始分数": "80", "结束分数": "89.9" });
+                    }
+                    else if (i == 3) {
+                        temp_results_data.push({ "类型": i, "分级名称": "中等", "开始分数": "70", "结束分数": "79.9" });
+                    }
+                    else if (i == 4) {
+                        temp_results_data.push({ "类型": i, "分级名称": "及格", "开始分数": "60", "结束分数": "69.9" });
+
+                    }
+                    else if (i == 5) {
+                        temp_results_data.push({ "类型": i, "分级名称": "不及格", "开始分数": "0", "结束分数": "59.9" });
+                    }
+                    else {
+                        temp_results_data.push({ "类型": i, "分级名称": "", "开始分数": "", "结束分数": "" });
+                    }
+
+                    //temp_results_data.push({ "类型": i, "分级名称": "", "开始分数": "", "结束分数": "" });
+                };
+            };
+            GteTableJson(time_results_list, time_results_columnData, temp_results_data, false);
+        };
+        //点击设置分数段
+        function fenshuduan(index) {
+            $("#scoresave_btn").unbind();//弹框里确定按钮
+            var row = time_results_list.datagrid('getRows')[index];
+            $("#level_name").textbox("setValue", row["分级名称"]);
+            $("#start_score").textbox("setValue", row["开始分数"]);
+            $("#end_score").textbox("setValue", row["结束分数"]);
+            $("#results_input_box").dialog({
+                title: '设置第' + (index + 1) + '次分数段',
+                showType: null,
+                style: {
+                },
+                modal: true
+            });
+            $("#results_input_box").dialog('open');//打开弹窗
+            $('#results_input_box').window('center');//位置
+            //弹框里确定按钮
+            $("#scoresave_btn").on("click", function () {
+                var rows = time_results_list.datagrid('getRows');
+                var name = $("#level_name").textbox("getValue");//取得弹框分数段的名称
+                var start = $("#start_score").textbox("getValue");//取得弹框开始分数的值
+                var end = $("#end_score").textbox("getValue");//取得弹框结束分数的值
+                if (name == "") {
+                    myMessage("请填写分级名称！");
+                    return;
+                };
+                if (getstrLen(name) > 10) {
+                    myMessage("分级名称请小于10个字符！");
+                    return;
+                }
+                if (!verifyScore(start)) {
+                    myMessage("起始分数不能为空,最多有1位小数！");
+                    return;
+                }
+                if (!verifyScore(end)) {
+                    myMessage("结束分数不能为空,最多有1位小数！");
+                    return;
+                }
+                if (parseFloat(start) > parseFloat(end)) {
+                    myMessage("起始分数不能小于结束分数！");
+                    return;
+                }
+                if (parseFloat(start) < 0 || parseFloat(start) > 100) {
+                    myMessage("请填写0-100的开始分数！");
+                    return;
+                }
+                if (parseFloat(end) < 0 || parseFloat(end) > 100) {
+                    myMessage("请填写0-100的结束分数！");
+                    return;
+                }
+                if (row["类型"] == "1") {
+                    if (parseFloat(end) != "100") {
+                        myMessage("请填写结束分数为100！");
+                        return;
+                    }
+                }
+                var cishu = $('#set_results_numbers').textbox('getValue');
+                if (row["类型"] == cishu) {
+                    if (parseFloat(start) != "0") {
+                        myMessage("请填写开始分数为0！");
+                        return;
+                    }
+                }
+                rows[index]["分级名称"] = name;
+                rows[index]["开始分数"] = start;
+                rows[index]["结束分数"] = end;
+
+                time_results_list.datagrid('loadData', rows);
+
+                $("#results_input_box").dialog('close');
+            });
+        }
+        function getPerformance() {
+            $('#performance_set').hide();
+            //获得成绩模式
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetScoringType&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {},
+                success: function (data) {
+                    if (data.isSuccess) {
+                        var scoringtypes = $('#class_pattern input[name="scoringtype"]');
+                        $.each(scoringtypes, function (i, v) {
+                            if (v.defaultValue == data.rows[0]["成绩模式"]) {
+                                $(this).prop("checked", true);
+                            };
+                        });
+
+                        if (data.rows[0]["成绩模式"] == 2) {
+                            $(".chengji").hide();
+                        } else {
+
+                            $('#set_results_numbers').textbox('setValue', data.total);
+                            showresultsTab(data.rows);//方法展现列表
+
+                        };
+                        $('#class_pattern input[name="scoringtype"]').click(function () {
+                            if ($(this).val() == 2) {
+                                $(".chengji").hide(300);
+                            } else {
+                                $(".chengji").show(300);
+                            };
+                        });
+
+                    };
+                    $('#performance_set').show();
+                }
+            });
+        };
+
+        //成绩模式设置
+        $("#performance_set").click(function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            var cishu;
+            var scorestring = "";
+            if (!$('#fsms').prop("checked")) {
+                cishu = $('#set_results_numbers').textbox('getValue');
+                if (cishu == "" || cishu == undefined || cishu == null) {
+                    myMessage("分数段个数不能为空！");
+                    return;
+                }
+                var rows = $("#boxResults").datagrid('getRows');
+                for (var i = 1; i <= cishu; i++) {
+                    if (i == cishu) {
+                        if (rows[i - 1]["开始分数"] != 0 || rows[i - 1]["结束分数"] == "" || rows[i - 1]["分级名称"] == "") {
+                            myMessage("请正确输入第" + i + "次成绩和分级名称，开始分数应为0");
+                            return false;
+                        }
+                    } else {
+                        if (rows[i - 1]["开始分数"] == "" || rows[i - 1]["结束分数"] == "" || rows[i - 1]["分级名称"] == "") {
+                            myMessage("请输入第" + i + "次成绩和分级名称！");
+                            return false;
+                        }
+                    }
+
+                    scorestring += '$' + i + ',' + rows[i - 1]["开始分数"] + ',' + rows[i - 1]["结束分数"] + ',' + rows[i - 1]["分级名称"];
+                };
+            };
+            open_loading();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetScoringType&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    scoringtype: $("#class_pattern").serialize().split("=")[1],
+                    score: scorestring
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+
+        });
+
+        //删除分数段
+        function delfenshuduan(id, index) {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            var rows = $("#boxResults").datagrid('getRows');
+         
+            if ((index + 1) == rows.length) {
+                myMessage("不能删除最后一行分数段！");
+                return false;
+            }
+            if (index==0) {
+                myMessage("不能删除第一行分数段！");
+                return false;
+            }
+            if (!confirm("确定要删除吗？")) {
+                return;
+            }
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "DelScoring",
+                    id: id,
+                    planid: planid,
+                    sn: sn
+                },
+                success: function (data) {
+                    myMessage(data.message);               
+                    getPerformance();
+                }
+            });
+
+        }
+        //成绩模式设置完成   
+
+        //启用开题答辩
+        $("#ktdb_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            open_loading();          
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetOpeningReply&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",          
+                data: {
+                    ktdb: $("input[type='radio'][name='ktdb']:checked").val()
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                }
+            });
+        });
+        //启用开题答辩完成
+
+        //启用申请答辩
+        $("#sqdb_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            open_loading();
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetApplyReply&sn=" + sn + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    sqdb: $("input[type='radio'][name='sqdb']:checked").val()
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                }
+            });
+        });
+        //申请答辩完成
+
+        //整数
+        function isInt(str) {
+            var g = /^-?\d+$/;
+            return g.test(str);
+        }
+        //保留两位小数正数
+        function isfloat(str) {
+            var reg = /^\+?(\d*\.\d{2})$/;
+            return reg.test(str);
+        }
+        //获取字符串长度（汉字算两个字符，字母数字算一个）
+        function getByteLen(val) {
+            var len = 0;
+            for (var i = 0; i < val.length; i++) {
+                var a = val.charAt(i);
+                if (a.match(/[^\x00-\xff]/ig) != null) {
+                    len += 2;
+                }
+                else {
+                    len += 1;
+                }
+            }
+            return len;
+        }
+        //获取字符串长度（汉字算两个字符，字母数字算两个）
+        function getstrLen(val) {
+            var len = 0;
+            for (var i = 0; i < val.length; i++) {
+                var a = val.charAt(i);
+                if (a.match(/[^\x00-\xff]/ig) != null) {
+                    len += 1;
+                }
+                else {
+                    len += 1;
+                }
+            }
+            return len;
+        }
+     
+
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <title>list</title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.signalR-2.2.2.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../signalr/hubs?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <style>
+        #ProgressBarBox {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 9999;
+        }
+
+        .ProgressBar {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -200px;
+            width: 400px;
+            background: #fff;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 10px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <p id="tipsDetail">尚未设置标准库！</p>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学校编号：</span>
+                        </dt>
+                        <dd>
+                            <input id="schoolNum" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学校名称：</span>
+                        </dt>
+                        <dd>
+                            <input id="schoolName" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>配置状态：</span>
+                        </dt>
+                        <dd>
+                            <select id="DatabaseState" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" />
+                        </dd>
+                    </dl>
+
+                </li>
+
+            </ul>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <input class="formBtn" id="allSchool" type="button" value="同步升级全部学校" style="display:none;" />
+            <input class="formBtn margl" id="selectSchool" type="button" value="同步升级选中学校" style="display:none;" />
+        </div>
+        <!-- 列表 -->
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+    <div id="ProgressBarBox" style="display: none;">
+        <div class="ProgressBar">
+            <div id="ProgressBar" class="easyui-progressbar" style="width:400px;"></div>
+        </div>
+    </div>
+
+    <!-- 创建数据库  -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="createdModel" class="easyui-dialog" data-options="closed:true" style=" width:400px; height: 200px; text-align:center;">
+            <ul class="clearfix">
+                <li class="clearfix margt">
+                    <div style="width:160px; float:left; text-align:right;">数据库服务器IP：</div>
+                    <div style="width:200px; float:left; text-align:left;"><select id="databaseIp" class="easyui-combobox" style="width:170px;" editable="false"></select> </div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:160px; float:left; text-align:right;">是否删除同名数据库：</div>
+                    <div id="delDataBase" style="width:200px; float:left; text-align:left;">
+                        <input type="radio" name="delDataBase" id="shi" value="1" /><label for="shi"> 是</label>
+                        <input class="margl" type="radio" name="delDataBase" id="fou" value="0" checked="checked" /><label for="fou">否</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+  <script th:inline="none">
+      //用户配置服务状态
+      var managers_databasestate = [
+         { name: "全部", value: '0', selected: true },
+         { name: "未配置", value: '1' },
+         { name: "已配置", value: '2' }
+      ];
+
+      var schoolNumText = "";
+      var schoolNameText = "";
+      $(function () {
+          // 配置状态
+          $("#DatabaseState").combobox({
+              valueField: 'value',
+              textField: 'name',
+              data: managers_databasestate
+          });
+
+
+          // 数据库IP
+            $.ajax({
+                url: "../Handler/getDatabaseIp",
+                type: "post",
+                dataType: "json",
+                success: function (datas) {
+                    var managers_database = datas.dataList.split(',');
+                    var myArray = [{ name: '选择', value: 0 }];
+                    for (var i = 0; i < managers_database.length; i++) {
+                        myArray.push({ name: managers_database[i], value: managers_database[i] });
+                    }
+                    $("#databaseIp").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+                }
+            });
+
+
+            //查询按钮
+            $("#search").on("click", function () {
+                GetDbList();
+            });
+
+            $("#search").trigger("click");
+
+            progressHub();
+        });
+
+        /**
+         * 加载数据库列表
+         */
+        function GetDbList() {
+            var columnData = [[
+                { field: 'MID', checkbox: true },
+                { field: '学校编号', align: 'center', title: '学校编号', width: 40 },
+                { field: '大学名称', align: 'center', title: '学校名称', width: 40 },
+                {
+                    field: '操作', align: 'center', title: '操作', width: 40,
+                    formatter: function (value, row, index) {
+                        var str = '';
+                        if (row["HasDatabase"] == 0) {
+                            str = '<a class="listA" href="javascript:createDataBase(' + index + ')">创建数据库</a>';
+                        } else {
+                            if (checkValIsUndefinedOrNull(schoolNumText)) {
+                                str = '<a class="listA" href="javascript:setStandardLibrary(' + index + ')">设为标准库</a>';
+                            }
+                            if (!checkValIsUndefinedOrNull(schoolNumText) && schoolNumText == row["学校编号"]) {
+                                str = '<a class="listA" href="javascript:clearStandardLibrary(' + index + ')">取消</a>';
+                            }
+                            if (!checkValIsUndefinedOrNull(schoolNumText) && schoolNumText != row["学校编号"]) {
+                                str = '<a class="listA" href="javascript:setStandardLibrary(' + index + ');">设为标准库</a>';
+                                str += '<a class="listA margl" href="javascript:openframe(\'' + row["学校编号"] + '与' + schoolNumText + '比较\',\'DataBase/CompareResult.html?oldSchoolNum=' + row["学校编号"] + '&newSchoolNum=' + schoolNumText + '\',false);">与标准库比较</a>';
+                            }
+                        }
+                        return str;
+                    }
+                }
+            ]];
+            var objectId = $("#list");
+            var url = "../Handler/DatabaseHandler";
+            var paramsData = {
+                action: "GetDbList",
+                sn: 1,
+                schoolNum: $("#schoolNum").textbox("getText"),
+                schoolName: $("#schoolName").textbox("getText"),
+                databasestate: $("#DatabaseState").combobox("getValue")
+            };
+            var idField = "MID";
+
+            // 加载列表
+            GteTable(objectId, url, columnData, paramsData, idField, true);
+        };
+        
+        // 设置标准库
+        function setStandardLibrary(index) {
+            schoolNumText = $("#list").datagrid("getData").rows[index]["学校编号"];
+            schoolNameText = $("#list").datagrid("getData").rows[index]["大学名称"]
+            var tempText = "<span style='font-weight: 700; font-size: 18px; color: #f00;'>"+schoolNameText +"("+ schoolNumText + ")</span>";
+            $("#tipsDetail").html("设置学校( " + tempText + " )为标准库！");
+            $('#list').datagrid('reload');//重新加载
+            $('#list').datagrid("unselectAll");
+        };
+
+        // 取消
+        function clearStandardLibrary(index) {
+            schoolNumText = "";
+            $("#tipsDetail").html("尚未设置标准库！");
+            $('#list').datagrid('reload');//重新加载
+            $('#list').datagrid("unselectAll");
+        };
+
+        // 升级全部学校
+        $("#allSchool").on("click", function () {
+            if (checkValIsUndefinedOrNull(schoolNumText)) {
+                myMessage("尚未设置标准库，不能进行升级。");
+                return;
+            }
+            var data = {
+                action: "UpdateDatabase",
+                sn:1,
+                newSchoolNum: schoolNumText,
+                schoolNum: $("#schoolNum").textbox("getValue"),
+                schoolName: $("#schoolName").textbox("getValue"),
+                databasestate: $("#DatabaseState").combobox("getValue")
+            }
+            updateSchoolLib(data,"您确定要升级全部学校吗？");
+        });
+
+        // 升级选中学校
+        $("#selectSchool").on("click", function () {
+            if (checkValIsUndefinedOrNull(schoolNumText)) {
+                myMessage("尚未设置标准库，不能进行升级。");
+                return;
+            };
+            var data = $('#list').datagrid('getSelections');
+            var chosenNums = "";
+            var chosenText = "";
+            for (var i = 0; i < data.length; i++) {
+                chosenNums += data[i]["MID"] + ",";
+                chosenText += data[i]["大学名称"] + "(" + data[i]["学校编号"] + ")" + ",";
+            }
+            if (chosenNums.length <= 0) {
+                myMessage("请至少选择一个学校进行升级！")
+                return;
+            }
+            chosenNums = chosenNums.substring(0, chosenNums.length - 1);
+            chosenText = chosenText.substring(0, chosenText.length - 1);
+
+            var data = {
+                action: "UpdateDatabase",
+                sn:1,
+                newSchoolNum: schoolNumText,
+                chosenNums: chosenNums
+            }
+            updateSchoolLib(data, "您确定要升级学校（" + chosenText + "）吗？");
+        });
+
+        // 升级
+        function updateSchoolLib(data, text) {
+            if ($("#delmessagebox").html() == undefined || $("#delmessagebox").html() == "") {
+                $("body").append('<div id="delmessagebox" class="easyui-dialog" style="width:500px;height:300px; padding:10px;" data-options="closed:true"></div>');
+            }
+
+            $('#delmessagebox').text(text);
+            $('#delmessagebox').dialog({
+                title: '同步升级学校',
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $("#ProgressBarBox").show();
+                        $('#ProgressBar').progressbar({ value: 0 });
+                        $.ajax({
+                            url: "../Handler/DatabaseHandler.ashx",
+                            data: data,
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                $("#delmessagebox").dialog("close");
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $('#list').datagrid('reload');//重新加载
+                                    $('#list').datagrid("unselectAll");
+                                } 
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            },
+                            complete: function () {
+                                $("#ProgressBarBox").hide();
+                                $('#ProgressBar').progressbar({ value: 0 });
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#delmessagebox").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#delmessagebox").dialog("open");
+            $('#delmessagebox').window('center');
+        };
+
+      //创建数据库
+        function createDataBase(index) {
+            $("#databaseIp").combobox("setValue", 0);
+            $("#fou").prop("checked", "checked");
+            $("#createdModel").dialog({
+                title: "创建数据库",
+                buttons: [{
+                    text: '确定', handler: function () {
+                        if (checkValIsUndefinedOrNull(schoolNumText)) {
+                            myMessage("尚未设置标准库,不能创建数据库！");
+                            return;
+                        }
+                        if (checkValIsUndefinedOrNull($("#databaseIp").combobox("getValue")) || $("#databaseIp").combobox("getValue") == 0) {
+                            myMessage("数据库服务器IP不能为空");
+                            return;
+                        }
+                        $.ajax({
+                            url: "../Handler/CreateDataBase",
+                            type: "post",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify({
+                                newSchoolNum: schoolNumText,
+                                sn: 1,
+                                oldSchoolNum: $("#list").datagrid("getData").rows[index]["学校编号"],
+                                oldServerIp: $("#databaseIp").combobox("getValue"),
+                                delSameDb: $("#delDataBase input[name='delDataBase']:checked").val()
+                            }),
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                    $("#createdModel").dialog("close");
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            },
+                            complete: function () {
+                                //$("#ProgressBarBox").hide();
+                                //$('#ProgressBar').progressbar({ value: 0 });
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消', handler: function () {
+                        $("#createdModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+
+            $("#createdModel").dialog('open');
+            $('#createdModel').window('center');
+        }
+
+      /**
+       * 更新数据库进度条
+       */
+        function progressHub() {
+            var myHub = $.connection.progressHub;
+            var progressBarBox = $("#ProgressBarBox");
+            myHub.client.setProgress = function (value) {
+                if (value <= 100) {
+                    if (progressBarBox.is(":hidden")) {
+                        //progressBarBox.show();
+                    }
+                    $('#ProgressBar').progressbar({ value: value });
+                }
+                if (value > 100) {
+                    $("#ProgressBarBox").hide();
+                    $('#ProgressBar').progressbar({ value: 0 });
+                }
+            };
+
+            $.connection.hub.start().done(function () {
+                $("#allSchool").show();
+                $("#selectSchool").show();
+            }).fail(function () {
+                alert("SignalR连接服务器失败，无法执行批量升级操作");
+            });
+        }
+    </script>
+</body>
+</html>

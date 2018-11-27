@@ -1,0 +1,1695 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <title>自定义审核</title>
+    <style>
+        .designsteps_clear{
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            right: 50px;
+            top: 8px;
+            background: url("../Themes/default/images/clear_bg.png") no-repeat -27px 0;
+        }
+        .designsteps_clear:hover{
+            background: url("../Themes/default/images/clear_bg.png") no-repeat 0 0;
+        }
+        .designsteps_compile{
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            right: 80px;
+            top: 8px;
+            background: url("../Themes/default/images/compile_bg.png") no-repeat -27px 0;
+        }
+        .designsteps_compile:hover{
+            background: url("../Themes/default/images/compile_bg.png") no-repeat 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 10px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <p>1.&nbsp;</p>
+        </div>
+    </div>
+    <div class="gxf_statistics">
+        <div class="gxf_statistics_navBar">
+            <ul class="clearfix">
+                <li>
+                    <a id="statisticsByAudit" class="selected" href="javascript:statisticsByAudit();">流程管理</a>
+                </li>
+                <li>
+                    <a id="statisticsBySubmitter" href="javascript:statisticsBySubmitter();">字段管理</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="gxf_statistics_container">
+        <!--  ====================== 流程管理 ========================  -->
+        <div class="main">
+            <div class="rightbox clearfix">
+                <ul class="form clearfix">
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>名称：</span>
+                            </dt>
+                            <dd>
+                                <input id="allAudit_Name" style="width:170px;" class="easyui-textbox" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>类型：</span>
+                            </dt>
+                            <dd>
+                                <select id="allAudit_Type" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>状态：</span>
+                            </dt>
+                            <dd>
+                                <select id="allAudit_State" class="easyui-combobox" style="width:170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>  &nbsp;</span>
+                            </dt>
+                            <dd>
+                                <input class="formBtn" id="btn_allAudit_search" type="button" value="查询" />
+                                <input class="formBtn margl" id="btn_add" type="button" value="添加" />
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="gxf_studentList_tabs clearfix">
+                <table id="allAudit_list" style="width:100%; border: 1px solid #ccc"></table>
+            </div>
+        </div>
+        <!--  ====================== 字段管理 =========================  -->
+        <div class="main">
+            <div class="rightbox clearfix">
+                <ul class="form clearfix">
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>名称：</span>
+                            </dt>
+                            <dd>
+                                <input id="field_Name" style="width:170px;" class="easyui-textbox" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>英文名称：</span>
+                            </dt>
+                            <dd>
+                                <input id="field_English_Name" style="width:170px;" class="easyui-textbox" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>类型：</span>
+                            </dt>
+                            <dd>
+                                <select id="field_Type" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>状态：</span>
+                            </dt>
+                            <dd>
+                                <select id="field_State" class="easyui-combobox" style="width:170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span> &nbsp;</span>
+                            </dt>
+                            <dd>
+                                <input class="formBtn" id="btn_field_search" type="button" value="查询" />
+                                <input class="formBtn margl" id="btn_field_add" type="button" value="添加" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <input class="formBtn margl" id="btnAddCommonAttrs" type="button" value="一键添加常用字段" onclick="addCommonAttrs()" />
+                            </dt>
+                            <dd>
+                                <span> &nbsp;</span>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="gxf_studentList_tabs clearfix">
+                <table id="field_list" style="width:100%; border: 1px solid #ccc"></table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main" style="overflow:hidden; margin-top: -5px;">
+        
+    </div>
+
+    <!--院系专业模板  -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="AcademiesModel" class="easyui-dialog" data-options="closed:true" style="width:1000px; height: 500px;text-align:left; padding: 5px;">
+            <div id="Academies_Model" style=" padding: 8px; border: 1px solid #ccc; background-color: #fafafa;">
+                <span style="margin-right: 10px;">类型：</span><select id="Academies_Type" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                <input id="Academies_all" type="radio" name="Academies" class="margl" value="0" checked="checked" /><label for="Academies_all">全校</label>
+                <input id="Academies_part" type="radio" name="Academies" class="margl" value="1" /><label for="Academies_part">部分院系</label>
+            </div>
+            <ul id="Academies_Box" style="border: 1px solid #ccc; border-top: none; background-color: #fafafa; padding: 10px 20px 0 20px; display: none;"></ul>
+        </div>
+    </div>
+
+    <!--添加绑定课题类型弹框-->
+    <div style="width:0; height:0; overflow:hidden;">
+        <div id="ShowStepsDialog" class="easyui-dialog" data-options="closed:true" style=" width:500px; height: 400px;">
+            <div id="ShowStepsDetails" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <!-- 添加弹框 -->
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="addModel" class="easyui-dialog" data-options="closed:true" style="width: 1000px; height: 600px; padding: 5px;">
+            <div id="addModel_box" style="border-bottom: 1px solid #dadada;">
+                <!--第一步-->
+                <div class="WZN-pull-box">
+                    <h5><span class="txt_red">●</span> 第一步、设计表单<span class="WZN-direction"></span></h5>
+                    <div class="WZN-invisible">
+                        <ul>
+                            <li>
+                                <span style="display: inline-block; width: 80px; text-align: right;">表单名称：</span>
+                                <input id="addModel_tableName" style="width:300px;" class="easyui-textbox" />
+                            </li>
+                            <li class="margt">
+                                <span style="display: inline-block; width: 80px; text-align: right;">说明：</span>
+                                <input id="addModel_explain" class="easyui-textbox" data-options="multiline:true,width:300,height:100" />
+                            </li>
+                            <li class="margt">
+                                <span style="display: inline-block; width: 80px; text-align: right;">状态：</span>
+                                <select id="addModel_State" class="easyui-combobox" style="width:170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                            </li>
+                            <li class="margt">
+                                <span style="display: inline-block; width: 80px; text-align: right;">类型：</span>
+                                <select id="addModel_Type" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                            </li>
+                            <li id="addModel_Academy" style="display: none;">
+                                <div style="padding: 10px 0">
+                                    <div id="addModel_yuanxi">
+                                        <span style="display: inline-block; width: 80px; text-align: right;">院系：</span>
+                                        <input id="yuanxi1" type="radio" name="yuanxi" value="0" checked="checked" /><label for="yuanxi1">全校</label>
+                                        <input id="yuanxi2" type="radio" name="yuanxi" class="margl" value="1" /><label for="yuanxi2">部分院系</label>
+                                    </div>
+                                    <ul id="AcademiesBox" style="margin-left: 40px; border: 1px solid #ccc; background-color: #fafafa; padding: 10px 20px 0 20px; display: none; height: 200px; overflow-y: auto !important;"></ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--<p class="WZN-hint">提示：对较长的句子给予提示，方便您修改和完善论文。 </p>-->
+                    </div>
+                </div>
+                <!--第二步-->
+                <div class="WZN-pull-box">
+                    <h5> <span class="txt_red">●</span> 第二步、添加字段 <span class="WZN-direction"></span> </h5>
+                    <div class="WZN-invisible">
+                        <span style="display: inline-block; width: 60px; text-align: right;">字段：</span>
+                        <select id="addModel_databaseIp" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                        <input class="formBtn margl" id="btn_add_field" type="button" value="添加" />
+                        <ul id="add_field_box" style="border: 1px solid #ccc; padding: 8px; margin-top: 8px; margin-left: 60px;">
+                            <!--<li style="border-bottom: 1px dashed #ccc; line-height: 30px;">
+                        <span style="display: inline-block; width: 60px; text-align: right;">字段：</span>字段啊打算打
+                        <a class="listA" style="float: right; margin-right: 30px;"> 删除</a>
+                    </li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="WZN-pull-box">
+                    <h5> <span class="txt_red">●</span> 第三步、添加步骤 <span class="WZN-direction"></span> </h5>
+                    <div class="WZN-invisible clearfix" style="padding: 5px;">
+                        <!-- 左半部 -->
+                        <div style="width: 480px; float: left; border: 1px solid #ccc; height: 413px">
+                            <ul class="margt">
+                                <li>
+                                    <span style="display: inline-block; width: 80px; text-align: right;">步骤名称：</span>
+                                    <input id="designsteps_name" class="easyui-textbox" style="width:300px;" />
+                                </li>
+                                <li class="margt">
+                                    <span style="display: inline-block; width: 80px; text-align: right;">说明：</span>
+                                    <input id="designsteps_explain" class="easyui-textbox" data-options="multiline:true,width:300,height:100" />
+                                </li>
+                                <li class="margt">
+                                    <span style="display: inline-block; width: 80px; text-align: right;">审核角色：</span>
+                                    <select id="designsteps_role" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                                </li>
+                                <li class="margt">
+                                    <span style="display: inline-block; width: 80px; text-align: right;">&nbsp;</span>
+                                    <input class="formBtn" id="save_designsteps" type="button" value="保存步骤" />
+                                    <input class="formBtn" id="update_designsteps" type="button" value="修改" style="display: none;" />
+                                    <input class="formBtn margl" id="clear_designsteps" type="button" value="取消" style="display: none;" />
+                                    <span id="conceal_designsteps" style="display: none;"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 右半部 -->
+                        <div style="width: 470px; float: right; border: 1px solid #ccc; margin-left:10px; height: 403px;   padding: 5px; overflow-y:auto;">
+                            <div id="right_designsteps" style="border-bottom: 1px solid #dadada;">
+                                <!--<div class="WZN-pull-box">
+                            <h5><span class="txt_red">●</span> 第 1 步<span class="designsteps_compile"></span><span class="designsteps_clear"></span><span class="WZN-direction"></span></h5>
+                            <ul class="WZN-invisible" style="padding: 0 0 10px;">
+                                <li class="margt"><span style="display: inline-block; width: 80px; text-align: right;">表单名称：</span><span>XXXXXX</span></li>
+                                <li class="margt"><span style="display: inline-block; width: 80px; text-align: right;">说明：</span><span>XXXXXX</span></li>
+                            </ul>
+                        </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 步骤弹框 -->
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="designstepsModel" class="easyui-dialog" data-options="closed:true" style="width: 1000px; height: 500px; padding: 5px;">
+            <table id="designsteps_list" style="width:100%; border: 1px solid #ccc"></table>
+        </div>
+    </div>
+
+    <!-- 设计分支 -->
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="designBranchModel" class="easyui-dialog" data-options="closed:true" style="width: 1000px; height: 500px; padding: 5px;">
+            <!-- 左半部 -->
+            <div style="width: 677px; float: left; border: 1px solid #ccc; height: 403px; padding: 5px; overflow-y:auto;">
+                <table id="designBranch_list" style="width:100%; border: 1px solid #ccc"></table>
+            </div>
+            <!-- 右半部 -->
+            <div style="width: 287px; float: left; border: 1px solid #ccc; margin-left:10px; height: 413px; overflow-y:auto;">
+                <ul class="margt">
+                    <li>
+                        <span style="display: inline-block; width: 70px; text-align: right;">字段：</span>
+                        <select id="designBranch_name" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                    </li>
+                    <li class="margt">
+                        <span style="display: inline-block; width: 70px; text-align: right;">运算符：</span>
+                        <select id="designBranch_operator" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                    </li>
+                    <li class="margt">
+                        <span style="display: inline-block; width: 70px; text-align: right;">值：</span>
+                        <input id="designBranch_value" style="width:170px;" class="easyui-textbox" />
+                    </li>
+                    <li class="margt">
+                        <span style="display: inline-block; width: 70px; text-align: right;">下一步：</span>
+                        <select id="designBranch_next" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                    </li>
+                    <li class="margt">
+                        <span style="display: inline-block; width: 70px; text-align: right;">&nbsp;</span>
+                        <input class="formBtn" id="designBranch_addBtn" type="button" value="添加分支" style="display: none;" />
+                        <span id="designBranch_ID" style="display: none;"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加字段管理 -->
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="fieldAddOrUpdateModel" class="easyui-dialog" data-options="closed:true" style="width: 400px; height: 250px; padding: 5px;">
+            <ul class="margt">
+                <li>
+                    <span style="display: inline-block; width: 120px; text-align: right;">名称：</span>
+                    <input id="fieldAdd_name" style="width:170px;" class="easyui-textbox" />
+                </li>
+                <li class="margt">
+                    <span style="display: inline-block; width: 120px; text-align: right;">英文名称：</span>
+                    <input id="fieldAdd_English_name" style="width:170px;" class="easyui-textbox" />
+                </li>
+                <li class="margt">
+                    <span style="display: inline-block; width: 120px; text-align: right;">类型：</span>
+                    <select id="fieldAdd_type" class="easyui-combobox" style="width:170px;" editable="false"></select>
+                </li>
+                <li class="margt">
+                    <span style="display: inline-block; width: 120px; text-align: right;">状态：</span>
+                    <select id="fieldAdd_state" class="easyui-combobox" style="width:170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 复制 -->
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="copyModel" class="easyui-dialog" data-options="closed:true" style="width: 400px; height: 250px; padding: 5px;">
+            <ul class="margt">
+                <li class="margt">
+                    <span style="display: inline-block; width: 120px; text-align: right;">学校：</span>
+                    <select id="school_copy" class="easyui-combobox" name="dept" style="width:170px;" selectonnavigation="true" data-options="prompt: '输入检索或点击右侧下拉'"></select>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 弹框 -->
+    <div id="modelModel" class="easyui-dialog" data-options="closed:true" style=" width: 400px; height: 200px; text-align:center; padding: 6px; "> </div>
+
+    <script>
+        var schoolNo = getUrlParam("sn");
+        //用户状态
+        var audit_state = [
+            { name: "全部", value: '-1', selected: true },
+            { name: "禁用", value: '0' },
+            { name: "启用", value: '1' }
+        ];
+        // 运算符
+        var operator = [
+            { name: "请选择", value: '-1', selected: true },
+            { name: "=", value: '0' },
+            { name: "!=", value: '1' },
+            { name: ">", value: '2' },
+            { name: ">=", value: '3' },
+            { name: "<", value: '4' },
+            { name: "<=", value: '5' }
+        ];
+        // 字段类型
+        var field_type = [
+            { name: "请选择", value: '', selected: true },
+            { name: "文本", value: '0' },
+            { name: "数字", value: '1' },
+            { name: "单选", value: '2' },
+            { name: "多选", value: '3' },
+            { name: "时间", value: '4' },
+            { name: "统计", value: '5' },
+            { name: "富文本", value: '6' },
+            { name: "标题", value: '7' },
+            { name: "不显示", value: '-1' }
+        ];
+        $(document).ready(function () {
+            // 状态
+            $("#allAudit_State,#field_State,#addModel_State,#fieldAdd_state").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: audit_state
+            }); 
+            // 字段类型
+            $("#field_Type,#fieldAdd_type").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: field_type
+            });
+            // 院系
+            $.post("../Handler/BaseSettingsHandler.ashx?action=GetAcademieSpecialties", { sn: schoolNo, type: 1 }, function (result) {
+                $('body').append(result);
+            });
+            // 字段和角色
+            getFieldAndRole();
+            // 折叠
+            $("body").on("click", ".WZN-direction", function () {
+                $(this).toggleClass("WZN-direction-change").parent().next().stop(false, false).toggle(400);
+            });
+
+            //  默认选中 流程管理
+            statisticsByAudit();
+
+        });
+
+        
+        //tab栏切换
+        function showHide1(idx) {
+            $(".gxf_statistics_container>.main").hide();
+            $(".gxf_statistics_container>.main").eq(idx).show();
+        };
+        showHide1(0);
+        $(".gxf_statistics_navBar>ul>li").on('click', function () {
+            var idx = $(this).index();
+            $(".gxf_statistics_navBar>ul>li a").removeClass("selected");
+            $(".gxf_statistics_navBar>ul>li a").eq(idx).addClass("selected");
+            showHide1(idx);
+        });
+
+
+        // --------流程管理-------
+        var audit_columnData = [[
+            { field: 'Id', checkbox: true, },
+            { field: 'Name', align: 'center', title: '名称', width: 30 },
+            { field: 'Remark', align: 'center', title: '说明', width: 40 },
+            {
+                field: 'OperationLogType', align: 'center', title: '类型', width: 15,
+                formatter: function (value, row, index) {
+                    var str = "";
+                    $.each(arr_AuditType, function (i, v) {
+                        if (v["value"] == row["OperationLogType"]) {
+                            str = v["name"];
+                        }
+                    });
+                    return str;
+                }
+            },
+            {
+                field: 'State', align: 'center', title: '状态', width: 15,
+                formatter: function (value, row, index) {
+                    var str = "";
+                    $.each(audit_state, function (i, v) {
+                        if (v["value"] == row["State"]) {
+                            str = v["name"];
+                        }
+                    });
+                    return str;
+                }
+            },
+            { field: 'CreateTime', align: 'center', title: '创建时间', width: 20 },
+            {
+                field: 'operate', title: '操作', align: 'center', width: 35,
+                formatter: function (value, row, index) {
+
+                    var acaCount = row["AcademyCount"] || 0;
+                    var firstAcaNum = row["FirstAcaNum"] || -1;
+                    var opeText = "院系";
+                    if (acaCount == 1 && firstAcaNum <= 0) {
+                        opeText = "全校";
+                    }
+
+                    var str = "";
+                    str += '<a class="listA" href="javascript:showSteps(' + index + ');" >查看</a>';
+                    if (row["State"] == 1) {
+                        str += '<a class="listA margl" href="javascript:isForbidden(' + index + ',' + 0 + ');" >禁用</a>';
+                    } else {
+                        str += '<a class="listA margl" href="javascript:isForbidden(' + index + ',' + 1 + ');" >启用</a>';
+                    }
+                    str += '<a class="listA margl" href="javascript:AcademyCount(' + index + ');" >' + opeText + '(' + acaCount + ')</a>';
+                    str += '<a class="listA margl" href="javascript:StepCount(' + index + ');" >步骤(' + (row["StepCount"] || 0) + ')</a>';
+                    str += '<a class="listA margl" href="javascript:setCopyModel(' + index + ');" >复制</a>';
+                    return str;
+                }
+            }
+        ]];
+        var audit_list = $("#allAudit_list");
+        var audit_url = "../Handler/CustomAudit.ashx";
+        var audit_paramsData = {
+            action: "GetFlowFormList",
+            sn: schoolNo
+        };
+        var audit_idField = "Id";
+
+        
+        //获取操作类型 -- 加载表格
+        var arr_AuditType = [{ name: '请选择', value: '0', selected: true }];
+        function statisticsByAudit() {
+            $.when($.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                data: {
+                    action: 'GetOpeTypes',
+                    sn: schoolNo
+                },
+                type: "post",
+                dataType: "json"
+            })).done(function (data) {
+                $.each(data['dataList'], function (i, v) {
+                    arr_AuditType.push({ name: v, value: i });
+                })
+                $("#allAudit_Type,#addModel_Type,#Academies_Type").combobox({
+                    valueField: 'value',
+                    textField: 'name',
+                    data: arr_AuditType
+                });
+            }).fail(function (err) {
+                console.log(err);
+            }).then(function (data) {
+                $("#allAudit_Name").textbox("setText", "");
+                $("#allAudit_State").combobox("setValue", "-1");
+                $("#allAudit_Type").combobox("setValue", "0");
+                // 加载列表
+                GteTable(audit_list, audit_url, audit_columnData, audit_paramsData, audit_idField);
+            });
+        };
+
+        // 查询
+        $("#btn_allAudit_search").on("click", function () {
+            audit_paramsData = {
+                action: "GetFlowFormList",
+                sn: schoolNo,
+                formName: $("#allAudit_Name").textbox("getText"),
+                formState: $("#allAudit_State").combobox("getValue"),
+                opeType: $("#allAudit_Type").combobox("getValue")
+            };
+            GteTable(audit_list, audit_url, audit_columnData, audit_paramsData, audit_idField);
+        });
+
+
+        // -------字段管理--------
+        var field_columnData = [[
+            { field: 'Id', checkbox: true, },
+            { field: 'Title', align: 'center', title: '名称', width: 40 },
+            { field: 'Name', align: 'center', title: '英文名称', width: 40 },
+            {
+                field: 'AttrType', align: 'center', title: '类型', width: 15,
+                formatter: function (value, row, index) {
+                    var str = "";
+                    $.each(field_type, function (i, v) {
+                        if (v["value"] == row["AttrType"]) {
+                            str = v["name"];
+                        }
+                    });
+                    return str;
+                }
+            },
+            {
+                field: 'State', align: 'center', title: '状态', width: 15,
+                formatter: function (value, row, index) {
+                    var str = "";
+                    $.each(audit_state, function (i, v) {
+                        if (v["value"] == row["State"]) {
+                            str = v["name"];
+                        }
+                    });
+                    return str;
+                }
+            },
+            { field: 'CreateTime', align: 'center', title: '创建时间', width: 20 },
+            {
+                field: 'operate', title: '操作', align: 'center', width: 20,
+                formatter: function (value, row, index) {
+                    var str = "";
+                    if (row["State"] == 1) {
+                        str += '<a class="listA" href="javascript:isOnOffField(' + index + ",0" + ');" >禁用</a>';
+                    } else {
+                        str += '<a class="listA" href="javascript:isOnOffField(' + index + ",1" + ');" >启用</a>';
+                    }
+                    str += '<a class="listA margl" href="javascript:field_update(' + index + ');" >编辑</a>';
+                    str += '<a class="listA margl" href="javascript:field_delete(' + index + ');" >删除</a>';
+                    return str;
+                }
+            }
+        ]];
+        var field_list = $("#field_list");
+        var field_url = "../Handler/CustomAudit.ashx";
+        var field_paramsData = {
+            action: "GetFlowAttrList",
+            sn: schoolNo
+        };
+        var field_idField = "Id";
+        function statisticsBySubmitter() {
+            $("#field_Name,#field_English_Name").textbox("setText", "");
+            $("#field_State").combobox("setValue", "-1");
+            $("#field_Type").combobox("setValue", "");
+            // 加载列表
+            GteTable(field_list, field_url, field_columnData, field_paramsData, field_idField);
+        };
+        // 查询
+        $("#btn_field_search").on("click", function () {
+            field_paramsData = {
+                action: "GetFlowAttrList",
+                sn: schoolNo,
+                attrTitle: $("#field_Name").textbox("getText"),
+                attrName: $("#field_English_Name").textbox("getText"),
+                attrState: $("#field_State").combobox("getValue"),
+                attrType: $("#field_Type").combobox("getValue")
+            };
+            GteTable(field_list, field_url, field_columnData, field_paramsData, field_idField);
+        });
+
+        // 禁用/启用       
+        function isForbidden(index, state) {
+            $("#modelModel").html("您确定要" + (state == 1 ? "启用" : "禁用") + "名称（" + $("#allAudit_list").datagrid("getData").rows[index]["Name"] + "）的自定义审核吗？");
+            $("#modelModel").dialog({
+                title: "添加自定义审核",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/CustomAudit.ashx",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                action: "SetFormState",
+                                sn: schoolNo,
+                                formId: $("#allAudit_list").datagrid("getData").rows[index]["Id"],
+                                formState:state
+                            },
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#modelModel").dialog("close");
+                                    $('#allAudit_list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#modelModel").dialog("close");
+                        $('#allAudit_list').datagrid("unselectAll");
+                    }
+                }]
+            });
+
+            $("#modelModel").dialog('open');
+            $('#modelModel').window('center');
+        };
+
+        // 查看步骤
+        function showSteps(index) {
+
+            $.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "GetFlowFormDetail",
+                    sn: schoolNo,
+                    FormId: $("#allAudit_list").datagrid("getData").rows[index]["Id"]
+                }
+            }).done(function (data) {
+                if (data.rows.length > 0) {
+                    var html = '<p style="font-weight: 700; text-align: center; line-height: 28px;">' + $("#allAudit_list").datagrid("getData").rows[index]["Name"] + '</p>';
+                    $.each(data.rows, function (index, value) {
+                        html += '<p style="line-height: 18px; margin-top: 10px;">'
+                        + '<span style="display: inline-block; width: 160px; text-align: right;">第 ' + (index + 1) + ' 步：</span>'
+                        + '<span class="margl">' + value["Name"] + '</span>';
+                        // 分支
+                        if (value["FlowStepRules"].length > 0) {
+                            $.each(value["FlowStepRules"], function (i, v) {
+                                html += '<p style="margin-top: 6px;">'
+                                        + '<span style="display: inline-block; width: 160px; text-align: right;">分支 ' + (i + 1) + '：</span>'
+                                        + '<span class="margl">如果[ ' + v["AttrTitle"] + ' ' + v["OperatorsText"] + ' ' + v["Threshold"] + ' ]'
+                                        + '<span style="margin: 0 10px;"> →</span>'
+                                        + '[ ' + (v["NextStepName"] || "结束") + ' ]' + '</span>'
+                                        + '</p>';
+                            });
+                            html += '</p><p style="text-align: center;">↓</p>';
+                        } else {
+                            html += '<p style="text-align: center;">↓</p>';
+                        }
+
+                        html += '</p>';
+                    });
+                    html += '<p style="font-weight: 700; text-align: center; line-height: 28px;">步骤结束</p>';
+                    $("#ShowStepsDetails").html( html );
+                } else {
+                    $("#ShowStepsDetails").html('<p style="font-weight: 700; text-align: center;">' + data.message + '</p>');
+                }
+
+            }).fail(function (err) {
+                console.log(err);
+            });
+
+
+            //打开弹窗
+            $('#ShowStepsDialog').dialog({ title: '查看步骤' });
+
+            $("#ShowStepsDialog").dialog('open');
+            $('#ShowStepsDialog').window('center');
+        };
+
+        // 院系
+        function AcademyCount(index) {
+            var tempHtml = "";
+            $.each(xz_list, function (index, value) {
+                if (index > 0) {
+                    tempHtml += '<li style="border-top: 1px solid #ccc; margin-bottom: 10px;">'
+                        + '<input id="AcademieModel' + value["xy_bh"] + '" class="Academies" type="checkbox" name="name" value="' + value["xy_bh"] + '" /><label for="AcademieModel' + value["xy_bh"] + '"> ' + value["xy"] + '</label>'
+                        + '</li>';
+                }
+            });
+            $("#Academies_Box").html(tempHtml);
+
+            // 获取院系
+            $.ajax({ url: "../Handler/CustomAudit.ashx", type: "post", dataType: "json",
+                data: { action: "GetFormAcademyList", sn: schoolNo, formId: $("#allAudit_list").datagrid("getData").rows[index]["Id"] }
+            }).done(function (data) {
+                if (data.rows.length > 0) {
+                    if (data.rows.length == 1 && data.rows[0]["AcademyNum"] == 0) {
+                        $("#Academies_all").prop("checked", "checked"); $("#Academies_Box").hide();
+                    } else {
+                        $("#Academies_part").prop("checked", "checked"); $("#Academies_Box").show();
+                        $.each(data.rows, function (index, value) { $("#AcademieModel" + value["AcademyNum"]).prop("checked", "checked"); });
+                    }
+                } else {
+                    $("#Academies_all").prop("checked", "checked"); $("#Academies_Box").hide();
+                }
+            }).done(function (data) {
+                if ($("#allAudit_list").datagrid("getData").rows[index]["OperationLogType"]) {
+                    $("#Academies_Type").combobox("setValue", $("#allAudit_list").datagrid("getData").rows[index]["OperationLogType"]);
+                } else {
+                    $("#Academies_Type").combobox("setValue", 0);
+                };
+                // 院系弹框
+                $("#AcademiesModel").dialog({
+                    title: "院系",
+                    buttons: [{
+                        text: '确定',
+                        handler: function () {
+                            var academyNums = "";
+                            var academyText = "";
+                            if ($("#Academies_part").is(":checked")) {
+                                var inp_academys = $("#Academies_Box .Academies");
+                                for (var i = 0; i < inp_academys.length; i++) {
+                                    if ($(inp_academys[i]).is(":checked")) {
+                                        academyNums += $(inp_academys[i]).val() + ",";
+                                        academyText += $(inp_academys[i]).siblings("label").text() + "、";
+                                    }
+                                }
+                                academyNums = academyNums.substring(0, academyNums.length - 1);
+                                academyText = academyText.substring(0, academyText.length - 1);
+                            } else {
+                                academyNums = '0'; academyText = "全校";
+                            };
+                            if (checkValIsUndefinedOrNull(academyNums)) { myMessage("请选择院系，院系不能为空！"); return; }
+                            //if ($("#Academies_Type").combobox("getValue") <= '0') { myMessage("请选择类型！"); return; };
+
+                            $("#modelModel").html("您确定要设置名称（" + $("#allAudit_list").datagrid("getData").rows[index]["Name"] + "）"
+                                + "类型（" + $("#Academies_Type").combobox("getText") + "）的院系为（" + academyText + "）吗？");
+                            $("#modelModel").dialog({
+                                title: "添加自定义审核",
+                                buttons: [{
+                                    text: '确定',
+                                    handler: function () {
+                                        $.ajax({
+                                            url: "../Handler/CustomAudit.ashx",
+                                            type: "post",
+                                            dataType: "json",
+                                            data: {
+                                                action: "UpdateFormAcademy",
+                                                sn: schoolNo,
+                                                formId: $("#allAudit_list").datagrid("getData").rows[index]["Id"],
+                                                opeType: $("#Academies_Type").combobox("getValue"),
+                                                academyNums: academyNums
+                                            },
+                                            success: function (data) {
+                                                myMessage(data.message);
+                                                if (data.isSuccess) {
+                                                    $("#modelModel").dialog("close");
+                                                    $("#AcademiesModel").dialog("close");
+                                                    $('#allAudit_list').datagrid('reload');//重新加载
+                                                }
+                                            },
+                                            error: function (err) {
+                                                console.log(err);
+                                            }
+                                        });
+                                    }
+                                }, {
+                                    text: '取消',
+                                    handler: function () {
+                                        $("#modelModel").dialog("close");
+                                        $('#allAudit_list').datagrid("unselectAll");
+                                    }
+                                }]
+                            });
+                            $("#modelModel").dialog('open');
+                            $('#modelModel').window('center');
+                        }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $("#AcademiesModel").dialog("close");
+                            $('#allAudit_list').datagrid("unselectAll");
+                        }
+                    }]
+                });
+                $("#AcademiesModel").dialog('open');
+                $('#AcademiesModel').window('center');
+            }).fail(function (err) { console.log(err); });
+        };
+
+        // 点击选中部分院系
+        $("#Academies_Model>#Academies_part,#Academies_Model>#Academies_all").on("click", function () {
+            if ($("#Academies_all").is(":checked") == true) {
+                $("#Academies_Box").hide();
+            } else if ($("#Academies_part").is(":checked") == true) {
+                $("#Academies_Box .Academies").prop("checked", false);
+                $("#Academies_Box").show();
+            }
+        });
+
+        // 步骤 
+        function StepCount(index) {
+            var formID = $("#allAudit_list").datagrid("getData").rows[index]["Id"];
+            var steps_columnData = [[
+            { field: 'Id', checkbox: true, },
+            { field: 'Name', align: 'center', title: '审核角色', width: 40 },
+            { field: 'Remark', align: 'center', title: '说明', width: 40 },
+            {
+                field: 'operate', title: '操作', align: 'center', width: 20,
+                formatter: function (value, row, index) {
+                    var str = "";
+                    str += '<a class="listA" href="javascript:designBranch(' + index + "," + formID + ');" >分支( ' + (row["StepRuleCount"] || 0)+ ' )</a>';
+                    return str;
+                }
+            }
+            ]];
+            var steps_list = $("#designsteps_list");
+            var steps_url = "../Handler/CustomAudit.ashx";
+            var steps_paramsData = {
+                action: "GetStepList",
+                sn: schoolNo,
+                formId: formID
+            };
+            var steps_idField = "Id";
+            GteTable(steps_list, steps_url, steps_columnData, steps_paramsData, steps_idField);
+
+            $("#designstepsModel").dialog({ title: "步骤" });
+            $("#designstepsModel").dialog('open');
+            $('#designstepsModel').window('center');
+        };
+
+        // 字段 、角色
+        function getFieldAndRole() {
+            $("#addModel_databaseIp").combobox("clear");
+            $.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                data: { action: 'GetFlowAttrsForCmb', sn: schoolNo },
+                type: "post",
+                dataType: "json"
+            }).done(function(data) {
+                data.rows.unshift({ Id: '', Title: '请选择', selected: true });
+                $("#addModel_databaseIp").combobox({
+                    valueField: 'Id',
+                    textField: 'Title',
+                    data: data.rows
+                });
+            }).fail(function(err) {
+                console.log(err);
+            });
+
+            // 审核角色
+            $("#designsteps_role").combobox("clear");
+            $.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                data: { action: 'GetAuditorRoles', sn: schoolNo },
+                type: "post",
+                dataType: "json"
+            }).done(function (data) {
+                $("#designsteps_role").combobox({
+                    valueField: 'Key',
+                    textField: 'Value',
+                    data: data.dataList
+                });
+            }).fail(function (err) {
+                console.log(err);
+            });
+        }
+
+        // 添加 开始
+        var arr_DesignSteps = [];  // 步骤 数组 
+        var arr_add_field = [];  // 字段 数组 
+        
+        // 添加
+        $("#btn_add").on("click", function () {
+
+            $("#addModel_box .WZN-direction").removeClass("WZN-direction-change");
+            $("#addModel_box .WZN-invisible").hide();
+            $("#addModel_box .WZN-direction").eq(0).removeClass("WZN-direction-change");
+            $("#addModel_box .WZN-invisible").eq(0).show();
+
+            arr_DesignSteps = [];
+            $("#right_designsteps").html("<div style='text-align: center; font-weight: 700; line-height: 30px;'>请添加步骤</div>");
+            arr_add_field = [];
+            $("#add_field_box").html("<li style='text-align: center; font-weight: 700; line-height: 30px;'>请添加字段</li>");
+
+            $("#addModel_tableName,#addModel_explain").textbox("setText", "");
+            $("#addModel_Type").combobox("setValue", 0);
+            $("#addModel_State").combobox("setValue", -1);
+
+            // 院系
+            var tempHtml = "";
+            $.each(xz_list, function (index, value) {
+                if (index > 0) {
+                    tempHtml += '<li style="border-top: 1px solid #ccc; margin-bottom: 10px;">'
+                        + '<input id="Academie' + value["xy_bh"] + '" class="Academies" type="checkbox" name="name" value="' + value["xy_bh"] + '" /><label for="Academie' + value["xy_bh"] + '"> ' + value["xy"] + '</label>'
+                        +'</li>';
+                }
+            });
+            $("#AcademiesBox").html(tempHtml);
+            
+           // 选择类型 出现院系
+            $("#addModel_Type").combobox({
+                onChange: function (n, o) {
+                    if (n && n > 0) {
+                        $("#addModel_Academy").show();
+                        $("#yuanxi1").prop("checked", "checked");
+                        $("#AcademiesBox").hide();
+                    } else {
+                        $("#addModel_Academy").hide();
+                        $("#yuanxi1").prop("checked", "checked");
+                        $("#AcademiesBox").hide();
+                    }
+                }
+            });
+
+            //刷新字段和角色下拉框
+            getFieldAndRole();
+
+            $("#addModel").dialog({
+                title: "添加自定义审核",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        var academyNums = "";
+                        if ($("#addModel_Academy").css("display") != "none") {
+                            if ($("#addModel_yuanxi #yuanxi2").is(":checked")) {
+                                var inp_academys = $("#AcademiesBox .Academies");
+                                for (var i = 0; i < inp_academys.length; i++) {
+                                    if ($(inp_academys[i]).is(":checked")) {
+                                        academyNums += $(inp_academys[i]).val() + ",";
+                                    }
+                                }
+                                academyNums = academyNums.substring(0, academyNums.length - 1);
+                            } else {
+                                academyNums = '0';
+                            };
+                            if (academyNums == '') { myMessage("请选择院系，院系不能为空！"); return; };
+                        };
+
+                        if ($("#addModel_tableName").textbox("getText").length <= 0) { myMessage("请输入名称，名称不能为空！"); return; };
+                        if ($("#addModel_State").combobox("getValue") < 0) { myMessage("请选择状态，状态不能为空！"); return; };
+                        var attrIds = '';
+                        if (arr_add_field.length > 0) {
+                            $.each(arr_add_field, function (i, v) { attrIds += v["value"] + ","; });
+                            attrIds = attrIds.substring(0, attrIds.length - 1);
+                        }
+                        
+                        $.ajax({
+                            url: "../Handler/CustomAudit.ashx",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                action: "AddForm",
+                                sn: schoolNo,
+                                formName: $("#addModel_tableName").textbox("getText"),
+                                formRemark: $("#addModel_explain").textbox("getText"),
+                                formState: $("#addModel_State").combobox("getValue"),
+                                opeType: $("#addModel_Type").combobox("getValue"),
+                                academyNums: academyNums,
+                                attrIds: attrIds,
+                                steps: (arr_DesignSteps.length > 0) ? JSON.stringify(arr_DesignSteps) : ""
+                            },
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#addModel").dialog("close");
+                                    $('#allAudit_list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#addModel").dialog("close");
+                        $('#allAudit_list').datagrid("unselectAll");
+                    }
+                }]
+            });
+
+            $("#addModel").dialog('open');
+            $('#addModel').window('center');
+        });
+
+        // 第一步 
+        // 点击选中部分院系
+        $("#addModel_yuanxi>#yuanxi1,#addModel_yuanxi>#yuanxi2").on("click", function () {
+            if ($("#yuanxi1").is(":checked") == true) {
+                $("#AcademiesBox").hide();
+            } else if ($("#yuanxi2").is(":checked") == true) {
+                $("#AcademiesBox .Academies").prop("checked", false);
+                $("#AcademiesBox").show();
+            }
+        });
+
+
+        
+        // 第二步
+        // 添加字段 
+        $("#btn_add_field").on("click", function () {
+            if ($("#addModel_databaseIp").combobox("getValue") <= 0) {
+                myMessage("请选择字段");
+                return;
+            }
+            var isTrue = true;
+            if (arr_add_field.length > 0) {
+                $.each(arr_add_field, function (i, v) {
+                    if ($("#addModel_databaseIp").combobox("getValue") == v["value"]) {
+                        isTrue = false;
+                        myMessage("该字段已经选择，请重新选择新的字段。");
+                        return;
+                    }
+                });
+            }
+            if (isTrue) {
+                arr_add_field.push({
+                    value: $("#addModel_databaseIp").combobox("getValue"),
+                    text: $("#addModel_databaseIp").combobox("getText")
+                });
+            }
+
+            set_add_field(arr_add_field);
+        });
+
+        // 删除字段
+        $("#addModel").on("click", ".addModel_field_clear", function () {
+            arr_add_field.splice($(this).parent().index(), 1);
+            set_add_field(arr_add_field);
+        });
+
+
+        // 第二步 字段添加html
+        function set_add_field(data) {
+            var html = "";
+            if (data.length > 0) {
+                $.each(data, function (index, value) {
+                    html += '<li style="border-bottom: 1px dashed #ccc; line-height: 30px;">'
+                            + '<span style="display: inline-block; width: 60px; text-align: right;">字段：</span>' + value["text"]
+                            + '<a class="listA addModel_field_clear" style="float: right; margin-right: 30px;"> 删除</a>'
+                            + '</li>';
+                });
+            } else {
+                html = "<li style='text-align: center; font-weight: 700; line-height: 30px;'>请添加字段</li>";
+            }
+            $("#add_field_box").html(html);
+        };
+
+
+        // 第三步 添加步骤 
+        // 保存步骤
+        $("#save_designsteps").on("click", function () {
+            if ($("#designsteps_name").textbox("getText").length <= 0) { myMessage("步骤名称不能为空！"); return; };
+            var AuditorRole = "";
+            if ($("#designsteps_role").combobox("getText")) {
+                if ($("#designsteps_role").combobox("getValue") == "") {
+                    AuditorRole = "0";
+                } else {
+                    AuditorRole = $("#designsteps_role").combobox("getValue");
+                }
+            } else {
+                myMessage("请选择角色！"); return;
+            }
+
+            arr_DesignSteps.push({
+                Name: $("#designsteps_name").textbox("getText"),
+                Remark: $("#designsteps_explain").textbox("getText"),
+                AuditorRole: AuditorRole,
+                AuditorText: $("#designsteps_role").combobox("getText")
+            })
+            setDesignSteps(arr_DesignSteps, arr_DesignSteps.length - 1);
+            $("#designsteps_name").textbox("setText", "");
+            $("#designsteps_explain").textbox("setText", "");
+            $("#designsteps_role").combobox("setValue", 0);
+        });
+
+        // 删除步骤
+        $("#addModel").on("click", ".designsteps_clear", function () {
+            arr_DesignSteps.splice($(this).parent().parent().index(), 1);
+            setDesignSteps(arr_DesignSteps);
+        });
+
+        // 编辑按钮
+        $("#addModel").on("click", ".designsteps_compile", function () {
+            $(this).siblings(".WZN-direction").addClass("WZN-direction-change");
+            $(this).parent().siblings(".WZN-invisible").show(400);
+
+            $("#save_designsteps").hide();
+            $("#update_designsteps,#clear_designsteps").show();
+            $("#conceal_designsteps").text($(this).parent().parent().index());
+            $("#designsteps_name").textbox("setText", arr_DesignSteps[$(this).parent().parent().index()]["Name"]);
+            $("#designsteps_explain").textbox("setText", arr_DesignSteps[$(this).parent().parent().index()]["Remark"]);
+            $("#designsteps_role").combobox("setValue", arr_DesignSteps[$(this).parent().parent().index()]["AuditorRole"]);
+        });
+
+        // 修改步骤
+        $("#update_designsteps").on("click", function () {
+            if ($("#designsteps_name").textbox("getText").length <= 0) { myMessage("步骤名称不能为空！"); return; };
+            var AuditorRole = "";
+            if ($("#designsteps_role").combobox("getText")) {
+                if ($("#designsteps_role").combobox("getValue") == "") {
+                    AuditorRole = "0";
+                } else {
+                    AuditorRole = $("#designsteps_role").combobox("getValue");
+                }
+            } else {
+                myMessage("请选择角色！"); return;
+            }
+
+            arr_DesignSteps.push({
+                Name: $("#designsteps_name").textbox("getText"),
+                Remark: $("#designsteps_explain").textbox("getText"),
+                AuditorRole: AuditorRole,
+                AuditorText: $("#designsteps_role").combobox("getText")
+            })
+            setDesignSteps(arr_DesignSteps, $("#conceal_designsteps").text());
+            $("#designsteps_name").textbox("setText", "");
+            $("#designsteps_explain").textbox("setText", "");
+            $("#designsteps_role").combobox("setValue", 0);
+            $("#save_designsteps").show();
+            $("#update_designsteps,#clear_designsteps").hide();
+        });
+
+        // 取消
+        $("#clear_designsteps").on("click", function () {
+            $("#right_designsteps .WZN-pull-box").eq($("#conceal_designsteps").text()).find(".WZN-direction").removeClass("WZN-direction-change");
+            $("#right_designsteps .WZN-pull-box").eq($("#conceal_designsteps").text()).find(".WZN-invisible").hide(200);
+
+            $("#designsteps_name").textbox("setText", "");
+            $("#designsteps_explain").textbox("setText", "");
+            $("#designsteps_role").combobox("setValue", 0);
+            $("#save_designsteps").show();
+            $("#update_designsteps,#clear_designsteps").hide();
+        });
+
+
+        // 第三步 添加步骤 html
+        function setDesignSteps(data, stepsIndex) {
+            var html = "";
+            if (data.length > 0) {
+                $.each(data, function (index, value) {
+                    html += '<div class="WZN-pull-box">'
+                            + '<h5><span class="txt_red">●</span> 第 ' + (index + 1) + ' 步<span class="designsteps_compile"></span><span class="designsteps_clear"></span><span class="WZN-direction"></span></h5>'
+                            + '<ul class="WZN-invisible" style="padding: 0 0 10px;">'
+                            + '<li class="margt"><span style="display: inline-block; width: 80px; text-align: right;">步骤名称：</span><span class="designsteps1">' + value["Name"] + '</span></li>'
+                            + '<li class="margt"><span style="display: inline-block; width: 80px; text-align: right;">说明：</span><span class="designsteps2">' + value["Remark"] + '</span></li>'
+                            + '<li class="margt"><span style="display: inline-block; width: 80px; text-align: right;">审核角色：</span><span class="designsteps2">' + value["AuditorText"] + '</span></li>'
+                            + '</ul></div>';
+                });
+            } else {
+                html = "<div style='text-align: center; font-weight: 700; line-height: 30px;'>请添加步骤</div>"
+            }
+            $("#right_designsteps").html(html);
+            if (stepsIndex >= 0) {
+                $("#right_designsteps .WZN-pull-box").eq(stepsIndex).find(".WZN-direction").click();
+            }
+        };
+
+        // 添加结束
+
+
+        // 分支 字段名称
+        function getDesignBranchOperator(formId) {
+            // 添加分支 字段
+            $.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                data: { action: 'GetFlowAttrsForStepRule', sn: schoolNo, formId: formId },
+                type: "post",
+                dataType: "json"
+            }).done(function (data) {
+                if (data.rows.length <= 0) {
+                    $("#designBranch_addBtn").hide();
+                } else {
+                    $("#designBranch_addBtn").show();
+                }
+                data.rows.unshift({ AttrId: '-1', Title: '请选择', selected: true });
+                $("#designBranch_name").combobox({
+                    valueField: 'AttrId',
+                    textField: 'Title',
+                    data: data.rows
+                });
+
+            }).fail(function (err) {
+                console.log(err);
+            });
+        };
+
+        // 分支 开始
+        // 运算符
+        var arr_designBranch = [];
+        $("#designBranch_operator").combobox({
+            valueField: 'value',
+            textField: 'name',
+            data: operator
+        });
+        // 分支  -- 列表
+        function designBranch(index, formId) {
+            getDesignBranchOperator(formId);
+            // 下一步
+            $.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                data: { action: 'GetNextSteps', sn: schoolNo, formId: formId, stepId: $("#designsteps_list").datagrid("getData").rows[index]["Id"] },
+                type: "post",
+                dataType: "json"
+            }).done(function (data) {
+                data.rows.unshift({ Id: '-1', Name: '请选择', selected: true });
+                $("#designBranch_next").combobox({
+                    valueField: 'Id',
+                    textField: 'Name',
+                    data: data.rows
+                });
+            }).fail(function (err) {
+                console.log(err);
+            });
+
+            var Branch_columnData = [[
+            { field: 'Id', checkbox: true, },
+            { field: 'AttrTitle', align: 'center', title: '字段', width: 40 },
+            { field: 'OperatorsText', align: 'center', title: '运算符', width: 40 },
+            { field: 'Threshold', align: 'center', title: '值', width: 30 },
+            { field: 'NextStepName', align: 'center', title: '下一步', width: 30 },
+            {
+                field: 'operate', title: '操作', align: 'center', width: 20,
+                formatter: function (value, row, index) {
+                    var str = "";
+                    str += '<a class="listA" href="javascript:deleteDesignBranch(' + index + ');" >删除</a>';
+                    return str;
+                }
+            }
+            ]];
+            var Branch_list = $("#designBranch_list");
+            var Branch_url = "../Handler/CustomAudit.ashx";
+            var Branch_paramsData = {
+                action: "GetStepRuleList",
+                sn: schoolNo,
+                formId: formId,
+                stepId: $("#designsteps_list").datagrid("getData").rows[index]["Id"]
+            };
+            var Branch_idField = "Id";
+            GteTable(Branch_list, Branch_url, Branch_columnData, Branch_paramsData, Branch_idField);
+
+            $("#designBranch_ID").html($("#designsteps_list").datagrid("getData").rows[index]["Id"]);
+
+            $("#designBranchModel").dialog({ title: "添加分支"});
+            $("#designBranchModel").dialog('open');
+            $('#designBranchModel').window('center');
+        };
+
+        // 添加分支 
+        $("#designBranch_addBtn").on("click", function () {
+            if ($("#designBranch_name").combobox("getValue") < 0) { myMessage("请选择字段名称！"); return; };
+            if ($("#designBranch_operator").combobox("getValue") < 0) { myMessage("请选择运算符！"); return; };
+            if ($("#designBranch_next").combobox("getValue") < 0) { myMessage("请选择下一步！"); return; };
+
+            $.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                data: {
+                    action: 'AddStepRule',
+                    sn: schoolNo,
+                    stepId: $("#designBranch_ID").text(),
+                    attrId: $("#designBranch_name").combobox("getValue"),
+                    operators: $("#designBranch_operator").combobox("getValue"),
+                    threshold: $("#designBranch_value").textbox("getText"),
+                    nextStep: $("#designBranch_next").combobox("getValue")
+                },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    myMessage(data.message);
+                    if (data.isSuccess) {
+                        $('#designBranch_list').datagrid('reload'); //重新加载 -- 分支列表
+                        $('#designsteps_list').datagrid('reload'); //重新加载-- 步骤列表
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+                complete: function () {
+                    $("#designBranch_name,#designBranch_operator,#designBranch_next").combobox("setValue", -1);
+                    $("#designBranch_value").textbox("setText", '');
+                }
+            });
+        });
+
+        // 删除分支
+        function deleteDesignBranch(index) {
+            $("#modelModel").html("您确定要删除分支（" + $("#designBranch_list").datagrid("getData").rows[index]["AttrTitle"] + "）吗？");
+            $("#modelModel").dialog({
+                title: "删除分支",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/CustomAudit.ashx",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                action: "DeleteStepRule",
+                                sn: schoolNo,
+                                stepId: $("#designBranch_ID").text(),
+                                stepRuleId: $("#designBranch_list").datagrid("getData").rows[index]["Id"]
+                            },
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#modelModel").dialog("close");
+                                    $('#designBranch_list').datagrid('reload');//重新加载 -- 分支列表
+                                    $('#designsteps_list').datagrid('reload');//重新加载 -- 步骤列表
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#modelModel").dialog("close");
+                        $('#designBranch_list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#modelModel").dialog('open');
+            $('#modelModel').window('center');
+        };
+        // 分支结束
+
+        // ---------------   字段管理开始    ----------------
+
+        // 添加
+        $("#btn_field_add").on("click", function () {
+            $("#fieldAdd_name,#fieldAdd_English_name").textbox("setText", "");
+            $("#fieldAdd_type").combobox("setValue", "");
+            $("#fieldAdd_state").combobox("setValue", "-1");
+            $("#fieldAddOrUpdateModel").dialog({
+                title: "添加字段管理",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        if (checkValIsUndefinedOrNull($("#fieldAdd_name").textbox("getText"))) { myMessage("名称不能为空！"); return; };
+                        if (checkValIsUndefinedOrNull($("#fieldAdd_English_name").textbox("getText"))) { myMessage("英文名称不能为空！"); return; };
+                        if (checkValIsUndefinedOrNull($("#fieldAdd_type").combobox("getValue"))) { myMessage("请选择类型！"); return; };
+                        if ($("#fieldAdd_state").combobox("getValue")< 0) { myMessage("请选择状态！"); return; };
+                        
+                        $.ajax({
+                            url: "../Handler/CustomAudit.ashx",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                action: "SaveAttr",
+                                sn: schoolNo,
+                                attrId: 0,
+                                attrTitle: $("#fieldAdd_name").textbox("getText"),
+                                attrName: $("#fieldAdd_English_name").textbox("getText"),
+                                attrType: $("#fieldAdd_type").combobox("getValue"),
+                                attrState: $("#fieldAdd_state").combobox("getValue")
+                            },
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#fieldAddOrUpdateModel").dialog("close");
+                                    $('#field_list').datagrid("unselectAll");
+                                    $('#field_list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#fieldAddOrUpdateModel").dialog("close");
+                        $('#field_list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#fieldAddOrUpdateModel").dialog('open');
+            $('#fieldAddOrUpdateModel').window('center');
+        });
+
+        // 编辑
+        function field_update(index) {
+            $("#fieldAdd_name").textbox("setText", $("#field_list").datagrid("getData").rows[index]["Title"]);
+            $("#fieldAdd_English_name").textbox("setText", $("#field_list").datagrid("getData").rows[index]["Name"]);
+            $("#fieldAdd_type").combobox("setValue", $("#field_list").datagrid("getData").rows[index]["AttrType"]);
+            $("#fieldAdd_state").combobox("setValue", $("#field_list").datagrid("getData").rows[index]["State"]);
+
+            $("#fieldAddOrUpdateModel").dialog({
+                title: "修改字段管理",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        if (checkValIsUndefinedOrNull($("#fieldAdd_name").textbox("getText"))) { myMessage("名称不能为空！"); return; };
+                        if (checkValIsUndefinedOrNull($("#fieldAdd_English_name").textbox("getText"))) { myMessage("英文名称不能为空！"); return; };
+                        if (checkValIsUndefinedOrNull($("#fieldAdd_type").combobox("getValue"))) { myMessage("请选择类型！"); return; };
+                        if ($("#fieldAdd_state").combobox("getValue") < 0) { myMessage("请选择状态！"); return; };
+
+                        $.ajax({
+                            url: "../Handler/CustomAudit.ashx",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                action: "SaveAttr",
+                                sn: schoolNo,
+                                attrId: $("#field_list").datagrid("getData").rows[index]["Id"],
+                                attrTitle: $("#fieldAdd_name").textbox("getText"),
+                                attrName: $("#fieldAdd_English_name").textbox("getText"),
+                                attrType: $("#fieldAdd_type").combobox("getValue"),
+                                attrState: $("#fieldAdd_state").combobox("getValue")
+                            },
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#fieldAddOrUpdateModel").dialog("close");
+                                    $('#field_list').datagrid("unselectAll");
+                                    $('#field_list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#fieldAddOrUpdateModel").dialog("close");
+                        $('#field_list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#fieldAddOrUpdateModel").dialog('open');
+            $('#fieldAddOrUpdateModel').window('center');
+        };
+
+        // 启用/ 禁用
+        function isOnOffField(index, state) {
+            $("#modelModel").html("您确定要" + (state == 1 ? "启用" : "禁用") + "名称（" + $("#field_list").datagrid("getData").rows[index]["Title"] + "）的字段吗？");
+            $("#modelModel").dialog({
+                title: "添加自定义审核",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/CustomAudit.ashx",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                action: "SetFlowAttrState",
+                                sn: schoolNo,
+                                attrId: $("#field_list").datagrid("getData").rows[index]["Id"],
+                                attrState: state
+                            },
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#modelModel").dialog("close");
+                                    $('#field_list').datagrid("unselectAll");
+                                    $('#field_list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#modelModel").dialog("close");
+                        $('#field_list').datagrid("unselectAll");
+                    }
+                }]
+            });
+
+            $("#modelModel").dialog('open');
+            $('#modelModel').window('center');
+            
+        };
+
+        //  删除
+        function field_delete(index) {
+            $("#modelModel").html("您确定要删除名称（" + $("#field_list").datagrid("getData").rows[index]["Title"] + "）的字段吗？");
+            $("#modelModel").dialog({
+                title: "添加自定义审核",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/CustomAudit.ashx",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                action: "DeleteAttr",
+                                sn: schoolNo,
+                                attrId: $("#field_list").datagrid("getData").rows[index]["Id"]
+                            },
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#modelModel").dialog("close");
+                                    $('#field_list').datagrid("unselectAll");
+                                    $('#field_list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#modelModel").dialog("close");
+                        $('#field_list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#modelModel").dialog('open');
+            $('#modelModel').window('center');
+        };
+
+        //一键添加常用字段
+        function addCommonAttrs() {
+            $.ajax({
+                url: "../Handler/CustomAudit.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "AddCommonAttrs",
+                    sn: schoolNo
+                }
+            }).done(function (data) {
+                myMessage(data.message);
+                if (data.isSuccess) {
+                    $('#field_list').datagrid('reload'); //重新加载
+                }
+            }).fail(function (err) {
+                console.log(err);
+            });
+        };
+
+        // 复制 
+        function setCopyModel(index) {
+            var arr_schoolNum = [{ name: '请选择', value: '', selected: true }];
+            $.ajax({
+                url: "../Handler/ManagerHandler.ashx", type: "post", dataType: "json", data: { action: "GetAllSchools", sn: schoolNo }
+            }).done(function (data) {
+                if (data.isSuccess) {
+                    $.each(data.rows, function (i, v) {
+                        if (v["学校编号"] != schoolNo) {
+                            arr_schoolNum.push({ name: (v['大学名称'] + ' ( ' + v['学校编号'] + ' ) '), value: v['学校编号'] });
+                        }
+                    });
+                    $("#school_copy").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: arr_schoolNum
+                    });
+
+                    // 打开弹框
+                    $("#copyModel").dialog({
+                        title: "复制",
+                        buttons: [{
+                            text: '确定',
+                            handler: function () {
+                                if ($("#school_copy").combobox('getValue') > 0) {
+                                    $("#modelModel").html("您确定要复制 本校 ( " + $("#allAudit_list").datagrid("getData").rows[index]["Name"] + " ) 流程到学校（" + $("#school_copy").combobox('getText') + "）吗？");
+                                    $("#modelModel").dialog({
+                                        title: "复制审核流程",
+                                        buttons: [{
+                                            text: '确定',
+                                            handler: function () {
+                                                $.ajax({
+                                                    url: "../Handler/CustomAudit.ashx",
+                                                    type: "post",
+                                                    dataType: "json",
+                                                    data: {
+                                                        action: "CopyFormToOtherSchool",
+                                                        sn: schoolNo,
+                                                        formId: $("#allAudit_list").datagrid("getData").rows[index]["Id"],
+                                                        toSchool: $("#school_copy").combobox('getValue')
+                                                    },
+                                                    success: function (data) {
+                                                        myMessage(data.message);
+                                                        if (data.isSuccess) {
+                                                            $("#copyModel").dialog("close");
+                                                            $("#modelModel").dialog("close");
+                                                            $('#allAudit_list').datagrid("unselectAll");
+                                                        }
+                                                    },
+                                                    error: function (err) {
+                                                        console.log(err);
+                                                    }
+                                                });
+                                            }
+                                        }, {
+                                            text: '取消',
+                                            handler: function () {
+                                                $("#modelModel").dialog("close");
+                                            }
+                                        }]
+                                    });
+                                    $("#modelModel").dialog('open');
+                                    $('#modelModel').window('center');
+                                } else {
+                                    myMessage('请选择学校'); return;
+                                }
+                            }
+                        }, {
+                            text: '取消',
+                            handler: function () {
+                                $("#copyModel").dialog("close");
+                                $("#modelModel").dialog("close");
+                                $('#allAudit_list').datagrid("unselectAll");
+                            }
+                        }]
+                    });
+
+                    $("#copyModel").dialog('open');
+                    $('#copyModel').window('center');
+                }
+            }).fail(function (err) {
+                console.log(err);
+            });
+        };
+    </script>
+</body>
+</html>

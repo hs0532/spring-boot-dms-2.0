@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日志列表</title>
+    <script type="text/javascript" src="../Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/swfupload.css?r=20171201132130" />
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 15px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <!--<p>1.&nbsp;</p>
+
+            <p>2.&nbsp;</p>-->
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学校编号：</span>
+                        </dt>
+                        <dd>
+                            <input id="SchoolID" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>用户名：</span>
+                        </dt>
+                        <dd>
+                            <input id="UserName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>日志内容：</span>
+                        </dt>
+                        <dd>
+                            <input id="LogContents" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>操作类型：</span>
+                        </dt>
+                        <dd>
+                            <input id="OperationType" style="width:170px;" class="easyui-combobox" />
+                        </dd>
+                    </dl>
+                </li>
+            
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" onclick="search()" />
+                        </dd>
+                    </dl>
+
+                </li>
+            </ul>
+        </div>
+        <div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li id="exportExcel">
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'">导出Excel表格</a>&nbsp; &nbsp;
+                    <div id="mm1" style="width:150px;">
+                        <div class="selAll">全部账号</div>
+                        <div class="selected">选中账号</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+    <script>
+
+        //页面加载完成  再加载表格
+        $(function () {
+            getOperationLogType();
+           
+         
+            GteTable(objectId, url, columnData, paramsData, idField);
+
+        });
+
+        var columnData = [[
+               { field: 'ID', checkbox: true, },         
+               { field: '用户名', align: 'center', title: '用户名', width: 10 },
+               //{ field: '大学名称', align: 'center', title: '大学名称', width: 10 },
+               { field: '学校编号', align: 'center', title: '学校编号', width: 10 },             
+               { field: '操作类型', align: 'center', title: '操作类型', width: 10 },
+               { field: '操作内容', align: 'center', title: '操作内容', width: 40 },
+               {
+                   field: '结果', align: 'center', title: '结果', width: 10, formatter: function (value, row, index) {
+                       var words = "成功";
+                  
+                           if (row["结果"] == 0) {
+                               words = "失败";
+                           }
+                 
+                       return words;
+                   }
+               },
+                  { field: '时间', align: 'center', title: '时间', width: 10 }
+     
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/AdminLogsHandler.ashx";
+        var paramsData = {
+            action: "GetList",
+            sn: "1"
+        };
+        var idField = "ID";
+        // 查询操作
+        function search() {          
+            var logcontent = $("#LogContents").textbox('getText');
+            var schoolid = $("#SchoolID").textbox('getText');
+            var operationtype = $("#OperationType").combobox('getValue');
+            var username = $("#UserName").textbox('getText');
+
+            paramsData = {
+                action: "GetList",             
+                logcontent: logcontent,
+                schoolid: schoolid,
+                operationtype: operationtype,
+                username: username,
+                sn: "1"
+            };
+            GteTable(list, url, columnData, paramsData, idField);
+        }
+        //获取操作类型
+        var myArray = new Array()
+        function getOperationLogType() {
+
+            $.ajax({
+                url: "../Handler/AdminLogsHandler.ashx?action=GetLogsOperateType&sn=1",
+                type: "post",
+                dataType: "json",
+                data: {
+                },
+                success: function (datas) {
+                    var operationtypestring = datas.dataList;
+                    var operationtypelist = operationtypestring.split(',');
+                    myArray.push({ name: '选择', value: 0 ,select:true});
+                    for (var i = 0; i < operationtypelist.length; i++) {
+                      
+                        myArray.push({ name: operationtypelist[i], value: operationtypelist[i] });
+                    }
+                    $("#OperationType").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+
+                }
+            });
+        }
+
+        // 导出Excel表格
+        // 导出Excel表格    选中部分
+        $("#exportExcel .selected").on("click", function () {
+
+            var data = $('#list').datagrid('getSelections');
+            var dataList = "";
+            for (var i = 0; i < data.length; i++) {
+                dataList += data[i].ID + ",";
+            }
+            if (dataList.length <= 0) {
+                myMessage("请至少选择一个！")
+                return false;
+            }
+            dataList = dataList.substring(0, dataList.length - 1);
+
+            var exportExcel = "export_excel";
+            var dataParams = {
+                range: "",
+                idlist: dataList,
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/AdminLogsHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+
+        });
+
+        // 导出Excel表格    全部
+        $("#exportExcel .selAll").on("click", function () {
+            var exportExcel = "export_excel";
+
+            var logcontent = $("#LogContents").textbox('getText');
+            var schoolid = $("#SchoolID").textbox('getText');
+            var operationtype = $("#OperationType").combobox('getValue');
+            var username = $("#UserName").textbox('getText');
+
+
+            var dataParams = {
+                logcontent: logcontent,            
+                schoolid: schoolid,
+                operationtype: operationtype,
+                username: username,
+                range: "all",
+                idlist: "",
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/AdminLogsHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+        });
+    </script>
+   
+</body>
+
+</html>

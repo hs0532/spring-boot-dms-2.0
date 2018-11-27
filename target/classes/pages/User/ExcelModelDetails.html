@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/kindeditor/kindeditor.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/kindeditor/lang/zh_CN.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+    <!--<link rel="stylesheet" href="../Scripts/kindeditor/themes/default/default.css?r=20171201132130" />-->
+</head>
+<body>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>表类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="modelType" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%; height: auto;">
+                    <dl>
+                        <dt>
+                            <span>Excel列：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="excelName" style="width:800px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>查询列：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="searchRow" style="width:800px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>查询表：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="searchTable" style="width:800px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>where列：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="whereRow" style="width:800px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%; height: auto;">
+                    <dl>
+                        <dt>
+                            <span>where值：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="whereValue" style="width:800px;" class="easyui-textbox" />
+                            <!--<input id="whereValue" type="text" class="easyui-textbox" data-options="multiline:true,width:800,height:80">-->
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%; height: auto">
+                    <dl>
+                        <dt>
+                            <span> &nbsp;</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input class="formBtn" id="click_add" type="button" value="添加" />
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+        <!--<div style="margin: 10px 0; text-align: right;">
+            <input class="formBtn" id="btn_preview" type="button" value="预览模版" />
+            <input class="formBtn margl" id="btn_wordUsing" type="button" value="word应用" />
+        </div>-->
+    </div>
+
+    <!-- 预览模版 -->
+    <!--<div id="previewModel" class="easyui-dialog" data-options="closed:true" style=" width: 96%; height: 620px; text-align:left; padding: 6px; "></div>-->
+    <!--删除模版  -->
+    <div id="delModel" class="easyui-dialog" data-options="closed:true" style=" width: 400px; height: 200px; text-align:center; padding: 6px; "> </div>
+
+    <!--word应用  -->
+    <div id="wordUsingModel" class="easyui-dialog" data-options="closed:true" style=" width: 800px; height: 400px; text-align:left; padding: 6px; "> </div>
+
+    <!--修改  -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="updateModel" class="easyui-dialog" data-options="closed:true" style=" width: 750px; height: 500px; text-align:left; padding: 5px; ">
+            <ul class="clearfix" style="">
+                <li class="clearfix margt">    
+                    <div style="width:100px; float:left; text-align:right;">表类型：</div><select id="model_Type" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">Excel列：</div><input id="model_excelName" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">查询列：</div><input id="model_searchRow" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">查询表：</div><input id="model_searchTable" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">where列：</div><input id="model_whereRow" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">where值：</div><input id="model_whereValue" style="width:580px;" class="easyui-textbox" />
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        var schoolNo = getUrlParam("sn");
+        var tableID = getUrlParam("tableID");
+
+        var modelType = [
+            { name: "基本信息表", value: '0', selected: true },
+            { name: "主表", value: '1' },
+            { name: "自定义表", value: '2' }
+        ];
+       
+        //页面加载完成  再加载表格
+        $(document).ready(function () {
+            // 类型
+            $("#modelType,#model_Type").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: modelType
+            });
+            // 加载列表
+            GteTable(objectId, url, columnData, paramsData, idField,false);
+        });
+
+        var columnData = [[
+               //{ field: 'ID', checkbox: true, },
+               {
+                   field: '表类型', align: 'center', title: '表类型', width: 20,
+                   formatter: function (value, row, index) {
+                       var words = "";
+                       $.each(modelType, function (index, r) {
+                           if (row["表类型"] == r["value"]) {
+                               words = r["name"];
+                           };
+                       });
+                       return words;
+                   }
+               },
+               { field: 'Excel列', align: 'left', title: 'Excel列', width: 30 },
+               { field: '查询列', align: 'center', title: '查询列', width: 20 },
+               { field: '查询表', align: 'center', title: '查询表', width: 20 },
+               { field: 'where列', align: 'center', title: 'where列', width: 20 },
+               { field: 'where值', align: 'center', title: 'where值', width: 20 },
+                {
+                    field: 'operate', title: '操作', align: 'center', width: 30,
+                    formatter: function (value, row, index) {
+                        return '<a class="listA margl" href="javascript:updataDesignTable(' + index + ')" >修改</a><a class="listA margl" href="javascript:deleteDesignTable(' + index + ')" >删除</a>';
+                    }
+                }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/ExcelTableHandler.ashx";
+        var paramsData = {
+            action: "GetExcelModelList",
+            sn: schoolNo,
+            tableID: tableID
+        };
+        var idField = "ID";
+
+        // 添加
+        $("#click_add").on("click", function () {
+            //if (checkValIsUndefinedOrNull($("#ProName").textbox("getText"))) { myMessage("题目不能为空"); return; }
+            //if (checkValIsUndefinedOrNull($("#ModelTableName").textbox("getText"))) { myMessage("列名不能为空"); return; }
+            //if ($("#modelType").combobox("getValue") == '2' || $("#modelType").combobox("getValue") == '3') {
+            //    if (checkValIsUndefinedOrNull($("#CNTableName").textbox("getText"))) {
+            //        myMessage("中文列名不能为空"); return;
+            //    };
+            //};
+
+            $.ajax({
+                url: "../Handler/ExcelTableHandler.ashx",
+                data: {
+                    action: "CreateExcelColumn",
+                    sn: schoolNo,
+                    tableID: tableID,
+                    excell: $("#excelName").textbox("getText"),
+                    cxl: $("#searchRow").textbox("getText"),
+                    cxb: $("#searchTable").textbox("getText"),
+                    blx: $("#modelType").combobox("getValue"),
+                    wl: $("#whereRow").textbox("getText"),
+                    wz: $("#whereValue").textbox("getText")
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    myMessage(data.message);
+                    if (data.isSuccess) {
+                        $("#excelName,#searchRow,#searchTable,#whereRow,#whereValue").textbox("setText", "");
+                        $("#modelType").combobox("setValue", '0');
+                        $('#list').datagrid('reload');//重新加载
+                    };
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+        //修改     
+        function updataDesignTable(index) {
+            $("#model_Type").combobox("setValue", $("#list").datagrid("getData").rows[index]["表类型"]);
+            $("#model_excelName").textbox("setText", $("#list").datagrid("getData").rows[index]["Excel列"]);
+            $("#model_searchRow").textbox("setText", $("#list").datagrid("getData").rows[index]["查询列"]);
+            $("#model_searchTable").textbox("setText", $("#list").datagrid("getData").rows[index]["查询表"]);
+            $("#model_whereRow").textbox("setText", $("#list").datagrid("getData").rows[index]["where列"]);
+            $("#model_whereValue").textbox("setText", $("#list").datagrid("getData").rows[index]["where值"]);
+            
+            $("#updateModel").dialog({
+                title: "修改",
+                buttons: [{
+                    text: '修改',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/ExcelTableHandler.ashx",
+                            data: {
+                                action: "UpdateExcelColumn",
+                                sn: schoolNo,
+                                tableID: tableID,
+                                ID:$("#list").datagrid("getData").rows[index]["ID"],
+                                excell: $("#model_excelName").textbox("getText"),
+                                cxl: $("#model_searchRow").textbox("getText"),
+                                cxb: $("#model_searchTable").textbox("getText"),
+                                blx: $("#model_Type").combobox("getValue"),
+                                wl: $("#model_whereRow").textbox("getText"),
+                                wz: $("#model_whereValue").textbox("getText")
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#updateModel").dialog("close");
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#updateModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#updateModel").dialog('open').window('center');
+        };
+
+        //删除
+        function deleteDesignTable(index) {
+            var typeNum = $("#list").datagrid("getData").rows[index]["表类型"];
+            var typeHtml = "";
+            $.each(modelType, function (index, r) {
+                if (typeNum == r["value"]) {
+                    typeHtml = r["name"];
+                };
+            });
+            $("#delModel").text("你确定要删除表类型为( " + typeHtml + " )且Excel列为( " + $("#list").datagrid("getData").rows[index]["Excel列"] + " )的数据吗？");
+            $("#delModel").dialog({
+                title: "删除",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/ExcelTableHandler.ashx",
+                            data: {
+                                action: "DeleteExcelColumn",
+                                sn: schoolNo,
+                                tableID: tableID,
+                                ID: $("#list").datagrid("getData").rows[index]["ID"]
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#delModel").dialog("close");
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#delModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#delModel").dialog('open').window('center');
+        };
+
+    </script>
+
+</body>
+</html>
+

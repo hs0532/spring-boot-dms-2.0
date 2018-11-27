@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/kindeditor/kindeditor.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/kindeditor/lang/zh_CN.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+    <!--<link rel="stylesheet" href="../Scripts/kindeditor/themes/default/default.css?r=20171201132130" />-->
+</head>
+<body>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li style="width: 100%; height: auto;">
+                    <dl>
+                        <dt>
+                            <span>题目：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="ProName" type="text" class="easyui-textbox" data-options="multiline:true,width:800,height:80">
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>列名：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="ModelTableName" style="width:800px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="modelType" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>是否为空：</span>
+                        </dt>
+                        <dd>
+                            <select id="isNull" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>是否指定列：</span>
+                        </dt>
+                        <dd>
+                            <select id="isRow" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%; height: 0; margin-top: 0;"></li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>标题类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="titleType" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>限制：</span>
+                        </dt>
+                        <dd>
+                            <input id="restriction" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>中文列名：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="CNTableName" style="width:800px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>默认值：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="default" style="width:800px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%; height: auto;">
+                    <dl>
+                        <dt>
+                            <span>注释：</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input id="annotation" type="text" class="easyui-textbox" data-options="multiline:true,width:800,height:80">
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%; height: auto">
+                    <dl>
+                        <dt>
+                            <span> &nbsp;</span>
+                        </dt>
+                        <dd style="width: 800px;">
+                            <input class="formBtn" id="click_add" type="button" value="添加" />
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+        <div style="margin: 10px 0; text-align: right;">
+            <input class="formBtn" id="btn_preview" type="button" value="预览模版" />
+            <input class="formBtn margl" id="btn_wordUsing" type="button" value="word应用" />
+        </div>
+    </div>
+
+    <!-- 预览模版 -->
+    <!--<div id="previewModel" class="easyui-dialog" data-options="closed:true" style=" width: 96%; height: 620px; text-align:left; padding: 6px; "></div>-->
+
+    <!--删除模版  -->
+    <div id="delModel" class="easyui-dialog" data-options="closed:true" style=" width: 400px; height: 200px; text-align:center; padding: 6px; "> </div>
+
+    <!--word应用  -->
+    <div id="wordUsingModel" class="easyui-dialog" data-options="closed:true" style=" width: 800px; height: 400px; text-align:left; padding: 6px; "> </div>
+
+    <!--修改  -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="updateModel" class="easyui-dialog" data-options="closed:true" style=" width: 750px; height: 500px; text-align:left; padding: 5px; ">
+            <ul class="clearfix" style="">
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">列名：</div><span id="model_tableName"> </span>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">题目：</div><input id="model_proName" class="easyui-textbox" data-options="multiline:true,height:80,width:580" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">类型：</div><select id="model_Type" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">是否为空：</div><select id="model_isNull" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">是否指定列：</div><select id="model_isRow" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">标题类型：</div><select id="model_titleType" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">限制：</div><input id="model_restriction" style="width:170px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">中文列名：</div><input id="model_CNtableName" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">默认值：</div><input id="model_default" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">注释：</div><input id="model_annotation" class="easyui-textbox" data-options="multiline:true,height:80,width:580" />
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" th:inline="none">
+        
+        var schoolNo = getUrlParam("sn");
+        var tableID = getUrlParam("tableID");
+        var tableName = getUrlParam("tableName");
+
+        var modelType = [
+            { name: "文本", value: '0', selected: true},
+            { name: "富文本", value: '6' },
+            { name: "数字", value: '1' },
+            { name: "单选", value: '2' },
+            { name: "多选", value: '3' },
+            { name: "时间", value: '4' },
+            { name: "统计", value: '5' },
+            { name: "标题", value: '7' },
+            { name: "成绩标题", value: '8' },
+            { name: "不显示", value: '-1' }
+        ];
+        var isNull = [
+            { name: "不允许为空", value: '0', selected: true },
+            { name: "允许为空", value: '1'}
+        ];
+        var isRow = [
+            { name: "不指定", value: '0', selected: true },
+            { name: "指定", value: '1' }
+        ];
+        var titleType = [
+            { name: "大标题", value: '0', selected: true },
+            { name: "小标题", value: '1' }
+        ];
+
+        //页面加载完成  再加载表格
+        $(document).ready(function () {
+            // 是否为空
+            $("#isNull,#model_isNull").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: isNull
+            });
+            // 是否为空
+            $("#isRow,#model_isRow").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: isRow
+            });
+            // 标题类型
+            $("#titleType,#model_titleType").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: titleType
+            });
+            // 类型
+            $("#modelType,#model_Type").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: modelType
+            });
+
+            GteTable(objectId, url, columnData, paramsData, idField,false);
+        });
+
+        var columnData = [[
+               //{ field: 'ID', checkbox: true, },
+               {
+                   field: '题目', align: 'left', title: '题目', width: 30,
+                   formatter: function (value, row, index) {
+                       return row['题目'].replace(/#cnkibrcnki#/g, '<br />');
+                   }
+               },
+               { field: '列名', align: 'center', title: '列名', width: 20 },
+               { field: '中文列名', align: 'center', title: '中文列名', width: 20 },
+               { field: '默认项', align: 'center', title: '默认值', width: 20 },
+               { field: '限制', align: 'center', title: '限制', width: 10 },
+               {
+                   field: '类型', align: 'center', title: '类型', width: 10,
+                   formatter: function (value, row, index) {
+                       var words = "";
+                       $.each(modelType, function (index, r) {
+                           if (row["类型"] == r.value) {
+                               words = r.name;
+                           }
+                       });
+                       return words;
+                   }
+               },
+                {
+                    field: '标题类型', align: 'center', title: '标题类型', width: 10,
+                    formatter: function (value, row, index) {
+                        var words = "";
+                        $.each(titleType, function (index, r) {
+                            if (row["标题类型"] == r.value) {
+                                words = r.name;
+                            }
+                        });
+                        return words;
+                    }
+                },
+               {
+                   field: '是否为空', align: 'center', title: '是否允许为空', width: 10,
+                   formatter: function (value, row, index) {
+                       return (row['是否为空'] == 1) ? "允许为空" : '不允许为空';
+                   }
+               },
+               {
+                   field: '是否指定列', align: 'center', title: '是否指定列', width: 10,
+                   formatter: function (value, row, index) {
+                       return (row['是否指定列'] == 1) ? "指定" : '不指定';
+                   }
+               },
+                { field: '注释', align: 'center', title: '注释', width: 20 },
+                {
+                    field: 'operate', title: '操作', align: 'center', width: 20,
+                    formatter: function (value, row, index) {
+                        var str = "";
+                        str += '<a class="listA margl" href="javascript:updataDesignTable(' + index + ')" >修改</a>';
+                        str += '<a class="listA margl" href="javascript:deleteDesignTable(' + index + ')" >删除</a>';
+                        return str;
+                    }
+                }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/DesignTableHandler.ashx";
+        var paramsData = {
+            action: "GetDeginTableModelList",
+            sn: schoolNo,
+            tableID: tableID
+        };
+        var idField = "ID";
+        
+        //. 添加
+        $("#click_add").on("click", function () {
+            if (checkValIsUndefinedOrNull($("#ProName").textbox("getText"))) { myMessage("题目不能为空"); return; }
+            if (checkValIsUndefinedOrNull($("#ModelTableName").textbox("getText"))) { myMessage("列名不能为空"); return; }
+            if ($("#modelType").combobox("getValue") == '2' || $("#modelType").combobox("getValue") == '3') {
+                if (checkValIsUndefinedOrNull($("#CNTableName").textbox("getText"))) {
+                    myMessage("中文列名不能为空"); return;
+                };
+            };
+            
+            $.ajax({
+                url: "../Handler/DesignTableHandler.ashx",
+                data: {
+                    action: "CreateDesignTableColumn",
+                    sn: schoolNo,
+                    tableID: tableID,
+                    timu: $("#ProName").textbox("getText"),
+                    lieming: $("#ModelTableName").textbox("getText"),
+                    xuanxiangzhi: $("#CNTableName").textbox("getText"),//中文列名
+                    morenzhi: $("#default").textbox("getText"),
+                    xianzhi: $("#restriction").textbox("getText"),
+                    zhushi: $("#annotation").textbox("getText"),
+                    leixing: $("#modelType").combobox("getValue"),
+                    biaoti: $("#titleType").combobox("getValue"),
+                    weikong: $("#isNull").combobox("getValue"),
+                    zhidinglie: $("#isRow").combobox("getValue")
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    myMessage(data.message);
+                    if (data.isSuccess) {
+                        $("#ProName,#ModelTableName,#CNTableName,#default,#restriction,#annotation").textbox("setText", "");
+                        $("#modelType,#titleType,#isNull,#isRow").combobox("setValue", '0');
+                        $('#list').datagrid('reload');//重新加载
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+
+        //预览模版
+        $("#btn_preview").on("click", function () {
+            openframe("预览模板", "User/DesignTablePreview.html?sn=" + schoolNo + "&tableID=" + tableID + "&tableName=" + tableName, false);
+        });
+
+        // word 应用
+        $("#btn_wordUsing").on("click", function () {
+            var datas = $('#list').datagrid('getData');
+            var newStr = "";
+            
+            $.each(datas.rows, function (index, value) {
+                var words;
+                $.each(modelType, function (i, v) {
+                    if (value["类型"] == v['value']) {
+                        words = v['name'];
+                    }
+                });
+                newStr += '<span class="margl">' + value["题目"] + '</span>'
+                            + '<span class="margl">' + value["列名"] + '</span>'
+                            + '<span class="margl">' + words + '</span>';
+                if (value["类型"] == '2' || value["类型"] == '3') {
+                    newStr += '<span class="margl">' + value["中文列名"] + '</span>';
+                }
+                newStr += '<br />';
+            });
+
+            $("#wordUsingModel").html(newStr);
+            $("#wordUsingModel").dialog({ title: "word应用" });
+            $("#wordUsingModel").dialog('open');
+            $('#wordUsingModel').window('center');
+        });
+
+        //修改
+        function updataDesignTable(index) {
+            $("#model_proName").textbox("setText", $("#list").datagrid("getData").rows[index]["题目"]);
+            $("#model_tableName").html($("#list").datagrid("getData").rows[index]["列名"]);
+            $("#model_CNtableName").textbox("setText", $("#list").datagrid("getData").rows[index]["中文列名"]);
+            $("#model_default").textbox("setText", $("#list").datagrid("getData").rows[index]["默认项"]);
+            $("#model_restriction").textbox("setText", $("#list").datagrid("getData").rows[index]["限制"]);
+            $("#model_Type").combobox("setValue", $("#list").datagrid("getData").rows[index]["类型"]);
+            $("#model_isNull").combobox("setValue", $("#list").datagrid("getData").rows[index]["是否为空"]);
+            $("#model_isRow").combobox("setValue", $("#list").datagrid("getData").rows[index]["是否指定列"]);
+            $("#model_titleType").combobox("setValue", $("#list").datagrid("getData").rows[index]["标题类型"]);
+            $("#model_annotation").textbox("setText", $("#list").datagrid("getData").rows[index]["注释"]);
+
+            $("#updateModel").dialog({
+                title: "修改",
+                buttons: [{
+                    text: '修改',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/DesignTableHandler.ashx",
+                            data: {
+                                action: "UpdateDesignTableColumn",
+                                sn: schoolNo,
+                                tableID:tableID,
+                                ID:$("#list").datagrid("getData").rows[index]["ID"],
+                                timu: $("#model_proName").textbox("getText"),
+                                lieming: $("#list").datagrid("getData").rows[index]["列名"],
+                                xuanxiangzhi: $("#model_CNtableName").textbox("getText"),//中文列名
+                                morenzhi: $("#model_default").textbox("getText"),
+                                xianzhi: $("#model_restriction").textbox("getText"),
+                                zhushi: $("#model_annotation").textbox("getText"),
+                                leixing: $("#model_Type").combobox("getValue"),
+                                biaoti: $("#model_titleType").combobox("getValue"),
+                                weikong: $("#model_isNull").combobox("getValue"),
+                                zhidinglie: $("#model_isRow").combobox("getValue")
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#updateModel").dialog("close");
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#updateModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#updateModel").dialog('open');
+            $('#updateModel').window('center');
+        }
+
+        //删除
+        function deleteDesignTable(index) {
+            $("#delModel").text("你确定要删除题目为( " + $("#list").datagrid("getData").rows[index]["题目"] + " )且列名为( " + $("#list").datagrid("getData").rows[index]["列名"] + " )的数据吗？");
+            $("#delModel").dialog({
+                title: "删除",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/DesignTableHandler.ashx",
+                            data: {
+                                action: "DeleteDesignTableColumn",
+                                sn: schoolNo,
+                                tableID: tableID,
+                                ID: $("#list").datagrid("getData").rows[index]["ID"]
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#delModel").dialog("close");
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#delModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#delModel").dialog('open');
+            $('#delModel').window('center');
+        }
+
+    </script>
+
+</body>
+</html>
+

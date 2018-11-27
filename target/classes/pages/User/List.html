@@ -1,0 +1,639 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表</title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 15px;">
+        <div class="gxf_tip"><i></i>信息提示</div>
+        <div><p>1.&nbsp;</p></div>
+    </div>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>账号：</span>
+                        </dt>
+                        <dd>
+                            <input id="UserName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学校名称：</span>
+                        </dt>
+                        <dd>
+                            <input id="SchoolName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学校编号：</span>
+                        </dt>
+                        <dd>
+                            <input id="SchoolID" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>前缀：</span>
+                        </dt>
+                        <dd>
+                            <input id="domain_name" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>账号状态：</span>
+                        </dt>
+                        <dd>
+                            <select id="State" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>配置状态：</span>
+                        </dt>
+                        <dd>
+                            <select id="DatabaseState" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>组号：</span>
+                        </dt>
+                        <dd>
+                            <select id="GroupNumber" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" onclick="search()" />
+                        </dd>
+                    </dl>
+
+                </li>
+            </ul>
+        </div>
+        <div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li id="exportExcel">
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'">导出Excel表格</a>&nbsp; &nbsp;
+                    <div id="mm1" style="width:150px;">
+                        <div class="selAll">全部账号</div>
+                        <div class="selected">选中账号</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="setdatabase" class="easyui-dialog" data-options="closed:true" style="text-align:center; padding-top:10px;">
+            <ul class="addFormBuild">
+                <li style="width:130px;">数据库服务器IP：</li>
+                <li style="width:240px;  text-align:left">
+                    <select id="databaseIp" class="easyui-combobox" style="width:161px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+                <li style="width:130px;">数据库名称：</li>
+                <li style="width:240px;  text-align:left">
+                    <input id="databaseName" class="easyui-textbox" style="width:161px;" />
+                </li>
+                <li style="width:130px;"></li>
+                <li style=" width:240px;  text-align:left;  margin-top:20px; ">
+                    <input class=" formBtn" id="updateuser" type="button" name="name" value="确认并返回" />
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 密钥弹框 -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="setSchoolKey" class="easyui-dialog" data-options="closed:true" style=" width: 720px; height: 260px; text-align:center; padding-left: 26px; ">
+            <div class="SAdetection">
+                <div class="SAbelow">
+                    <div class="SAdetail">
+                        <ul class="SAset-box">
+                            <li class="clearfix hide">
+                                <div class="SA-title">
+                                    密钥：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="schoolkey" style="width:170px;" class="easyui-textbox" data-options="" />
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="SA-title">
+                                    备用密钥：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="schoolsparekey" style="width:170px;" class="easyui-textbox" data-options="" />
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="SA-title">
+                                    时间：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="end_date" class="easyui-datetimebox" panelheight="260" style="width:170px;" data-options="showSeconds: false,editable: false">
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="SA-title"><input type="hidden" id="keySchoolnum" /></div>
+                                <div class="SA-select">
+                                    <input id="setSchoolKey_button" type="button" class="formBtn" value="保存设置" />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" th:inline="none">
+        //用户状态
+        var managers_state = [
+            { name: "全部", value: 0 },
+            { name: "正式", value: 1 },
+            { name: "试用", value: 2 },
+            { name: "临时", value: 3 },
+            { name: "包年", value: 4 }
+        ];
+        //用户配置服务状态
+        var managers_databasestate = [
+           { name: "全部", value: 0 },
+           { name: "未配置", value: 1 },
+           { name: "已配置", value: 2 }
+        ];
+
+        //列表显示菜单模块
+        var menumodulelist = [
+            { name: "请选择", value: 0 },
+            { name: "课题", value: 1 },
+            { name: "任务书", value: 2 },
+            { name: "外文译文", value: 3 },
+            { name: "开题报告", value: 4 },
+            { name: "指导记录", value: 5 },
+            { name: "中期报告", value: 6 },
+            { name: "文献综述", value: 7 },
+            { name: "毕设论文", value: 8 },
+            { name: "前期工作检查", value: 9 },
+            { name: "中期工作检查", value: 10 },
+            { name: "答辩", value: 11 },
+            { name: "指导教师评阅", value: 12 },
+            { name: "专业负责人评阅", value: 13 },
+            { name: "评阅专家评阅", value: 14 }
+        ];
+
+        //页面加载完成  再加载表格
+        $(function () {
+            getDatabaseIp();
+            getAllGroupNumber();
+            $("#State").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: managers_state
+            });
+            $("#DatabaseState").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: managers_databasestate
+            });
+            // 加载列表
+            GteTable(objectId, url, columnData, paramsData, idField);
+        });
+
+        var columnData = [[
+               { field: 'MID', checkbox: true, },
+               //{ field: 'MID', align: 'center', title: '用户名', width: 40 },
+               { field: '用户名', align: 'center', title: '用户名', width: 20 },
+               { field: '大学名称', align: 'center', title: '大学名称', width: 30 },
+               { field: '学校编号', align: 'center', title: '学校编号', width: 15 },
+               {
+                   field: '前缀', align: 'center', title: '前缀', width: 15, formatter: function (value, row, index) {
+                       var qianzhui = row["前缀"];
+                       var words = '';
+                       if (qianzhui == null || qianzhui == undefined || qianzhui == '') { }
+                       else {
+                           words = "<a class='listA' href='http://" + row["前缀"] + ".co.cnki.net' target='_blank'>" + row["前缀"] + "</a>";
+                       }
+                       return words;
+                   }
+               },
+               { field: '检测用户名', align: 'center', title: '检测用户名', width: 15 },
+               { field: '检测密码', align: 'center', title: '检测密码', width: 15 },
+               { field: '组号', align: 'center', title: '组号', width: 10 },
+               {
+                   field: '状态', align: 'center', title: '状态', width: 10, formatter: function (value, row, index) {
+                       var words = "";
+                       $.each(managers_state, function (index, r) {
+                           if (row["状态"] == r.value) {
+                               words = r.name;
+                           }
+                       });
+                       return words;
+                   }
+               },
+               {
+                   field: 'operate', title: '操作', align: 'left', width: 60,
+                   formatter: function (value, row, index) {
+                       var ip = row["数据库服务器IP"];
+                       var databasesname = row["数据库名称"];
+                       var str = "";
+                       if (ip == null || ip == undefined || ip == '' || databasesname == undefined || databasesname == '' || databasesname == null) {
+                           str = '<a class="listA"  href="javascript:setDatabase(\'' + row["学校编号"] + '\')">配置数据库</a>';
+                       } else {
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-基本设置\', \'User/BaseSettings.html?sn=' + row["学校编号"] + '\',false);">基本设置</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-课题字典\', \'User/SubjectDictList.html?sn=' + row["学校编号"] + '\',false);" >查看课题字典</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-公告字典\', \'User/NoticeDictList.html?sn=' + row["学校编号"] + '\',false);">查看公告字典</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-角色\', \'User/RoleList.html?sn=' + row["学校编号"] + '\',false);">查看角色</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-成绩名称\', \'User/ResultsNameList.html?sn=' + row["学校编号"] + '\',false);">成绩名称</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;" onclick="setProjectTitleIndex(' + row["学校编号"] + ')" >创建课题索引</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;" onclick="deleteProjectIndex(' + row["学校编号"] + ')" >删除索引</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-创建模版\', \'User/CreateTemplates.html?sn=' + row["学校编号"] + '\',false);">创建模版</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-自定义表\', \'User/DesignTableModel.html?sn=' + row["学校编号"] + '\',false);">创建自定义表</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-评分权重\', \'User/SchoolWeight.html?sn=' + row["学校编号"] + '\',false);">评分权重设置</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-菜单模块\', \'User/MenuModule.html?sn=' + row["学校编号"] + '\',false);">菜单模块</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;" href="javascript:setKey(' + row["学校编号"] + ');" >密钥设置</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;"  href="javascript:openframe(\'' + row["大学名称"] + '-课题导入\', \'User/ImportProjects.html?sn=' + row["学校编号"] + '\',false);">导入课题</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;" href="javascript:openframe(\'' + row["大学名称"] + '-自定义审核\', \'User/CustomAudit.html?sn=' + row["学校编号"] + '\',false);">自定义审核</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;" href="javascript:openframe(\'' + row["大学名称"] + '-检测统计\', \'User/CheckStatistics.html?sn=' + row["学校编号"] + '\',false);">检测统计</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;" href="javascript:openframe(\'' + row["大学名称"] + '-数据查询\', \'User/SearchList.html?sn=' + row["学校编号"] + '\',false);">数据查询</a>&nbsp;|&nbsp;';
+                           str += '<a class="listA" style="display: inline-block;" href="javascript:openframe(\'' + row["大学名称"] + '-创建EXCEL表\', \'User/ExcelModelList.html?sn=' + row["学校编号"] + '\',false);">创建EXCEL表</a>';
+                       };
+                       return str;
+                   }
+               }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/ManagerHandler";
+        var paramsData = {
+            action: "GetList",
+            sn: "1"
+        };
+        var idField = "MID";
+
+
+        //获取数据库ip   
+        function getDatabaseIp() {
+            $.ajax({
+                url: "../Handler/getDatabaseIp",
+                type: "post",
+                dataType: "json",
+                success: function (datas) {
+                    var managers_databases = datas.dataList;
+                    var managers_database = managers_databases.split(',');
+                    var myArray = new Array()
+                    myArray.push({ name: '选择', value: 0 });
+                    for (var i = 0; i < managers_database.length; i++) {
+                        myArray.push({ name: managers_database[i], value: managers_database[i] });
+                    }
+                    //var managers_databasear = myArray;
+                    $("#databaseIp").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+
+                }
+            });
+        }
+
+        //获取数据库组号       
+        function getAllGroupNumber() {
+            $.ajax({
+                url: "../Handler/ManagerHandler.ashx?action=GetAllGroupNumber&sn=1",
+                type: "post",
+                dataType: "json",
+                success: function (datas) {
+                    var managers_databases = datas.dataList;
+                    var managers_database = managers_databases.split(',');
+                    var myArray = new Array()
+                    myArray.push({ name: '全部', value: 0 });
+                    for (var i = 0; i < managers_database.length; i++) {
+                        myArray.push({ name: managers_database[i], value: managers_database[i] });
+                    }
+                    //var managers_databasear = myArray;
+                    $("#GroupNumber").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+
+                }
+            });
+        }
+
+        // 查询操作
+        function search() {
+            var username = $("#UserName").textbox('getText');
+            var schoolname = $("#SchoolName").textbox('getText');
+            var schoolid = $("#SchoolID").textbox('getText'); 
+            var domain_name= $("#domain_name").textbox('getText');
+            var state = $("#State").combobox('getValue');
+            var databasestate = $("#DatabaseState").combobox('getValue');
+            var groupnumber = $("#GroupNumber").combobox('getValue');
+            paramsData = {
+                action: "GetList",
+                username: username,
+                schoolname: schoolname,
+                schoolid: schoolid,
+                domain_name:domain_name,
+                state: state,
+                databasestate: databasestate,
+                groupnumber: groupnumber,
+                sn: "1"
+            };
+            GteTable(list, url, columnData, paramsData, idField);
+        }
+
+        //创建索引
+        function setProjectTitleIndex(num) {
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "SetProjectTitleIndex",
+                    sn: num
+                },
+                success: function (data) {
+
+                    myMessage(data.message);
+                }
+            });
+        }
+
+        //生成课题相似检测的索引
+        function deleteProjectIndex(num) {
+            if (!confirm("确定要删除吗？")) {
+                return;
+            }
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "DeleteProjectIndex",
+                    sn: num
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                }
+            });
+        }
+
+        //配置用户数据库
+        function setDatabase(sn) {
+
+            //打开弹框
+            $("#setdatabase").dialog({
+                title: '配置用户数据库',
+                width: 500,
+                height: 200,
+                top: 50,
+                left: 500
+            });
+            $("#setdatabase").dialog('open');
+            $('#setdatabase').window('center');
+
+            //  点击确定按钮  发送ajax
+            $("#updateuser").unbind();
+            $('#updateuser').on('click', function () {
+                var databaseip = $("#databaseIp").combobox('getValue');
+                var databasename = $("#databaseName").textbox('getText');
+
+                // 出现正在加载中 弹框
+                open_loading();
+                $.ajax({
+                    url: "../Handler/ManagerHandler.ashx?action=SetDatabase",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        sn: 1,
+                        schoolnum: sn,
+                        databaseip: databaseip,
+                        databasename: databasename
+                    },
+                    success: function (data) {
+                        myMessage(data.message)
+                        if (data.isSuccess == true) {
+                            $("#setdatabase").dialog('close');
+                            $('#list').datagrid('reload'); //重新加载
+                            $('#list').datagrid("unselectAll");
+                        }
+                    },
+                    error: function (err) { console.log(err); },
+                    complete: function () {
+                        // 关闭 正在加载弹框
+                        close_loading();
+                    }
+                });
+            });
+
+        }
+
+ 
+        //密钥设置开始
+        //获取密钥
+        function setKey(schoolNo) {
+            $('#schoolkey').textbox('setValue', "");
+            $('#schoolsparekey').textbox('setValue', "");
+            $('#end_date').textbox('setValue', "");
+
+            $("#keySchoolnum").val(schoolNo);
+            //打开弹窗
+            $("#setSchoolKey").dialog({
+                title: '密钥设置',
+                showType: null,
+                style: {
+
+                }
+            });
+            $("#setSchoolKey").dialog('open');
+            $('#setSchoolKey').window('center');
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetKeyInfo&sn=" + schoolNo + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.isSuccess) {
+
+                        $('#schoolkey').textbox('setValue', data.rows[0]["SecretKey"]);
+                        $('#schoolsparekey').textbox('setValue', data.rows[0]["AlternateKey"]);
+                        $('#end_date').textbox('setValue', data.rows[0]["AlternateExpireTime"]);
+
+                    } else {
+                        myMessage(data.message);
+                    };
+                }
+            });
+        }
+
+        //密钥设置
+        $("#setSchoolKey_button").click(function () {
+
+            var sn = $("#keySchoolnum").val();
+            var schoolkey = $("#schoolkey").textbox("getValue");
+            var schoolsparekey = $("#schoolsparekey").textbox("getValue");
+            var end_date = $("#end_date").textbox("getValue");
+
+            var keylength = getstrLen(schoolkey);
+            var sparekeylength = getstrLen(schoolsparekey);
+            if (schoolkey == "") {
+              
+                myMessage('密钥不能为空！');
+                return false;
+            }
+            if (keylength > 50) {
+              
+                myMessage('密钥请小于50个字符！');
+                return false;
+            }
+
+            if (schoolsparekey == "" && end_date != "") {
+              
+                myMessage('备用密钥为空时，时间应为空值！');
+                return false;
+            }
+            if (schoolsparekey != "" && end_date == "") {
+              
+                myMessage('请选择时间！');
+                return false;
+            }
+            if (sparekeylength > 50) {
+             
+                myMessage('备用密钥请小于50个字符！');
+                return false;
+            }
+
+            //var list = {};
+            //list["system_name"] = $("#system_name").textbox("getValue"); //系统名称
+            //list["domain_name"] = $("#domain_name").textbox("getValue"); //域名
+            //list["domain_pic"] = $("input[type='radio'][name='domain_pic']:checked").val();//是否显示学校
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetKey&sn=" + sn + "",
+                type: "post",
+                dataType: "json",
+                //data: list,
+                data: {
+                    schoolkey: schoolkey,
+                    schoolsparekey: schoolsparekey,
+                    end_date: end_date
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                }
+            });
+
+        });
+
+        //密钥设置完成
+
+
+        // 导出Excel表格
+        // 导出Excel表格    选中部分
+        $("#exportExcel .selected").on("click", function () {
+
+            var data = $('#list').datagrid('getSelections');
+            var dataList = "";
+            for (var i = 0; i < data.length; i++) {
+                dataList += data[i].MID + ",";
+            }
+            if (dataList.length <= 0) {
+                myMessage("请至少选择一个！")
+                return false;
+            }
+            dataList = dataList.substring(0, dataList.length - 1);
+
+            var exportExcel = "export_excel";
+            var dataParams = {
+                range: "",
+                idlist: dataList,
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/ManagerHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+
+        });
+
+        // 导出Excel表格    全部
+        $("#exportExcel .selAll").on("click", function () {
+            var exportExcel = "export_excel";
+            var dataParams = {
+                username: $("#UserName").textbox('getText'),
+                schoolname: $("#SchoolName").textbox('getText'),
+                schoolid: $("#SchoolID").textbox('getText'),
+                state: $("#State").combobox('getValue'),
+                databasestate: $("#DatabaseState").combobox('getValue'),
+                range: "all",
+                idlist: "",
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/ManagerHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+        });
+
+        //获取字符串长度（汉字算两个字符，字母数字算两个）
+        function getstrLen(val) {
+            var len = 0;
+            for (var i = 0; i < val.length; i++) {
+                var a = val.charAt(i);
+                if (a.match(/[^\x00-\xff]/ig) != null) {
+                    len += 1;
+                }
+                else {
+                    len += 1;
+                }
+            }
+            return len;
+        }
+
+    </script>
+</body>
+</html>

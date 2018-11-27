@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>数据查询修改</title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <style>
+        .searchBox {
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .searchBox li {
+                position: relative;
+                padding-left: 120px;
+                background: #f1f1f1;
+            }
+
+            .searchBox .searchLeft {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 120px;
+                text-align: right;
+            }
+
+            .searchBox .searchRight {
+                padding-left: 10px;
+                text-align: left;
+                background: #fefefe;
+                line-height: 20px;
+                min-height: 24px;
+            }
+    </style>
+
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 10px;">
+        <div class="gxf_tip"> <i></i>信息提示 </div>
+        <div> <p>1.&nbsp;只允许使用查询、更新的SQL语句</p> </div>
+    </div>
+    <div class="main clearfix">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix" style="margin-bottom: 0;">
+                <li style="height: auto; width: auto;">
+                    <dl>
+                        <dt>
+                            <span>SQL：</span>
+                        </dt>
+                        <dd style="width: auto;">
+                            <!--<input id="SqlStatement" class="easyui-textbox" data-options="multiline:true,height:200,width:400" />-->                        
+
+                            <textarea id="txtSql" rows="20" class="liInp_txt" style="width: 600px; height:230px; overflow:auto; resize:both"></textarea>
+                        </dd>
+                    </dl>
+                </li>
+                <li style="text-align: left;">
+                    <input class="formBtn margl" id="btn_search" type="button" value="执行" />
+                </li>
+            </ul>
+        </div>
+
+        <!--<table id="list" style="width:100%; border: 1px solid #ccc"></table>-->
+    </div>
+
+    <div class="gxf_problem_box">
+        <div style="padding: 10px; margin-top: 10px; border: 1px solid #ccc;">
+            <h4>
+                <label class="slTotalCount">查询到<span id="slTotalCount">0</span>条数据</label>
+                <label class="upTotalCount">更新<span id="upTotalCount">0</span>条数据</label>
+            </h4>
+            <div class="divlist" style="border-top: 1px solid #ccc; margin-top: 6px;">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var sn = getUrlParam('sn');
+        $("#btn_search").on("click", function () {         
+            var sqlstring = $("#txtSql").val();
+            sqlText = $.trim(sqlstring);
+            if (checkValIsUndefinedOrNull(sqlText)) {
+                myMessage("请输入查询语句");
+                return;
+            }
+
+            $.ajax({
+                url: "../Handler/ExecuteSQL.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "ExecuteSqlMethod",
+                    sqlstring: sqlText,
+                    sn: sn
+                },
+                success: function (data) {
+                    sqlstring.toLowerCase()
+                    if (data.isSuccess) {
+
+                        //-1表示更新语句
+                        if (data.totalCount == -1) {
+                            myMessage("成功更新" + data.message + "条数据!");
+                            $("#upTotalCount").text(data.message);
+                            $(".upTotalCount").show();
+                            $(".slTotalCount").hide();
+                            $(".divlist").html("");
+
+                        }
+                        else {
+
+                            $("#slTotalCount").text(data.totalCount);
+                            $(".divlist").html("");
+                            $(".divlist").html(data.message);
+                            $(".slTotalCount").show();
+                            $(".upTotalCount").hide();
+                        }
+                    }
+
+                    else {
+                        $("#slTotalCount").text("0");
+                        $("#upTotalCount").text("0");
+                        $(".divlist").html("");
+                        myMessage(data.message);
+                    }
+
+                }
+            });
+
+        })
+
+    </script>
+</body>
+</html>

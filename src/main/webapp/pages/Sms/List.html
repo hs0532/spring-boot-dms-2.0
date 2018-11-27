@@ -1,0 +1,467 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit"></meta>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <title>用户列表</title>
+    <script type="text/javascript" src="../Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/constant.js?r=20171201132130"></script>
+
+    <link rel="stylesheet" href="../Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/easyui.css?r=20171201132130" />
+</head>
+<body>
+    <!--<div id="" class="gxf_tips" style="margin-bottom: 15px;">
+        <div class="gxf_tip"><i></i>信息提示</div>
+        <div><p>1.&nbsp;</p></div>
+    </div>-->
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>用户名：</span>
+                        </dt>
+                        <dd>
+                            <input id="UserName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>系统类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="SystemType" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>短信类别：</span>
+                        </dt>
+                        <dd>
+                            <input id="SmsType" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>状态：</span>
+                        </dt>
+                        <dd>
+                            <select id="state" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" />
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li><input class="formBtn" id="addSms" type="button" value="添加"/></li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="ShowSmsModel" class="easyui-dialog" data-options="closed:true" style="width:400px; height: 300px; text-align:center; padding: 10px">
+            <ul id="showModelBox" class="clearfix" style="line-height: 30px;"></ul>
+        </div>
+    </div>
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="UpdataSmsModel" class="easyui-dialog" data-options="closed:true" style="width:400px; height: 300px; text-align:center; padding: 10px">
+            <ul class="clearfix">
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">用户名：</div>
+                    <div style="width:240px; float:left; text-align:left;"><input id="UserName1" style="width:170px;" class="easyui-textbox" prompt="用户名不能为空" /></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">密码：</div>
+                    <div style="width:240px; float:left; text-align:left;"><input id="password1" name="name" class="easyui-textbox easyui-passwordbox" style="width: 170px;" prompt="不修改时，请勿填写密码" data-options="showEye:false" /></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">系统类型：</div>
+                    <div style="width:240px; float:left; text-align:left;"><select id="SystemType1" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">状态：</div>
+                    <div style="width:240px; float:left; text-align:left;"><select id="state1" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">IP范围：</div>
+                    <div style="width:240px; float:left; text-align:left;"> <input id="IPrange1" style="width:170px;" class="easyui-textbox" /></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">短信类别：</div>
+                    <div style="width:240px; float:left; text-align:left;"><input id="SmsType1" style="width:170px;" class="easyui-textbox" /></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="delModel" class="easyui-dialog" style="width:400px;height:200px;text-align:center; padding:10px 30px;" data-options="closed:true"></div>
+    <script type="text/javascript">
+        //系统类型
+        var systemType = [
+            { name: "请选择", value: -1, selected: true },
+            { name: "GP", value: 0 },
+            { name: "COWebService", value: 1 },
+            { name: "DMS", value: 2 }
+        ];
+        // 状态
+        var state = [
+            { name: "请选择", value: -1, selected: true },
+            { name: "停用", value: 0 },
+            { name: "启用", value: 1 }
+        ];
+
+        //页面加载完成  再加载表格
+        $(function () {
+            $("#SystemType,#SystemType1").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: systemType
+            });
+            $("#state,#state1").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: state
+            });
+            GteTable(objectId, url, columnData, paramsData, idField);// 加载列表
+        });
+
+        var columnData = [[
+               { field: 'Id', checkbox: true, },
+               { field: 'UserName', align: 'center', title: '用户名', width: 20 },
+               { field: 'SystemType', align: 'center', title: '系统类型', width: 20 },
+               { field: 'IPRange', align: 'center', title: 'IP范围', width: 25 },
+               { field: 'UpdateTime', align: 'center', title: '更新时间', width: 25 },
+               { field: 'MessType', align: 'center', title: '短信类别', width: 20 },
+                {
+                    field: 'State', align: 'center', title: '状态', width: 20,
+                    formatter: function (value, row, index) {
+                        return (row['State'] == 1) ? "启用" : "停用";
+                    }
+                },
+               {
+                   field: 'operate', title: '操作', align: 'center', width: 30,
+                   formatter: function (value, row, index) {
+                       var str = '<a class="listA" style="display: inline-block;" href="javascript:showSms(' + index + ');" >查看</a>'
+                                + '<a class="listA margl" style="display: inline-block;" href="javascript:updataSms(' + index + ');" >修改</a>';
+                       if (row['State'] == 1) {
+                           str += '<a class="listA margl" style="display: inline-block;" href="javascript:stopOrStartUsing(' + index + ',0);" >停用</a>';
+                       } else {
+                           str += '<a class="listA margl" style="display: inline-block;" href="javascript:stopOrStartUsing(' + index + ',1);" >启用</a>';
+                       };
+                       return str;
+                   }
+               }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/SmsHandler.ashx";
+        var paramsData = {
+            action: "GetUsers",
+            sn: "1"
+        };
+        var idField = "Id";
+
+        // 查询操作
+        $("#search").on('click', function () {
+            paramsData = {
+                action: "GetUsers",
+                userName: $("#UserName").textbox('getText'),
+                systemType: $("#SystemType").combobox('getText'),
+                messType: $("#SmsType").textbox('getText'),
+                state: $("#state").combobox("getValue"),
+                sn: "1"
+            };
+            GteTable(list, url, columnData, paramsData, idField);
+        });
+        // 查看
+        function showSms(index) {
+            $.ajax({
+                url: "../Handler/SmsHandler.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "GetUserById",
+                    userId: $("#list").datagrid("getData").rows[index]["Id"],
+                    sn: "1"
+                },
+                success: function (data) {
+                    if (data.isSuccess) {
+                        var str = '<li class="clearfix"><div style="width:100px; float:left; text-align:right;">用户名：</div><div style="width:260px; float:left; text-align:left;">' + (data.rows[0]['UserName'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:100px; float:left; text-align:right;">系统类型：</div><div style="width:260px; float:left; text-align:left;">' + (data.rows[0]['SystemType'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:100px; float:left; text-align:right;">状态：</div><div style="width:260px; float:left; text-align:left;">' + ((data.rows[0]['State'] == 1) ? "启用" : "停用") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:100px; float:left; text-align:right;">IP范围：</div><div style="width:260px; float:left; text-align:left;">' + (data.rows[0]['IPRange'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:100px; float:left; text-align:right;">更新时间：</div><div style="width:260px; float:left; text-align:left;">' + (data.rows[0]['UpdateTime'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:100px; float:left; text-align:right;">短信类别：</div><div style="width:260px; float:left; text-align:left;">' + (data.rows[0]['MessType'] || "") + '</div></li>';
+                        $("#showModelBox").html(str);
+                        //打开弹窗
+                        $('#ShowSmsModel').dialog({
+                            title: '查看',
+                            buttons: [
+                                {
+                                    text: '确定',
+                                    handler: function () {
+                                        $('#list').datagrid("clearSelections");
+                                        $("#ShowSmsModel").dialog("close");
+                                    }
+                                }
+                            ]
+                        });
+                        $("#ShowSmsModel").dialog('open').window('center');
+                    } else {
+                        myMessage(data.message);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        };
+        //添加
+        $("#addSms").on("click", function () {
+            $('#password1').passwordbox({prompt: '密码不能为空' });
+            $("#UserName1,#IPrange1,#SmsType1,#password1").textbox("setValue", "");
+            $("#SystemType1").combobox("setValue", -1);
+            $("#state1").combobox("setValue", 1);
+            //打开弹窗
+            $('#UpdataSmsModel').dialog({
+                title: '添加',
+                buttons: [
+                    {
+                        text: '添加',
+                        handler: function () {
+                            $.ajax({
+                                url: "../Handler/SmsHandler.ashx",
+                                type: "post",
+                                dataType: "json",
+                                beforeSend: function () {
+                                    if ($.trim($("#UserName1").textbox("getText")) == "") {
+                                        myMessage("用户名不能为空！");
+                                        return false;
+                                    };
+                                    if ($.trim($("#password1").textbox("getValue")) == "") {
+                                        myMessage("密码不能为空！");
+                                        return false;
+                                    };
+                                    if ($("#SystemType1").combobox("getText") == "请选择" || $("#SystemType1").combobox("getValue") < 0) {
+                                        myMessage("请选择系统类型！");
+                                        return false;
+                                    };
+                                    if ($.trim($("#SmsType1").textbox("getText")).length > 12) {
+                                        myMessage("短信类别不能超过12位！");
+                                        return false;
+                                    };
+                                },
+                                data: {
+                                    action: "AddUser",
+                                    userName: $("#UserName1").textbox("getText"),
+                                    password: $("#password1").textbox("getValue"),
+                                    systemType: $("#SystemType1").combobox("getText"),
+                                    state: $("#state1").combobox("getValue"),
+                                    ipRange: $("#IPrange1").textbox("getText"),
+                                    messType: $("#SmsType1").textbox("getText"),
+                                    sn: "1"
+                                },
+                                success: function (data) {
+                                    if (data.isSuccess) {
+                                        $('#list').datagrid("reload");
+                                        $('#list').datagrid("clearSelections");
+                                        $("#UpdataSmsModel").dialog("close");
+                                    } else {
+                                        myMessage(data.message);
+                                    };
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: '取消',
+                        handler: function () {
+                            $('#list').datagrid("clearSelections");
+                            $("#UpdataSmsModel").dialog("close");
+                        }
+                    }
+                ]
+            });
+            $("#UpdataSmsModel").dialog('open').window('center');
+        });
+        //修改
+        function updataSms(index) {
+            $("#UserName1,#IPrange1,#SmsType1").textbox("setValue", "");
+            $("#SystemType1").combobox("setValue", -1);
+            $("#state1").combobox("setValue", 1);
+            $.ajax({
+                url: "../Handler/SmsHandler.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "GetUserById",
+                    userId: $("#list").datagrid("getData").rows[index]["Id"],
+                    sn: "1"
+                },
+                success: function (data) {
+                    if (data.isSuccess) {
+                        $("#state1").combobox("setValue", data.rows[0]['State']);
+                        $.each(systemType, function (index, value) {
+                            if (value["name"] == data.rows[0]['SystemType']) {
+                                $("#SystemType1").combobox("setValue", value["value"]);
+                            };
+                        });
+                        $("#UserName1").textbox("setText", data.rows[0]['UserName']);
+                        $("#IPrange1").textbox("setText", data.rows[0]['IPRange']);
+                        $("#SmsType1").textbox("setText", data.rows[0]['MessType']);
+                    } else {
+                        myMessage(data.message);
+                    };
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            }).done(function (data) {
+                if (data.isSuccess) {
+                    //打开弹窗
+                    $('#UpdataSmsModel').dialog({
+                        title: '修改',
+                        buttons: [
+                            {
+                                text: '修改',
+                                handler: function () {
+                                    $.ajax({
+                                        url: "../Handler/SmsHandler.ashx",
+                                        type: "post",
+                                        dataType: "json",
+                                        beforeSend: function () {
+                                            if ($.trim($("#UserName1").textbox("getText")) == "") {
+                                                myMessage("用户名不能为空！");
+                                                return false;
+                                            };
+                                            if ($("#SystemType1").combobox("getText") == "请选择" || $("#SystemType1").combobox("getValue") < 0) {
+                                                myMessage("请选择系统类型！");
+                                                return false;
+                                            };
+                                            if ($.trim($("#SmsType1").textbox("getText")).length > 12) {
+                                                myMessage("短信类别不能超过12位！");
+                                                return false;
+                                            };
+                                        },
+                                        data: {
+                                            action: "UpdateUser",
+                                            userId: $("#list").datagrid("getData").rows[index]["Id"],
+                                            userName: $("#UserName1").textbox("getText"),
+                                            password: $("#password1").textbox("getValue"),
+                                            systemType: $("#SystemType1").combobox("getText"),
+                                            state: $("#state1").combobox("getValue"),
+                                            ipRange: $("#IPrange1").textbox("getText"),
+                                            messType: $("#SmsType1").textbox("getText"),
+                                            sn: "1"
+                                        },
+                                        success: function (data) {
+                                            if (data.isSuccess) {
+                                                $('#list').datagrid("reload");
+                                                $('#list').datagrid("clearSelections");
+                                                $("#UpdataSmsModel").dialog("close");
+                                            } else {
+                                                myMessage(data.message);
+                                            };
+                                        },
+                                        error: function (err) {
+                                            console.log(err);
+                                        }
+                                    });
+                                }
+                            },
+                            {
+                                text: '取消',
+                                handler: function () {
+                                    $('#list').datagrid("clearSelections");
+                                    $("#UpdataSmsModel").dialog("close");
+                                }
+                            }
+                        ]
+                    });
+                    $("#UpdataSmsModel").dialog('open').window('center');
+                };
+            });
+        };
+        // 更改状态
+        function stopOrStartUsing(index, userState) {
+            var Text = "";
+            if (userState == 1) {
+                Text = "启用";
+            } else {
+                Text = "停用";
+            };
+            //打开弹窗
+            $('#delModel').html("你确定要<s style='font-weight: 700;'> " + Text + " </s>用户( " + $("#list").datagrid("getData").rows[index]["UserName"] + " ) 吗？");
+            $('#delModel').dialog({
+                title: '更改用户状态',
+                buttons: [
+                    {
+                        text: Text,
+                        handler: function () {
+                            $.ajax({
+                                url: "../Handler/SmsHandler.ashx",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    action: "UpdateUserState",
+                                    userId: $("#list").datagrid("getData").rows[index]["Id"],
+                                    state: userState,
+                                    sn: "1"
+                                },
+                                success: function (data) {
+                                    if (data.isSuccess) {
+                                        $('#list').datagrid("reload");
+                                        $('#list').datagrid("clearSelections");
+                                        $("#delModel").dialog("close");
+                                    } else {
+                                        myMessage(data.message);
+                                    };
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: '取消',
+                        handler: function () {
+                            $('#list').datagrid("clearSelections");
+                            $("#delModel").dialog("close");
+                        }
+                    }
+                ]
+            });
+            $("#delModel").dialog('open').window('center');
+        };
+    </script>
+</body>
+</html>
+

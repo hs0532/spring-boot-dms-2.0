@@ -1,0 +1,859 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+</head>
+<body>
+    <!--<div id="" class="gxf_tips" style="margin-bottom: 10px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <p>1.&nbsp;</p>
+
+            <p>2.&nbsp;</p>
+        </div>
+    </div>-->
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>计划编号：</span>
+                        </dt>
+                        <dd>
+                            <select id="schoolYearCreate" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>院系：</span>
+                        </dt>
+                        <dd>
+                            <select id="Academies" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>专业：</span>
+                        </dt>
+                        <dd>
+                            <select id="Specialties" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="type" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>科别：</span>
+                        </dt>
+                        <dd>
+                            <select id="category" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>角色：</span>
+                        </dt>
+                        <dd>
+                            <select id="role" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>附件：</span>
+                        </dt>
+                        <dd>
+                            <select id="isShowFJ" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>表名：</span>
+                        </dt>
+                        <dd style="width: 1000px;">
+                            <input id="TableName" style="width:1000px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>表头：</span>
+                        </dt>
+                        <dd style="width: 1000px;">
+                            <input id="TableHead" style="width:1000px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 100%;">
+                    <dl>
+                        <dt>
+                            <span>表尾：</span>
+                        </dt>
+                        <dd style="width: 1000px;">
+                            <input id="TableTail" style="width:1000px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="create" type="button" value="创建" />
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+    <!-- 修改模版 -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="revModel" class="easyui-dialog" data-options="closed:true" style=" width: 750px; height: 360px; text-align:left; padding: 6px; ">
+            <ul class="clearfix" style="">
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">计划编号：</div><select id="revModelNum" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">表名：</div><input id="revModelName" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">类型：</div><select id="revModelType" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">科别：</div><select id="revModelCategory" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">角色：</div><select id="revModelRole" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">附件：</div><select id="revModelFJ" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">表头：</div><input id="revModelFirst" style="width:580px;" class="easyui-textbox" />
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">表尾：</div><input id="revModelLast" style="width:580px;" class="easyui-textbox" />
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!--删除模版  -->
+    <div id="delModel" class="easyui-dialog" data-options="closed:true" style=" width: 400px; height: 200px; text-align:center; padding: 6px; "> </div>
+
+    <!--院系专业模板  -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="AcademiesModel" class="easyui-dialog" data-options="closed:true" style="width:90%; height: 650px;text-align:left; padding: 6px;">
+            <div style="padding: 10px 0">
+                <div id="xuanze" style=" padding: 8px; border: 1px solid #ccc; background-color: #fafafa;">
+                    <input id="yuanxi1" type="radio" name="yuanxi" class="margl" value="0" checked="checked" /><label for="yuanxi1">全校</label>
+                    <input id="yuanxi2" type="radio" name="yuanxi" class="margl" value="1" /><label for="yuanxi2">部分院系</label>
+                    <input class="formBtn margl" id="addwordYuanXi" type="button" value="添加院系专业" />
+                </div>
+                <ul id="AcademiesBox" style="border: 1px solid #ccc; border-top: none; background-color: #fafafa; padding: 10px 20px 0 20px; display: none; height: 200px; overflow-y: auto !important;"></ul>
+            </div>
+            <div>
+                <h4 style="text-align: center" id="AcademiesModelFirst"></h4>
+                <table id="AcademiesModelList" style="width:100%; border: 1px solid #ccc"></table>
+                <h4 style="text-align: center" id="AcademiesModelLast"></h4>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var schoolNo = getUrlParam("sn");
+
+        //科别
+        var category = [
+           { name: "全部", value: '0' , selected: true },
+           { name: "文科", value: '1' },
+           { name: "理科", value: '2' }
+        ];
+        //角色
+        var roleSel = [
+           { name: "请选择", value: '0', selected: true },
+           { name: "指导教师", value: '3' },
+           { name: "专业人负责", value: '4' },
+           { name: "教秘", value: '5' },
+           { name: "院长", value: '6' },
+           { name: "答辩录入员", value: '7' },
+           { name: "督导专家", value: '8' },
+           { name: "评阅专家", value: '9' },
+           { name: "第二导师", value: '10' },
+           { name: "学生", value: '2' },
+        ];
+        //显示附件 
+        var fujian = [
+           { name: "显示", value: '1', selected: true },
+           { name: "不显示", value: '0' }
+        ];
+        //文件类型
+        var filetype = [
+            { name: "课题", value: '11', selected: true },
+            { name: "任务书", value: '13' },
+            { name: "开题报告", value: '12' },
+            { name: "课题修改申请", value: '14' },
+            { name: "中期报告", value: '0' },
+            { name: "教师中期报告", value: '15' },
+            { name: "教秘中期报告", value: '17' },
+            { name: "专业负责人中期报告", value: '16' },
+            { name: "院长中期报告", value: '18' },
+            { name: "管理员中期报告", value: '19' },
+            { name: "文献综述", value: '38' },
+            { name: "指导记录", value: '39' },
+            { name: "答辩记录", value: '46' },
+            { name: "答辩意见", value: '47' },
+            { name: "指导教师评阅意见书(成绩)", value: '7' },
+            { name: "评阅专家评阅意见书(成绩)", value: '8' },
+            { name: "专业负责人评阅意见书(成绩)", value: '9' },
+            { name: "答辩录入员评阅意见书(成绩)", value: '10' },
+            { name: "中期考评成绩", value: '23' },
+            { name: "规范审查成绩", value: '24' },
+            { name: "前期检查(学院)", value: '40' },
+            { name: "前期检查(专业)", value: '41' },
+            { name: "前期检查(班级)", value: '42' },
+            { name: "中期检查(学院)", value: '20' },
+            { name: "中期检查(专业)", value: '21' },
+            { name: "中期检查(班级)", value: '22' },
+            { name: "后期检查(学院)", value: '43' },
+            { name: "后期检查(专业)", value: '44' },
+            { name: "后期检查(班级)", value: '45' },
+            { name: "审核课题", value: '25' },//25 26 27 28 29 30 31 32 33 34 35 36 37
+            { name: "审核课题修改申请", value: '26' },
+            { name: "审核任务书", value: '27' },
+            { name: "审核开题报告", value: '28' },
+            { name: "审核中期报告", value: '29' },
+            { name: "审核指导记录", value: '30' },
+            { name: "审核外文译文", value: '31' },
+            { name: "审核文献综述", value: '32' },
+            { name: "审核论文", value: '33' },
+            { name: "审核中期检查(学院)", value: '34' },
+            { name: "审核中期检查(专业)", value: '35' },
+            { name: "审核中期检查(班级)", value: '36' },
+            { name: "审核答辩成绩", value: '37' },
+            { name: "成绩", value: '1' },
+            { name: "中期检查", value: '3' },
+            { name: "前期检查", value: '2' },
+            { name: "前期检查工作总结", value: '4' },
+            { name: "中期检查工作总结", value: '5' },
+            { name: "毕业论文工作总结", value: '6' }
+        ];
+
+        //页面加载完成  再加载表格
+        $(document).ready(function () {
+            initSchoolYearWord(schoolNo);
+
+
+            //学院专业
+            $.post("../Handler/BaseSettingsHandler.ashx?action=GetAcademieSpecialties", { sn: schoolNo, type: 1 }, function (result) {
+                $('body').append(result);
+                AcademiesAndSpecialties($("#Academies"), $("#Specialties"));
+            });
+            // 类型
+            $("#type,#revModelType").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: filetype
+            });
+            // 科别
+            $("#category,#revModelCategory").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: category
+            });
+            // 是否显示附件
+            $("#isShowFJ,#revModelFJ").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: fujian
+            });
+            // 角色
+            $("#role,#revModelRole").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: roleSel
+            });
+            GteTable(objectId, url, columnData, paramsData, idField);
+        });
+
+        var columnData = [[
+               { field: 'ID', checkbox: true, },
+               { field: '学年', align: 'center', title: '计划编号', width: 10 },
+               {
+                   field: '类型', align: 'center', title: '类型', width: 20,
+                   formatter: function (value, row, index) {
+                       var words = "";
+                       $.each(filetype, function (index, r) {
+                           if (row["类型"] == r.value) {
+                               words = r.name;
+                           }
+                       });
+                       return words;
+                   }
+               },
+               { field: '表名', align: 'center', title: '表名', width: 50 },
+               {
+                   field: '科别', align: 'center', title: '科别', width: 20,
+                   formatter: function (value, row, index) {
+                       var words = "";
+                       $.each(category, function (index, r) {
+                           if (row["科别"] == r.value) {
+                               words = r.name;
+                           }
+                       });
+                       return words;
+                   }
+               },
+               {
+                   field: '角色', align: 'center', title: '角色', width: 20,
+                   formatter: function (value, row, index) {
+                       var words = "";
+                       $.each(roleSel, function (index, r) {
+                           if (row["角色"] == r.value && r.value != 0) {
+                               words = r.name;
+                           };
+                       });
+                       return words;
+                   }
+               },
+               {
+                   field: '是否显示附件', align: 'center', title: '是否显示附件', width: 20,
+                   formatter: function (value, row, index) {
+                       return row['是否显示附件'] ? "显示" : "不显示";
+                   }
+               },
+               {
+                   field: 'operate', title: '操作', align: 'center', width: 40,
+                   formatter: function (value, row, index) {
+                       var str = "";
+                       str += '<a class="listA"  href="javascript:openframe(\'自定义模版详情\', \'User/DesignTableDetail.html?sn=' + row["学校编号"] + '&tableID=' + row["ID"] + '&tableName=(' + row["学年"] + ')' + row["类型"] + '\',false)" >查看</a>';
+                       str += '<a class="listA margl" href="javascript:revDesignTable(' + index + ')" >修改</a>';
+                       str += '<a class="listA margl" href="javascript:delDesignTable(' + index + ')" >删除</a>';
+                       str += '<a class="listA margl" href="javascript:Academies(' + index + ')" >院系</a>';
+                       return str;
+                   }
+               }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/DesignTableHandler.ashx";
+        var paramsData = {
+            action: "GetDeginTableList",
+            sn: schoolNo
+        };
+        var idField = "ID";
+
+        // 创建
+        $("#create").on("click", function () {
+            if ($("#schoolYearCreate").combobox("getValue") <= 0) { myMessage("请选择计划编号"); return; };
+            if (checkValIsUndefinedOrNull($("#TableHead").textbox("getText"))) { myMessage("表头不能为空"); return; };
+            if (checkValIsUndefinedOrNull($("#TableName").textbox("getText"))) { myMessage("表名不能为空"); return; };
+
+            $.ajax({
+                url: "../Handler/DesignTableHandler.ashx",
+                data: {
+                    action: "CreateDesignTable",
+                    sn: schoolNo,
+                    jihuabianhao: $("#schoolYearCreate").combobox("getValue"),
+                    biaotou: $("#TableHead").textbox("getText"),
+                    biaoming: $("#TableName").textbox("getText"),
+                    biaowei: $("#TableTail").textbox("getText"),
+                    leixing: $("#type").combobox("getValue"),
+                    kebie: $("#category").combobox("getValue"),
+                    xueyuan: $("#Academies").combobox("getValue"),
+                    juese: $("#role").combobox("getValue"),
+                    fujian: $("#isShowFJ").combobox("getValue"),
+                    zhuanye: $("#Specialties").combobox("getValue")
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    myMessage(data.message);
+                    if (data.isSuccess) {
+                        $("#TableHead,#TableName,#TableTail").textbox("setText", "");
+                        $("#type").combobox("setValue", '11');
+                        $("#isShowFJ").combobox("setValue", '1');
+                        $("#category,#role").combobox("setValue", '0');
+                        $("#Academies").combobox("setValue", -1);
+                        $("#Specialties").combobox("setValue", '');
+                        $('#list').datagrid('reload');//重新加载
+                    };
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+        // 修改
+        function revDesignTable(index) {
+            $("#revModelFirst").textbox("setText", $("#list").datagrid("getData").rows[index]["表头"]);
+            $("#revModelNum").combobox("setValue", $("#list").datagrid("getData").rows[index]["计划编号"]);
+            $("#revModelType").combobox("setValue", $("#list").datagrid("getData").rows[index]["类型"]);
+            $("#revModelName").textbox("setText", $("#list").datagrid("getData").rows[index]["表名"]);
+            $("#revModelCategory").combobox("setValue", $("#list").datagrid("getData").rows[index]["科别"]);
+            $("#revModelRole").combobox("setValue", $("#list").datagrid("getData").rows[index]['角色']);
+            $("#revModelFJ").combobox("setValue", $("#list").datagrid("getData").rows[index]["是否显示附件"]);
+            $("#revModelLast").textbox("setText", $("#list").datagrid("getData").rows[index]["表尾"]);
+            
+            $("#revModel").dialog({
+                title: "修改",
+                buttons: [{
+                    text: '修改',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/DesignTableHandler.ashx",
+                            data: {
+                                action: "UpdateDeginTableInfo",
+                                sn: schoolNo,
+                                tableID: $("#list").datagrid("getData").rows[index]["ID"],
+                                bt: $("#revModelFirst").textbox("getText"),
+                                bw: $("#revModelLast").textbox("getText"),
+                                jhbh: $("#revModelNum").combobox("getValue"),
+                                lx: $("#revModelType").combobox("getValue"),
+                                kb: $("#revModelCategory").combobox("getValue"),
+                                sx: $("#list").datagrid("getData").rows[index]["失效"],
+                                bm: $("#revModelName").textbox("getText"),
+                                juese: $("#revModelRole").combobox("getValue"),
+                                fujian: $("#revModelFJ").combobox("getValue"),
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#revModel").dialog("close");
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#revModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#revModel").dialog('open');
+            $('#revModel').window('center');
+        };
+        
+        //删除
+        function delDesignTable(index) {
+            $("#delModel").text("你确定要删除表名（" + $("#list").datagrid("getData").rows[index]["表名"] + "）吗？");
+            $("#delModel").dialog({
+                title: "删除",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/DesignTableHandler.ashx",
+                            data: {
+                                action: "DeleteDeginTableInfo",
+                                sn: schoolNo,
+                                tableID: $("#list").datagrid("getData").rows[index]["ID"]
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#delModel").dialog("close");
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#delModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#delModel").dialog('open');
+            $('#delModel').window('center');
+        }
+       
+        //院系
+        function Academies(index) {
+            var tempHtml = "";
+            $.each(xz_list, function (index, value) {
+                if (index > 0) {
+                    tempHtml += '<li style="border-top: 1px solid #ccc; margin-bottom: 10px;"><div>'
+                        + '<input id="Academie' + value["xy_bh"] + '" class="Academies" type="checkbox" name="name" value="' + value["xy_bh"] + '" /><label for="Academie' + value["xy_bh"] + '"> ' + value["xy"] + '</label>'
+                        + '<span class="zhuanye" style="display: none;">'
+                        + '<input id="Academie' + value["xy_bh"] + '_1"  class="quanbuzhuanye margl" type="radio" name="Academie_' + value["xy_bh"] + '"  value="0" checked="checked" /><label for="Academie' + value["xy_bh"] + '_1"> 所有专业</label>'
+                        + '<input id="Academie' + value["xy_bh"] + '_2" class="bufenzhuanye margl" type="radio" name="Academie_' + value["xy_bh"] + '"  value="1" /><label for="Academie' + value["xy_bh"] + '_2"> 部分专业</label>'
+                        + '</span></div><div class="SpecialtiesBox" style="padding-left:10px ; display: none;">';
+                    $.each(value["z"], function (idx, val) {
+                        if (idx > 0) {
+                            tempHtml += '<input id="Specialties_' + val["zy_bh"] + '" type="checkbox" class="margl Specialties" value="' + value["xy_bh"] + "$" + val["zy_bh"] + '" /><label for="Specialties_' + val["zy_bh"] + '"> ' + val["zy"] + '</label>'
+                        }
+                    });
+                    tempHtml += '</div></li>';
+                }
+            });
+            $("#AcademiesBox").html(tempHtml);
+
+            $("#AcademiesModelFirst").html("表头：" + $("#list").datagrid("getData").rows[index]["表头"]);
+            $("#AcademiesModelLast").html("表尾：" + $("#list").datagrid("getData").rows[index]["表尾"]);
+            var columnData = [[
+               //{ field: 'ID', checkbox: true, },
+               { field: '表名', align: 'center', title: '表名', width: 80 },
+               { field: '学校编号', align: 'center', title: '学校编号', width: 40 },
+               { field: '学院编号', align: 'center', title: '学院编号', width: 40 },
+                {
+                    field: '学院名称', align: 'center', title: '学院名称', width: 40,
+                    formatter: function (value, row, index) {
+                        var str = "";
+                        if (row["学院编号"] <= 0) {
+                            str = "全校";
+                        } else {
+                            str = row["学院名称"];
+                        }
+                        return str;
+                    }
+                },
+               { field: '专业编号', align: 'center', title: '专业编号', width: 40 },
+                {
+                    field: '专业名称', align: 'center', title: '专业名称', width: 40,
+                    formatter: function (value, row, index) {
+                        var str = "";
+                        if (row["专业编号"] <= 0) {
+                            str = "全部专业";
+                        } else {
+                            str = row["专业名称"];
+                        }
+                        return str;
+                    }
+                },
+                 {
+                     field: 'operate', title: '操作', align: 'center', width: 30,
+                     formatter: function (value, row, index) {
+                         return '<a class="listA" href="javascript:delAcademiesModel(' + index + ')" >删除</a>';
+                     }
+                 }
+            ]];
+            var objectId = $("#AcademiesModelList");
+            var url = "../Handler/DesignTableHandler.ashx";
+            var paramsData = {
+                action: "GetDeginTableDepartmentList",
+                sn: schoolNo,
+                tableID: $("#list").datagrid("getData").rows[index]["ID"]
+            };
+            var idField = "ID";
+            GteTable(objectId, url, columnData, paramsData, idField);
+
+            $("#AcademiesModel").dialog({ title: "院系专业" });
+            $("#AcademiesModel").dialog('open');
+            $('#AcademiesModel').window('center');
+
+            // 添加院系
+            $("#AcademiesModel").off("click", "#addwordYuanXi").on("click", "#addwordYuanXi", function () {
+                $("#delModel").text("你确定要添加你选中的所有院系专业吗？");
+                $("#delModel").dialog({
+                    title: "添加院系专业",
+                    buttons: [{
+                        text: '确定',
+                        handler: function () {
+                            var xy_zy = "";
+                            // 全校
+                            if ($("#yuanxi1").is(":checked") == true) {
+                                xy_zy = '-1$-1,';
+                            }
+                                //  部分院系
+                            else if ($("#yuanxi2").is(":checked") == true) {
+                                var xyHtml = $(".Academies");
+                                //
+                                for (var i = 0; i < xyHtml.length; i++) {
+                                    // 院系选中
+                                    if ($(xyHtml[i]).is(":checked") == true) {
+                                        // 全部专业
+                                        if ($(xyHtml[i]).parent().find(".quanbuzhuanye").is(":checked") == true) {
+                                            xy_zy += $(xyHtml[i]).val() + "$-1,";
+                                        }
+                                        // 部分专业
+                                        if ($(xyHtml[i]).parent().find(".bufenzhuanye").is(":checked") == true) {
+                                            var zy_xy = "";
+                                            var zyHtml = $(xyHtml[i]).parent().parent().find(".SpecialtiesBox>.Specialties");
+                                            for (var j = 0; j < zyHtml.length; j++) {
+                                                if ($(zyHtml[j]).is(":checked") == true) {
+                                                    zy_xy += $(zyHtml[j]).val() + ",";
+                                                }
+                                            }
+                                            // 未选中专业提示
+                                            if (zy_xy == "") {
+                                                myMessage("您选中学院（" + $(xyHtml[i]).next().html() + "）专业不能为空！");
+                                                return;
+                                            }
+                                            xy_zy += zy_xy;
+                                        }
+                                    }
+                                }
+                            };
+                            // 未选中院系提示
+                            if (xy_zy == "") {
+                                myMessage("院系不能为空！");
+                                return;
+                            }
+                            xy_zy = xy_zy.substring(0, xy_zy.length - 1);
+                            //console.log(xy_zy);
+                            $.ajax({
+                                url: "../Handler/DesignTableHandler.ashx",
+                                data: {
+                                    action: "AddDeginTableDepartment",
+                                    sn: schoolNo,
+                                    tableID: $("#list").datagrid("getData").rows[index]["ID"],
+                                    listStr: xy_zy
+                                },
+                                dataType: "json",
+                                type: "POST",
+                                success: function (data) {
+                                    myMessage(data.message);
+                                    if (data.isSuccess) {
+                                        $('#AcademiesModelList').datagrid('reload');//重新加载
+                                        $("#delModel").dialog("close");
+                                    }
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $("#delModel").dialog("close");
+                        }
+                    }]
+                });
+                $("#delModel").dialog('open');
+                $('#delModel').window('center');
+            });
+        }
+
+
+
+        // 点击选中部分院系
+        $("#xuanze>#yuanxi1,#xuanze>#yuanxi2").on("click", function () {
+            if ($("#yuanxi1").is(":checked") == true) {
+                $("#AcademiesBox").hide();
+            } else if ($("#yuanxi2").is(":checked") == true) {
+                $(".Academies").prop("checked", false);
+                $(".zhuanye").hide();
+                $(".SpecialtiesBox").hide();
+                $("#AcademiesBox").show();
+            }
+        });
+
+        // 点击选中学院
+        $("#AcademiesModel").on("click", "#AcademiesBox li .Academies", function () {
+            if ($(this).is(":checked") == true) {
+                $(this).parent().find("span").show();
+                $(this).parent().find("span .quanbuzhuanye").prop("checked", "checked");
+            } else {
+                $(this).parent().find("span").hide();
+                $(this).parent().parent().find(".SpecialtiesBox").hide();
+            }
+        });
+
+        // 点击选中部分专业
+        $("#AcademiesModel").on("click", "#AcademiesBox li .zhuanye", function () {
+            if ($(this).find(".quanbuzhuanye").is(":checked") == true) {
+                $(this).parent().parent().find(".SpecialtiesBox").hide();
+            }
+            if ($(this).find(".bufenzhuanye").is(":checked") == true) {
+                $(this).parent().parent().find(".SpecialtiesBox").show();
+                $(this).parent().parent().find(".SpecialtiesBox .Specialties").prop("checked", "checked");
+            }
+        });
+
+        // 删除院系
+        function delAcademiesModel(index) {
+            $("#delModel").text("你确定要删除院系（" + ($("#AcademiesModelList").datagrid("getData").rows[index]["学院名称"] || "全校") + "-"
+                            + ($("#AcademiesModelList").datagrid("getData").rows[index]["专业名称"] || "全部专业") + "）的表名为（"
+                            + $("#AcademiesModelList").datagrid("getData").rows[index]["表名"] + "）的自定义模版吗？");
+            $("#delModel").dialog({
+                title: "删除",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/DesignTableHandler.ashx",
+                            data: {
+                                action: "DeleteDeginTableDepartment",
+                                sn: schoolNo,
+                                ID: $("#AcademiesModelList").datagrid("getData").rows[index]["ID"]
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#delModel").dialog("close");
+                                    $('#AcademiesModelList').datagrid("unselectAll");
+                                    $('#AcademiesModelList').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#delModel").dialog("close");
+                        $('#AcademiesModelList').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#delModel").dialog('open');
+            $('#delModel').window('center');
+        };
+
+
+        //加载计划编号下拉框
+        function initSchoolYearWord(schoolNo) {
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetSchoolYear&sn=" + schoolNo + "",
+                type: "post",
+                dataType: "json",
+                success: function (datas) {
+                    var myArray = new Array()
+                    if (datas.isSuccess == true) {
+                        close_loading();
+                        var schoolYearTypes = datas.dataList.schoolYearTypes;
+                        if (schoolYearTypes && schoolYearTypes.length > 0) {
+                            $.each(schoolYearTypes, function (index, item) {
+                                if (!checkValIsUndefinedOrNull(item["计划编号"]) && !checkValIsUndefinedOrNull(item['学年'])) {
+                                    if (index == 0) {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": true });
+                                    } else if (item["是否默认学年"] == 1) {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": true });
+                                        myArray[0]["selected"] = false;
+                                    } else {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": false });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        close_loading();
+                    }
+                    $("#schoolYearCreate,#revModelNum").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+                }
+            });
+        }
+
+        // 导出Excel表格
+        // 导出Excel表格    选中部分
+        $("#exportExcel .selected").on("click", function () {
+
+            var data = $('#list').datagrid('getSelections');
+            var dataList = "";
+            for (var i = 0; i < data.length; i++) {
+                dataList += data[i].MID + ",";
+            }
+            if (dataList.length <= 0) {
+                myMessage("请至少选择一个！")
+                return false;
+            }
+            dataList = dataList.substring(0, dataList.length - 1);
+
+            var exportExcel = "export_excel";
+            var dataParams = {
+                range: "",
+                idlist: dataList,
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/ManagerHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+
+        });
+
+        // 导出Excel表格    全部
+        $("#exportExcel .selAll").on("click", function () {
+            var exportExcel = "export_excel";
+            var dataParams = {
+                username: $("#UserName").textbox('getText'),
+                schoolname: $("#SchoolName").textbox('getText'),
+                schoolid: $("#SchoolID").textbox('getText'),
+                state: $("#State").combobox('getValue'),
+                range: "all",
+                idlist: "",
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/ManagerHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+        });
+    </script>
+
+</body>
+</html>
+

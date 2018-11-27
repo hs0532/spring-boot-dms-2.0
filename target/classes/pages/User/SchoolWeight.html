@@ -1,0 +1,2561 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <title></title>
+</head>
+<body>
+    <!--最大的盒子-->
+    <div class="main">
+        <div class=" clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学年：</span>
+                        </dt>
+                        <dd>
+                            <select id="schoolyear" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <!--成绩是否显示设置-->
+        <div class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">成绩是否显示设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <form id="SAset-box">
+                        <ul class="SAset-box">
+
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示<i name="zdjs_role"></i>成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="zdjs_yx" type="radio" name="zdjs_yx" value="1" /><label for="zdjs_yx">允许</label>
+                                    <input id="zdjs_byx" class="margl" type="radio" name="zdjs_yx" value="0" /><label for="zdjs_byx">不允许</label>
+                                </div>
+
+                                <!--<div class="SA-title" style="width:242px;">
+                                    是否允许显示<i name="jyfzr_role"></i>成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="zyfzr_yx" type="radio" name="zyfzr_yx" value="1" /><label for="zyfzr_yx">允许</label>
+                                    <input id="zyfzr_byx" class="margl" type="radio" name="zyfzr_yx" value="0" /><label for="zyfzr_byx">不允许</label>
+                                </div>
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示<i name="pyzj_role"></i>成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="pyzj_yx" type="radio" name="pyzj_yx" value="1" /><label for="pyzj_yx">允许</label>
+                                    <input id="pyzj_byx" class="margl" type="radio" name="pyzj_yx" value="0" /><label for="pyzj_byx">不允许</label>
+                                </div>
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示答辩成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="dabian_yx" type="radio" name="dabian_yx" value="1" /><label for="dabian_yx">允许</label>
+                                    <input id="dabian_byx" class="margl" type="radio" name="dabian_yx" value="0" /><label for="dabian_byx">不允许</label>
+                                </div>
+                                <div class="SA-title" style=" width:242px;">
+                                    是否允许显示中期考评成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="zqkp_yx" type="radio" name="zqkp_yx" value="1" /><label for="zqkp_yx">允许</label>
+                                    <input id="zqkp_byx" class="margl" type="radio" name="zqkp_yx" value="0" /><label for="zqkp_byx">不允许</label>
+                                </div>
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示规范审查成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="gfsc_yx" type="radio" name="gfsc_yx" value="1" /><label for="gfsc_yx">允许</label>
+                                    <input id="gfsc_byx" class="margl" type="radio" name="gfsc_yx" value="0" /><label for="gfsc_byx">不允许</label>
+                                </div>-->
+                            </li>
+
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示<i name="jyfzr_role"></i>成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="zyfzr_yx" type="radio" name="zyfzr_yx" value="1" /><label for="zyfzr_yx">允许</label>
+                                    <input id="zyfzr_byx" class="margl" type="radio" name="zyfzr_yx" value="0" /><label for="zyfzr_byx">不允许</label>
+                                </div>
+                            </li>
+
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示<i name="pyzj_role"></i>成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="pyzj_yx" type="radio" name="pyzj_yx" value="1" /><label for="pyzj_yx">允许</label>
+                                    <input id="pyzj_byx" class="margl" type="radio" name="pyzj_yx" value="0" /><label for="pyzj_byx">不允许</label>
+                                </div>
+                            </li>
+
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示答辩成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="dabian_yx" type="radio" name="dabian_yx" value="1" /><label for="dabian_yx">允许</label>
+                                    <input id="dabian_byx" class="margl" type="radio" name="dabian_yx" value="0" /><label for="dabian_byx">不允许</label>
+                                </div>
+                            </li>
+
+                            <li class="clearfix">
+                                <div class="SA-title" style=" width:242px;">
+                                    是否允许显示中期考评成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="zqkp_yx" type="radio" name="zqkp_yx" value="1" /><label for="zqkp_yx">允许</label>
+                                    <input id="zqkp_byx" class="margl" type="radio" name="zqkp_yx" value="0" /><label for="zqkp_byx">不允许</label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示规范审查成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="gfsc_yx" type="radio" name="gfsc_yx" value="1" /><label for="gfsc_yx">允许</label>
+                                    <input id="gfsc_byx" class="margl" type="radio" name="gfsc_yx" value="0" /><label for="gfsc_byx">不允许</label>
+                                </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="SA-title" style="width:242px;">
+                                    是否允许显示第二评阅成绩：
+                                </div>
+                                <div class="SA-select">
+                                    <input id="depyr_yx" type="radio" name="depyr_yx" value="1" /><label for="depyr_yx">允许</label>
+                                    <input id="depyr_byx" class="margl" type="radio" name="depyr_yx" value="0" /><label for="depyr_byx">不允许</label>
+                                </div>
+                            </li>
+                            <li class="clearfix set_ShowResults">
+                                <div class="SA-title"></div>
+                                <div class="SA-select">
+                                    <input id="set_ShowResults" type="button" class="formBtn" value="保存设置" />
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--评分权重设置-->
+        <form id="quanzhong" class="SAdetection">
+            <!--盒子上部分的标题-->
+            <h4 class="SAtitle">全校评分权重设置</h4>
+            <!--头部下边的盒子-->
+            <div class="SAbelow">
+                <!--详细的设置盒子-->
+                <div class="SAdetail">
+                    <ul class="SAset-box">
+
+                        <li class="clearfix">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <p id="shuoming" class="SAtext">
+                                    <!--<span style="color:red;">*</span>-->
+                                    <!--总权重为:1,即指导成绩权重+专业负责人评阅成绩权重+评阅专家成绩权重+答辩成绩权重=1-->
+
+                                    说明:1.各项权重仅能填写<span style="color:red;">0-1的数字（支持保留2位小数）</span>，若填写0表示不使用该项权重<br />
+                                    &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;2.系统计算学生成绩时取用权重优先级别为：<span style="color:red;">课题类型>专业>院系>学校</span>
+
+                            
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <span class="ZhiDao" style="margin-right:50px; ">
+                                    <span id="span_teaacher"></span>成绩： <input id="ZhiDao" class="easyui-textbox" name="ZhiDao" style="max-width:37px;" />
+                                </span>
+                                <span class="PingYue" style="margin-right:50px; ">
+                                    <span id="span_zhuanye"></span>成绩：<input id="PingYue" class="easyui-textbox" name="PingYue" style="max-width:37px" />
+                                </span>
+                                <span class="ZhuanJia" style="margin-right:50px; ">
+                                    <span id="span_zhuanjia"></span>成绩：<input id="ZhuanJia" class="easyui-textbox" name="ZhuanJia" style="max-width:37px" />
+                                </span>
+                                <span class="DaBian" style="margin-right:50px; ">
+                                    答辩成绩：<input id="DaBian" class="easyui-textbox" name="DaBian" style="max-width:37px" />
+                                </span>
+                                <span class="ZhonmgQiKaoPing" style="margin-right:50px; ">
+                                    中期考评成绩：<input id="ZhonmgQiKaoPing" class="easyui-textbox" name="ZhonmgQiKaoPing" style="max-width:37px" />
+                                </span>
+                                <span class="GuiFanShenCha" style="margin-right:50px; ">
+                                    规范审查成绩：<input id="GuiFanShenCha" class="easyui-textbox" name="GuiFanShenCha" style="max-width:37px" />
+                                </span>
+
+                                <span class="DiErPingYueRen" style="margin-right:50px; ">
+                                    第二评阅成绩：<input id="DiErPingYueRen" class="easyui-textbox" name="DiErPingYueRen" style="max-width:37px" />
+                                </span>
+                           
+                                    <!--<br />-->
+                                    <!--<input id="quanzhong_btn" type="button" class="formBtn SAmt" value="保存设置" />-->
+</div>
+
+                        </li>
+                        <!--<li class="clearfix">
+                            <div class="SA-title">
+                                绑定选择：
+                            </div>
+
+                                <div class="SA-select">
+                                    <input id="xz_zhuanye" type="radio" name="quanzhong_bind" value="1" /><label for="xx">选择专业</label>
+                                    <input id="xz_ketiliexing" class="margl" type="radio" name="quanzhong_bind" value="0" /><label for="bxx">课题类型</label>
+                                </div>
+                            <div class="SA-select"></div>
+                        </li>-->
+                        <!--<li class="clearfix bindSpecialties">
+                            <div class="SA-title">
+                                专业：
+                            </div>
+                            <div class="gxf_answer_common"> <span id="answerTeachers-name"></span><a id="answerTeachers" class="listA margl" href="javascript:;">选择</a></div>
+                        </li>-->
+                        <!--<li class="clearfix bindProjectType">
+                            <div class="SA-title">
+                                课题类型选择：
+                            </div>
+
+                            <div class="SA-select" style="padding-left:0 ;" id="objecttitletype">
+                                <input type="checkbox" class="margl" value="0" /><label for=""> 类型1</label>
+                                <input type="checkbox" class="margl" value="1" /><label for=""> 类型2</label>
+                                <input type="checkbox" class="margl" value="2" /><label for=""> 类型3</label>
+                                <input type="checkbox" class="margl" value="3" /><label for=""> 类型4</label>
+                            </div>
+                        </li>-->
+                        <li class="clearfix">
+                            <div class="SA-title"></div>
+                            <div class="SA-select">
+                                <input id="quanzhong_btn" type="button" class="formBtn SAmt" value="保存设置" />
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </form>
+        <div class="gxf_statistics">
+            <div class="gxf_statistics_navBar">
+                <ul class="clearfix">
+                    <li>
+                        <a id="statisticsByAcademy" class="selected" href="javascript:;">学院</a>
+                    </li>
+                    <li>
+                        <a id="statisticsBySubmitter" href="javascript:;">专业</a>
+                    </li>
+                    <li>
+                        <a id="statisticsByPro" href="javascript:;">课题类型</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--选项卡下的三个导航栏-->
+        <div class="gxf_statistics_container">
+            <!--  ====================== 学院 ========================  -->
+            <div class="main">
+                <div class="rightbox clearfix">
+                    <ul class="form clearfix">
+                        <li>
+                            <dl>
+                                <dt>
+                                    <span>学院名称：</span>
+                                </dt>
+                                <dd>
+                                    <input id="zhacademiesName" style="width:170px;" class="easyui-textbox" />
+                                    <!--<select id="statisticsType" class="easyui-combobox" style="width: 170px;" data-options="panelHeight:'auto'" editable="false"></select>-->
+                                    <!--<select id="academieslistMenuModule" class="easyui-combobox" style="width: 160px;" editable="false" data-options="panelHeight:'auto'"></select>-->
+
+                                </dd>
+                            </dl>
+                        </li>
+                        <!--<li style="width: 310px;">
+                            <dl>
+                                <dt style="width: 105px;">
+                                    <span>专业名称：</span>
+                                </dt>
+                                <dd>
+                                    <input id="zhSpecialtiesName" style="width:170px;" class="easyui-textbox" />
+                                </dd>
+                            </dl>
+                        </li>
+                        <li style="width: 310px;">
+                            <dl>
+                                <dt style="width: 105px;">
+                                    <span>课题类型：</span>
+                                </dt>
+                                <dd>
+                                    <input id="zhSubjectName" style="width:170px;" class="easyui-textbox" />
+                                </dd>
+                            </dl>
+                        </li>-->
+                        <li class="search">
+                            <dl>
+                                <dt>
+                                    <span>&nbsp;</span>
+                                </dt>
+                                <dd>
+                                    <input class="formBtn" id="search1" type="button" value="查询" onclick="search1()" />
+                                </dd>
+                            </dl>
+
+                        </li>
+
+                    </ul>
+                </div>
+                <!--  第二行 导航栏  -->
+                <div class="gxf_studentList_tabs clearfix">
+                    <ul class="clearfix">
+                        <!--<li id="exportExcel1">
+                            <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'">导出Excel表格</a>&nbsp; &nbsp;
+                            <div id="mm1" style="width:150px;">
+                                <div class="selAll">全部信息</div>
+                                <div class="selected">选中信息</div>
+                            </div>
+                        </li>-->
+                    </ul>
+                </div>
+
+            </div>
+            <!--  ====================== 按专业 =========================  -->
+            <div class="main">
+                <div class="rightbox clearfix">
+                    <ul class="form clearfix">
+
+                        <li style="width: 310px;">
+                            <dl>
+                                <dt style="width: 105px;">
+                                    <span>专业名称：</span>
+                                </dt>
+                                <dd>
+                                    <input id="SpecialtiesName" style="width:170px;" class="easyui-textbox" />
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="search">
+                            <dl>
+                                <dt>
+                                    <span>&nbsp;</span>
+                                </dt>
+                                <dd>
+                                    <input class="formBtn" id="search2" type="button" value="查询" onclick="search2()" />
+                                </dd>
+                            </dl>
+
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="gxf_studentList_tabs clearfix">
+                    <ul class="clearfix">
+                        <li id="exportExcel2">
+                            <!--<a href="#" class="easyui-menubutton" data-options="menu:'#mm2'">导出Excel表格</a>&nbsp; &nbsp;
+                            <div id="mm2" style="width:150px;">
+                                <div class="selAll">全部信息</div>
+                                <div class="selected">选中信息</div>
+                            </div>-->
+                        </li>
+                        <li><input type="button" class="formBtn" id="addBindingSpecialties" name="name" value="绑定专业" /> </li>
+                    </ul>
+                </div>
+            </div>
+            <!--  ======================  按课题类型  =======================  -->
+            <div class="main">
+                <div class="rightbox clearfix">
+                    <ul class="form clearfix"></ul>
+                </div>
+                <!--  第二行 导航栏  -->
+                <div class="gxf_studentList_tabs clearfix">
+                    <ul class="clearfix">
+                        <li id="exportExcel3">
+                            <!--<a href="#" class="easyui-menubutton" data-options="menu:'#mm3'">导出Excel表格</a>&nbsp; &nbsp;
+                            <div id="mm3" style="width:150px;">
+                                <div class="selAll">全部信息</div>
+                                <div class="selected">选中信息</div>
+                            </div>-->
+                        </li>
+                        <li><input type="button" class="formBtn" id="addBindingSubject" name="name" value="绑定课题类型" /> </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="main" style="overflow:hidden; margin-top: -5px;">
+            <table id="list"></table>
+        </div>
+
+
+        <div class="rightbox clearfix">
+
+            <!--<ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <sapn>学院名称：</sapn>
+                        </dt>
+                        <dd>
+                            <input id="search_academy_name" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <input id="" class="formBtn" type="button" value="查询" onclick="academy_search()" />
+
+                    </dl>
+                </li>
+            </ul>-->
+            <!--<div class="table" style="margin-top:10px;">
+                <table id="academy_list" style="width:100%;"> </table>
+            </div>-->
+        </div>
+
+        <!--弹框-->
+        <div style="width:0; height:0; overflow:hidden;">
+            <div id="addSpecialties" class="easyui-dialog" data-options="closed:true" style=" width:800px; height: 470px;">
+                <div style="overflow-x:hidden; overflow-y:auto !important; height: 432px;">
+
+                    <div style="width:100%; border-bottom: 1px solid #ccc; padding: 10px 20px;">
+                        <div class="clearfix">
+                            <div class="gxf_left_selected">已选择的专业：</div>
+                            <div class="gxf_right_selected" id="XzSpecialtiesList"></div>
+                        </div>
+                        <div>
+                            <input class="formBtn margl" id="addSpecialties-sure" type="button" value="确定" />
+                            <input class="clearBtn margl" id="addSpecialties-clear" type="button" value="取消" />
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <div class="rightbox clearfix">
+                            <ul class="form clearfix" style="border: none;">
+                                <li><dl><dt><span>专业名称：</span></dt><dd><input id="Specialtie-name" class="easyui-textbox" /></dd></dl></li>
+
+                                <li style="width: 80px;"><input class="formBtn" id="SpecialtiesSearch" type="button" value="查询" /></li>
+                            </ul>
+                        </div>
+                        <table id="Specialties-list" style="width:100%;"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--修改绑定专业弹框-->
+        <div style="width:0; height:0; overflow:hidden;">
+            <div id="SetBindingSpecialties" class="easyui-dialog" data-options="closed:true" style=" width:1200px; height: 270px;">
+                <form id="specialtiesquanzhong" class="SAdetection">
+
+                    <!--盒子上部分的标题-->
+                    <h4 class="SAtitle">评分权重设置</h4>
+                    <!--头部下边的盒子-->
+                    <div class="SAbelow">
+                        <!--详细的设置盒子-->
+                        <div class="SAdetail">
+                            <ul class="SAset-box">
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <p id="zhuanyeshuoming" class="SAtext">
+                                            <span style="color:red;">*</span>
+                                            总权重为:1,即指导成绩权重+专业负责人评阅成绩权重+评阅专家成绩权重+答辩成绩权重=1
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <span class="ZhiDao" style="margin-right:50px; ">
+                                            <span id="span_teaacherSpecialties"></span>成绩：<input id="ZhiDaoSpecialtie" class="easyui-textbox" name="ZhiDaoSpecialtie" style="max-width:37px;" value="0" />
+                                        </span>
+                                        <span class="PingYue"  style="margin-right:50px; ">
+                                            <span id="span_zhuanyeSpecialties"></span>成绩：<input id="PingYueSpecialtie" class="easyui-textbox" name="PingYueSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhuanJia" style="margin-right:50px; ">
+                                            <span id="span_zhuanjiaSpecialties"></span>成绩：<input id="ZhuanJiaSpecialtie" class="easyui-textbox" name="ZhuanJiaSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                     
+                                        <span class="DaBian" style="margin-right:50px; ">
+                                            答辩成绩：<input id="DaBianSpecialtie" class="easyui-textbox" name="DaBianSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhonmgQiKaoPing" style="margin-right:50px; ">
+                                            中期考评成绩：<input id="ZhonmgQiKaoPingSpecialtie" class="easyui-textbox" name="ZhonmgQiKaoPingSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="GuiFanShenCha" style="margin-right:50px; ">
+                                            规范审查成绩：<input id="GuiFanShenChaSpecialtie" class="easyui-textbox" name="GuiFanShenChaSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="DiErPingYueRen" style="margin-right:50px; ">
+                                            第二评阅成绩：<input id="DiErPingYueRenSpecialtie" class="easyui-textbox" name="DiErPingYueRenSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <input type="hidden" id="SpecialtiesID" name="SpecialtiesID" />
+                                    </div>
+
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <input id="zhuanyequanzhong_btn" type="button" class="formBtn SAmt" value="保存设置" />
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--添加绑定专业弹框-->
+        <div style="width:0; height:0; overflow:hidden;">
+            <div id="SetAddBindingSpecialties" class="easyui-dialog" data-options="closed:true" style=" width:1200px; height: 270px;">
+                <form id="addspecialtiesquanzhong" class="SAdetection">
+
+                    <!--盒子上部分的标题-->
+                    <h4 class="SAtitle">评分权重设置</h4>
+                    <!--头部下边的盒子-->
+                    <div class="SAbelow">
+                        <!--详细的设置盒子-->
+                        <div class="SAdetail">
+                            <ul class="SAset-box">
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <p id="addzhuanyeshuoming" class="SAtext">
+                                            <span style="color:red;">*</span>
+                                            总权重为:1,即指导成绩权重+专业负责人评阅成绩权重+评阅专家成绩权重+答辩成绩权重=1
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <span class="ZhiDao" style="margin-right:50px; ">
+                                            <span id="span_addteaacherSpecialties"></span>成绩：<input id="AddZhiDaoSpecialtie" class="easyui-textbox" name="AddZhiDaoSpecialtie" style="max-width:37px;" value="0" />
+                                        </span>
+                                        <span class="PingYue" style="margin-right:50px; ">
+                                            <span id="span_addzhuanyeSpecialties"></span>成绩：<input id="AddPingYueSpecialtie" class="easyui-textbox" name="AddPingYueSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhuanJia" style="margin-right:50px; ">
+                                            <span id="span_addzhuanjiaSpecialties"></span>成绩：<input id="AddZhuanJiaSpecialtie" class="easyui-textbox" name="AddZhuanJiaSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="DaBian" style="margin-right:50px; ">
+                                            答辩成绩：<input id="AddDaBianSpecialtie" class="easyui-textbox" name="AddDaBianSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhonmgQiKaoPing" style="margin-right:50px; ">
+                                            中期考评成绩：<input id="AddZhonmgQiKaoPingSpecialtie" class="easyui-textbox" name="AddZhonmgQiKaoPingSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="GuiFanShenCha" style="margin-right:50px; ">
+                                            规范审查成绩：<input id="AddGuiFanShenChaSpecialtie" class="easyui-textbox" name="AddGuiFanShenChaSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="DiErPingYueRen" style="margin-right:50px; ">
+                                            第二评阅成绩：<input id="AddDiErPingYueRenSpecialtie" class="easyui-textbox" name="AddDiErPingYueRenSpecialtie" style="max-width:37px" value="0" />
+                                        </span>
+
+                                    </div>
+
+                                </li>
+                                <!--<li class="clearfix">
+                                    <div class="SA-title">
+                                        绑定选择：
+                                    </div>
+
+                                    <div class="SA-select">
+                                        <input id="xz_zhuanye" type="radio" name="quanzhong_bind" value="1" /><label for="xx">选择专业</label>
+                                        <input id="xz_ketiliexing" class="margl" type="radio" name="quanzhong_bind" value="0" /><label for="bxx">课题类型</label>
+                                    </div>
+                                    <div class="SA-select"></div>
+                                </li>-->
+                                <li class="clearfix bindSpecialties">
+                                    <div class="SA-title">
+                                        专业：
+                                    </div>
+                                    <div class="gxf_answer_common"> <span id="XzSpecialties-name"></span><a id="xuanze" class="listA margl" href="javascript:;">选择</a></div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <input id="addzhuanyequanzhong_btn" type="button" class="formBtn SAmt" value="保存设置" />
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!--添加绑定课题类型弹框-->
+        <div style="width:0; height:0; overflow:hidden;">
+            <div id="SetAddBindingSubject" class="easyui-dialog" data-options="closed:true" style=" width:1200px; height: 270px;">
+                <form id="addSubjectquanzhong" class="SAdetection">
+
+                    <!--盒子上部分的标题-->
+                    <h4 class="SAtitle">评分权重设置</h4>
+                    <!--头部下边的盒子-->
+                    <div class="SAbelow">
+                        <!--详细的设置盒子-->
+                        <div class="SAdetail">
+                            <ul class="SAset-box">
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <p id="addketishuoming" class="SAtext">
+                                            <span style="color:red;">*</span>
+                                            总权重为:1,即指导成绩权重+专业负责人评阅成绩权重+评阅专家成绩权重+答辩成绩权重=1
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <span class="ZhiDao" style="margin-right:50px; ">
+                                            <span id="span_addteaacherSubject"></span>成绩：<input id="AddZhiDaoSubject" class="easyui-textbox" name="AddZhiDaoSubject" style="max-width:37px;" value="0" />
+                                        </span>
+                                        <span class="PingYue" style="margin-right:50px; ">
+                                            <span id="span_addzhuanyeSubject"></span>成绩：<input id="AddPingYueSubject" class="easyui-textbox" name="AddPingYueSubject" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhuanJia" style="margin-right:50px; ">
+                                            <span id="span_addzhuanjiaSubject"></span>成绩：<input id="AddZhuanJiaSubject" class="easyui-textbox" name="AddZhuanJiaSubject" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="DaBian" style="margin-right:50px; ">
+                                            答辩成绩：<input id="AddDaBianSubject" class="easyui-textbox" name="AddDaBianSubject" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhonmgQiKaoPing" style="margin-right:50px; ">
+                                            中期考评成绩：<input id="AddZhonmgQiKaoPingSubject" class="easyui-textbox" name="AddZhonmgQiKaoPingSubject" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="GuiFanShenCha" style="margin-right:50px; ">
+                                            规范审查成绩：<input id="AddGuiFanShenChaSubject" class="easyui-textbox" name="AddGuiFanShenChaSubject" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="DiErPingYueRen" style="margin-right:50px; ">
+                                            第二评阅成绩：<input id="AddDiErPingYueRenSubject" class="easyui-textbox" name="AddDiErPingYueRenSubject" style="max-width:37px" value="0" />
+                                        </span>
+
+                                    </div>
+
+                                </li>
+                                <li class="clearfix bindProjectType">
+                                    <div class="SA-title">
+                                        课题类型选择：
+                                    </div>
+
+                                    <div class="SA-select" style="padding-left:0 ;" id="objecttitletype">
+                                        <input type="checkbox" class="margl" value="0" /><label for=""> 类型1</label>
+                                        <input type="checkbox" class="margl" value="1" /><label for=""> 类型2</label>
+                                        <input type="checkbox" class="margl" value="2" /><label for=""> 类型3</label>
+                                        <input type="checkbox" class="margl" value="3" /><label for=""> 类型4</label>
+                                    </div>
+                                </li>
+
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <input id="addsubjectquanzhong_btn" type="button" class="formBtn SAmt" value="保存设置" />
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--修改绑定课题类型弹框-->
+        <div style="width:0; height:0; overflow:hidden;">
+            <div id="SetBindingSubject" class="easyui-dialog" data-options="closed:true" style=" width:1200px; height: 270px;">
+                <form id="subjectquanzhong" class="SAdetection">
+
+                    <!--盒子上部分的标题-->
+                    <h4 class="SAtitle">评分权重设置</h4>
+                    <!--头部下边的盒子-->
+                    <div class="SAbelow">
+                        <!--详细的设置盒子-->
+                        <div class="SAdetail">
+                            <ul class="SAset-box">
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <p id="xiugaiketishuoming" class="SAtext">
+                                            <span style="color:red;">*</span>
+                                            总权重为:1,即指导成绩权重+专业负责人评阅成绩权重+评阅专家成绩权重+答辩成绩权重=1
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <span class="ZhiDao" style="margin-right:50px; ">
+                                            <span id="subjectspan_teaacher"></span>成绩：<input id="subjectZhiDao" class="easyui-textbox" name="subjectZhiDao" style="max-width:37px;" value="0" />
+                                        </span>
+                                        <span class="PingYue"  style="margin-right:50px; ">
+                                            <span id="subjectspan_zhuanye"></span>成绩：<input id="subjectPingYue" class="easyui-textbox" name="subjectPingYue" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhuanJia" style="margin-right:50px; ">
+                                            <span id="subjectspan_zhuanjia"></span>成绩：<input id="subjectZhuanJia" class="easyui-textbox" name="subjectZhuanJia" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="DaBian" style="margin-right:50px; ">
+                                            答辩成绩：<input id="subjectDaBian" class="easyui-textbox" name="subjectDaBian" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="ZhonmgQiKaoPing" style="margin-right:50px; ">
+                                            中期考评成绩：<input id="subjectZhonmgQiKaoPingt" class="easyui-textbox" name="subjectZhonmgQiKaoPingt" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="GuiFanShenCha" style="margin-right:50px; ">
+                                            规范审查成绩：<input id="subjectGuiFanShenCha" class="easyui-textbox" name="subjectGuiFanShenCha" style="max-width:37px" value="0" />
+                                        </span>
+                                        <span class="DiErPingYueRen" style="margin-right:50px; ">
+                                            第二评阅成绩：<input id="subjectDiErPingYueRen" class="easyui-textbox" name="subjectDiErPingYueRen" style="max-width:37px" value="0" />
+                                        </span>
+                                        <input type="hidden" id="subjectID" name="subjectID" />
+                                    </div>
+
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <input id="subjectquanzhong_btn" type="button" class="formBtn SAmt" value="保存设置" />
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--修改绑定学院弹框-->
+        <div style="width:0; height:0; overflow:hidden;">
+            <div id="SetBindingAcademy" class="easyui-dialog" data-options="closed:true" style=" width:1200px; height: 270px;">
+                <form id="academyquanzhong" class="SAdetection">
+
+                    <!--盒子上部分的标题-->
+                    <h4 class="SAtitle">评分权重设置</h4>
+                    <!--头部下边的盒子-->
+                    <div class="SAbelow">
+                        <!--详细的设置盒子-->
+                        <div class="SAdetail">
+                            <ul class="SAset-box">
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <p id="xueyuanshuoming"  class="SAtext">
+                                            <span style="color:red;">*</span>
+                                            总权重为:1,即指导成绩权重+专业负责人评阅成绩权重+评阅专家成绩权重+答辩成绩权重=1
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <span class="ZhiDao" style="margin-right:50px; ">
+                                            <span id="academyspan_teaacher"></span>成绩： <input id="academyZhiDao" class="easyui-textbox" name="academyZhiDao" style="max-width:37px;" />
+                                        </span>
+                                        <span class="PingYue"  style="margin-right:50px; ">
+                                            <span id="academyspan_zhuanye"></span>成绩：<input id="academyPingYue" class="easyui-textbox" name="academyPingYue" style="max-width:37px" />
+                                        </span>
+                                        <span class="ZhuanJia" style="margin-right:50px; ">
+                                            <span id="academyspan_zhuanjia"></span>成绩：<input id="academyZhuanJia" class="easyui-textbox" name="academyZhuanJia" style="max-width:37px" />
+                                        </span>                                    
+                                        <span class="DaBian" style="margin-right:50px; ">
+                                            答辩成绩：<input id="academyDaBian" class="easyui-textbox" name="academyDaBian" style="max-width:37px" />
+                                        </span>
+                                        <span class="ZhonmgQiKaoPing" style="margin-right:50px; ">
+                                            中期考评成绩：<input id="academyZhonmgQiKaoPing" class="easyui-textbox" name="academyZhonmgQiKaoPing" style="max-width:37px" />
+                                        </span>
+                                        <span class="GuiFanShenCha" style="margin-right:50px; ">
+                                            规范审查成绩：<input id="academyGuiFanShenCha" class="easyui-textbox" name="academyGuiFanShenCha" style="max-width:37px" />
+                                        </span>
+                                        <span class="DiErPingYueRen" style="margin-right:50px; ">
+                                            第二评阅成绩：<input id="academyDiErPingYueRen" class="easyui-textbox" name="academyDiErPingYueRen" style="max-width:37px" />
+                                        </span>
+                                        <input type="hidden" id="academyID" name="academyID" />
+                                    </div>
+
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="SA-title"></div>
+                                    <div class="SA-select">
+                                        <input id="academyquanzhong_btn" type="button" class="formBtn SAmt" value="保存设置" />
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div id="dvList"></div>
+    <script>
+        var bindtype = "";
+        var schoolNo = getUrlParam("sn");
+        var planid = 0;
+        var userDefinedRoles = [];
+        $(document).ready(function () {
+            load_school_year();//获取计划编号
+           
+            //GetShowSet();//先判断是否显示成绩
+     
+            //GetShowWeight();//获取评分权重
+
+            //GetUserRoles();
+            //$("#span_teaacher").empty();
+            //$("#span_teaacher").append(getRoleName(3));
+            //$("#span_zhuanye").empty();
+            //$("#span_zhuanye").append(getRoleName(4));
+            //$("#span_zhuanjia").empty();
+            //$("#span_zhuanjia").append(getRoleName(9));
+
+            ////是否显示成绩功能
+            ////动态输入单选角色名称
+            //$("i[name='zdjs_role']").text(getRoleName(3));//指导教师         
+            //$("i[name='jyfzr_role']").text(getRoleName(4));//专业负责人        
+            //$("i[name='pyzj_role']").text(getRoleName(9));//评阅专家
+          
+
+            ////  默认选中 综合选项卡
+            //$("#statisticsByAcademy").click();
+            //getShowResults();//获取是否显示设置
+        });
+
+        function refreshmethods() {
+            GetShowSet();//先判断是否显示成绩
+            GetUserRoles();
+            $("#span_teaacher").empty();
+            $("#span_teaacher").append(getRoleName(3));
+            $("#span_zhuanye").empty();
+            $("#span_zhuanye").append(getRoleName(4));
+            $("#span_zhuanjia").empty();
+            $("#span_zhuanjia").append(getRoleName(9));
+
+            //是否显示成绩功能
+            //动态输入单选角色名称
+            $("i[name='zdjs_role']").text(getRoleName(3));//指导教师         
+            $("i[name='jyfzr_role']").text(getRoleName(4));//专业负责人        
+            $("i[name='pyzj_role']").text(getRoleName(9));//评阅专家
+
+            getShowResults();//获取是否显示设置
+            GetShowWeight();//获取评分权重
+            //  默认选中 综合选项卡
+            $("#SetBindingAcademy").dialog('close');//修改学院弹框
+
+            $("#SetBindingSpecialties").dialog('close'); //修改专业弹框
+            $("#addSpecialties").dialog("close");//添加专业弹框
+            $("#SetAddBindingSpecialties").dialog('close');
+
+            //添加课题弹框
+            $("#SetBindingSubject").dialog('close');
+            $("#SetAddBindingSubject").dialog('close');
+
+            $("#statisticsByAcademy").click();
+        }
+        function plan_select(sel_id) {
+            if (sel_id == undefined) {
+                planid = $("#plan").combobox('getValue');
+            }
+            else {
+                planid = sel_id;
+            }
+            refreshmethods();
+        }
+        function load_school_year() {
+            $.ajax({
+                url: "../Handler/ManagerHandler.ashx?sn=" + schoolNo,
+                data: { "action": "GetPlanList" },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess == true) {
+                        $("#schoolyear").combobox({
+                            valueField: '计划编号',
+                            textField: '学年',
+                            onClick: function (record) {
+                                if (record["计划编号"] != "")
+                                    plan_select(record["计划编号"]);
+                            }
+                        });
+
+                        var temp_ar = new Array();
+
+                        $.each(data.rows, function (i, n) {
+                            if (data.rows[i]["是否默认学年"] == "1") {
+                                temp_ar.push({ "计划编号": data.rows[i]["计划编号"], "学年": data.rows[i]["学年"], "selected": true });
+                                planid = data.rows[i]["计划编号"];
+                            }
+                            else {
+                                temp_ar.push({ "计划编号": data.rows[i]["计划编号"], "学年": data.rows[i]["学年"] });
+                            }
+                        });
+
+                        $("#schoolyear").combobox("loadData", temp_ar);
+
+                        refreshmethods();
+
+                    }
+                    else {
+
+                    }
+                }
+            });
+        }
+
+        //先判断是否显示成绩
+        function GetShowSet() {
+            //先判断是否显示成绩
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetSystemSetJson&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.isSuccess) {
+                        var resultsstr = data.rows[0]["是否显示成绩"];
+                        var resultsstate = resultsstr.split('|');
+                        //指导教师
+                        if (resultsstate[0] == 0) {
+                            $(".ZhiDao").hide();
+                        } else {
+                            $(".ZhiDao").show();
+                        }
+                        //专业负责人
+                        if (resultsstate[1] == 0) {
+                            $(".PingYue").hide();
+                        } else {
+                            $(".PingYue").show();
+                        }
+                        //评阅专家
+                        if (resultsstate[2] == 0) {
+                            $(".ZhuanJia").hide();
+                        } else {
+                            $(".ZhuanJia").show();
+                        }
+                        //答辩
+                        if (resultsstate[3] == 0) {
+                            $(".DaBian").hide();
+                        } else {
+                            $(".DaBian").show();
+                        }
+                        //中期考评成绩
+                        if (resultsstate[4] == 0) {
+                            $(".ZhonmgQiKaoPing").hide();
+                        } else {
+                            $(".ZhonmgQiKaoPing").show();
+                        }
+
+                        //规范审查成绩
+                        if (resultsstate[5] == 0) {
+                            $(".GuiFanShenCha").hide();
+                        } else {
+                            $(".GuiFanShenCha").show();
+                        }
+
+                        //第二评阅人
+                        if (resultsstate[6] == 0) {
+                            $(".DiErPingYueRen").hide();
+                        } else {
+                            $(".DiErPingYueRen").show();
+                        }
+
+
+
+                    };
+                }
+            });
+        }
+        //获取评分权重
+        function GetShowWeight() {
+
+            //获取评分权重
+            $.ajax({
+                url: "../Handler/SchoolWeight.ashx?action=GetWeightData&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: type = bindtype,
+                success: function (data) {
+                    if (data.isSuccess) {
+                        if (data.rows[0].指导成绩 == null) {
+                            $("#ZhiDao").textbox({ value: 0 });
+                        } else {
+                            $("#ZhiDao").textbox({ value: data.rows[0].指导成绩 });
+                        }
+                        if (data.rows[0].评阅成绩 == null) {
+                            $("#PingYue").textbox({ value: 0 });
+                        } else {
+                            $("#PingYue").textbox({ value: data.rows[0].评阅成绩 });
+                        }
+                        if (data.rows[0].答辩成绩 == null) {
+                            $("#DaBian").textbox({ value: 0 });
+                        } else {
+                            $("#DaBian").textbox({ value: data.rows[0].答辩成绩 });
+                        }
+                        if (data.rows[0].评阅专家成绩 == null) {
+                            $("#ZhuanJia").textbox({ value: 0 });
+                        } else {
+                            $("#ZhuanJia").textbox({ value: data.rows[0].评阅专家成绩 });
+                        }
+                        if (data.rows[0].中期考评成绩 == null) {
+                            $("#ZhonmgQiKaoPing").textbox({ value: 0 });
+                        } else {
+                            $("#ZhonmgQiKaoPing").textbox({ value: data.rows[0].中期考评成绩 });
+                        }
+                        if (data.rows[0].规范审查成绩 == null) {
+                            $("#GuiFanShenCha").textbox({ value: 0 });
+                        } else {
+                            $("#GuiFanShenCha").textbox({ value: data.rows[0].规范审查成绩 });
+                        }
+
+                        if (data.rows[0].第二评阅成绩 == null) {
+                            $("#DiErPingYueRen").textbox({ value: 0 });
+                        } else {
+                            $("#DiErPingYueRen").textbox({ value: data.rows[0].第二评阅成绩 });
+                        }
+                        //$("#ZhiDao").textbox({ value: data.rows[0].指导成绩 });
+                        //$("#PingYue").textbox({ value: data.rows[0].评阅成绩 });
+                        //$("#ZhuanJia").textbox({ value: data.rows[0].评阅专家成绩 });
+                        //$("#DaBian").textbox({ value: data.rows[0].答辩成绩 });
+                        //$("#ZhonmgQiKaoPing").textbox({ value: data.rows[0].中期考评成绩 });
+                        //$("#GuiFanShenCha").textbox({ value: data.rows[0].规范审查成绩 });
+                    }
+                    else {
+                        $("#ZhiDao").textbox({ value: 0 });
+                        $("#PingYue").textbox({ value: 0 });
+                        $("#ZhuanJia").textbox({ value: 0 });
+                        $("#DaBian").textbox({ value: 0 });
+                        $("#ZhonmgQiKaoPing").textbox({ value: 0 });
+                        $("#GuiFanShenCha").textbox({ value: 0 });
+                        $("#DiErPingYueRen").textbox({ value: 0 });
+
+                    }
+                }
+            });
+        }
+        //tab栏切换
+        function showHide1(idx) {
+            $(".gxf_statistics_container>.main").hide();
+            $(".gxf_statistics_container>.main").eq(idx).show();
+        }
+        function showHide2(idx) {
+            $(".gxf_tips_box>.gxf_tips").hide();
+            $(".gxf_tips_box>.gxf_tips").eq(idx).show();
+        }
+        function showHide3(idx) {
+            $(".gxf_statistics_content").hide();
+            $(".gxf_statistics_content").eq(idx).show();
+        }
+
+        $(".gxf_statistics_navBar>ul>li").on('click', function () {
+            var idx = $(this).index();
+            $(".gxf_statistics_navBar>ul>li a").removeClass("selected");
+            $(".gxf_statistics_navBar>ul>li a").eq(idx).addClass("selected");
+            showHide1(idx);
+            showHide2(idx);
+            showHide3(idx);
+        });
+
+        //获取角色
+        function getRoleName(role) {
+            var roleName = "";
+            if (userDefinedRoles && userDefinedRoles.length > 0) {
+                $.each(userDefinedRoles,
+                    function (index, item) {
+                        if (item.value == role) {
+                            roleName = item.name;
+                            return false;
+                        }
+                    });
+            }
+            return roleName;
+        }
+        function GetUserRoles() {
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?sn=" + schoolNo + "&planid=" + planid + "",
+                data: { "action": "GetRoleName" },
+                async: false,
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess == true) {
+                        userDefinedRoles = [];
+                        //全部自定义角色
+                        var roleTypes = data.dataList.roleTypes;
+                        if (roleTypes && roleTypes.length > 0) {
+                            $.each(roleTypes,
+                                function (index, item) {
+                                    if (!checkValIsUndefinedOrNull(item.名称) && !checkValIsUndefinedOrNull(item.自定义编号)) {
+                                        var role = {};
+                                        role["name"] = item.名称;
+                                        role["value"] = item.自定义编号;
+                                        if ($.inArray(role, userDefinedRoles) < 0) {
+                                            userDefinedRoles.push(role);
+                                        }
+                                    }
+                                });
+
+                        }
+                        try {
+                            var rolesText = JSON.stringify(userDefinedRoles);
+                            $("#hdUserDefinedRoles").val(rolesText);
+                        } catch (e) { }
+                    }
+
+
+                }
+            });
+        }
+        //获取角色完成
+        //是否显示成绩设置
+        //获得是否显示成绩
+        function getShowResults() {
+            $(".set_ShowResults").hide();
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetSystemSetJson&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {},           
+                success: function (data) {
+
+                    if (data.isSuccess) {
+
+                        var resultsstr = data.rows[0]["是否显示成绩"];
+                        var resultsstate = resultsstr.split('|');
+                        //$("input[type='radio'][name='zdjs_yx'][value='" + resultsstate[0] + "']").attr("checked", "checked");
+                        //$("input[type='radio'][name='zyfzr_yx'][value='" + resultsstate[1] + "']").attr("checked", "checked");
+                        //$("input[type='radio'][name='pyzj_yx'][value='" + resultsstate[2] + "']").attr("checked", "checked");
+                        //$("input[type='radio'][name='dabian_yx'][value='" + resultsstate[3] + "']").attr("checked", "checked");
+                        //$("input[type='radio'][name='zqkp_yx'][value='" + resultsstate[4] + "']").attr("checked", "checked");
+                        //$("input[type='radio'][name='gfsc_yx'][value='" + resultsstate[5] + "']").attr("checked", "checked");
+
+                        //指导教师
+                        var zdjs = $('input[name="zdjs_yx"]');
+                        $.each(zdjs, function (i, v) {
+                            if (v.defaultValue == resultsstate[0]) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+                        //专业负责人
+                        var zyfzr = $('input[name="zyfzr_yx"]');
+                        $.each(zyfzr, function (i, v) {
+                            if (v.defaultValue == resultsstate[1]) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+
+                        //评阅专家
+                        var pyzj = $('input[name="pyzj_yx"]');
+                        $.each(pyzj, function (i, v) {
+                            if (v.defaultValue == resultsstate[2]) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+                        //答辩
+                        var dabian = $('input[name="dabian_yx"]');
+                        $.each(dabian, function (i, v) {
+                            if (v.defaultValue == resultsstate[3]) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+                        //中期考评
+                        var zqkp = $('input[name="zqkp_yx"]');
+                        $.each(zqkp, function (i, v) {
+                            if (v.defaultValue == resultsstate[4]) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+
+                        //规范审查
+                        var gfsc = $('input[name="gfsc_yx"]');
+                        $.each(gfsc, function (i, v) {
+                            if (v.defaultValue == resultsstate[5]) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+
+
+                        //第二评阅成绩
+                        var gfsc = $('input[name="depyr_yx"]');
+                        $.each(gfsc, function (i, v) {
+                            if (v.defaultValue == resultsstate[6]) {
+                                $(this).prop("checked", true);
+                            }
+                        });
+
+
+                        $(".set_ShowResults").show();
+                    };
+                }
+            });
+        };
+        //是否显示成绩设置
+        $("#set_ShowResults").click(function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            var zdjs_yx = $("input[type='radio'][name='zdjs_yx']:checked").val();
+            var zyfzr_yx = $("input[type='radio'][name='zyfzr_yx']:checked").val();
+            var pyzj_yx = $("input[type='radio'][name='pyzj_yx']:checked").val();
+            var dabian_yx = $("input[type='radio'][name='dabian_yx']:checked").val();
+            var zqkp_yx = $("input[type='radio'][name='zqkp_yx']:checked").val();
+            var gfsc_yx = $("input[type='radio'][name='gfsc_yx']:checked").val();
+            var depyr_yx = $("input[type='radio'][name='depyr_yx']:checked").val();//第二评阅人成绩
+            var state = zdjs_yx + "|" + zyfzr_yx + "|" + pyzj_yx + "|" + dabian_yx + "|" + zqkp_yx + "|" + gfsc_yx + "|" + depyr_yx;
+
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=SetShowResults&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    state: state
+                },
+                success: function (data) {
+                    GetShowSet();//先判断是否显示成绩
+                    GetShowWeight();//获取评分权重
+                    $("#statisticsByAcademy").click();
+                    myMessage(data.message);
+                                  
+                }
+            });
+        });
+
+        //是否显示成绩设置完成
+        //评分权重设置
+        $("#quanzhong_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            $.ajax({
+                beforeSend: function () {
+                    //获取4个框 用户输入的值
+                    var ZhiDao = $("input[name='ZhiDao']").val();
+                    var PingYue = $("input[name='PingYue']").val();
+                    var ZhuanJia = $("input[name='ZhuanJia']").val();
+                    var DaBian = $("input[name='DaBian']").val();
+                    var ZhonmgQiKaoPing = $("input[name='ZhonmgQiKaoPing']").val();
+                    var GuiFanShenCha = $("input[name='GuiFanShenCha']").val();
+                    var DiErPingYueRen = $("input[name='DiErPingYueRen']").val();//第二评阅人成绩
+
+                    //先判断每一项都不为空
+                    var arr = [$("input[name='ZhiDao']").val(), $("input[name='PingYue']").val(), $("input[name='ZhuanJia']").val(), $("input[name='DaBian']").val(), $("input[name='ZhonmgQiKaoPing']").val(), $("input[name='GuiFanShenCha']").val(), $("input[name='DiErPingYueRen']").val()]
+                    var arr1 = ['指导成绩不能为空', '专业负责人评阅成绩不能为空', '评阅专家成绩不能为空', '答辩成绩不能为空', '中期考评成绩不能为空', '规范审查成绩不能为空', '第二评阅人成绩不能为空']
+                    var arr2 = ['指导成绩在0-1之间,最多保留两位小数', '专业负责人评阅成绩在0-1之间,最多保留两位小数', '评阅专家成绩在0-1之间,最多保留两位小数', '答辩成绩在0-1之间,最多保留两位小数', '中期考评成绩在0-1之间,最多保留两位小数', '规范审查成绩在0-1之间,最多保留两位小数', '第二评阅人成绩在0-1之间,最多保留两位小数']
+                    var reg = /^[0-1]$|^0.[0-9][1-9]$|^0.[1-9]$/; //0.00-1之间
+                    for (var i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i])) {//每项在0-1之间
+                            alert(arr2[i]);
+                            return false;
+                            break;
+                        };
+                        if ($.trim(arr[i]) == "") {
+                            alert(arr1[i]);
+                            return false;
+                            break;
+                        };
+                    };
+
+                    //4项加起来必须是 1      js计算机制不同,所以扩大为整再加,然后再除.
+                    //var num = arr.map(function (v, i) {
+                    //    return v * 100;
+                    //}).reduce(function (a, b) {
+                    //    return a + b;
+                    //});
+                    //if (num / 100 != 1) {
+                    //    alert("四个成绩权重相加必须等于1");
+                    //    return false;
+                    //}
+                    // 出现正在加载中 弹框
+                    open_loading();
+                },
+                url: "../Handler/SchoolWeight.ashx?action=SetScoringWeightData&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#quanzhong").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+        //评分权重设置完成
+
+        var academy_columnData = [[
+            { field: '学院名称', align: 'left', title: '学院名称', width: 50 },
+            { field: '指导成绩', align: 'center', title: '指导成绩', width: 50 },
+            { field: '评阅成绩', align: 'center', title: '评阅成绩', width: 50 },
+            { field: '评阅专家成绩', align: 'center', title: '评阅专家成绩', width: 50 },
+            { field: '答辩成绩', align: 'center', title: '答辩成绩', width: 50 },
+            { field: '第二评阅成绩', align: 'center', title: '第二评阅成绩', width: 50 }
+        ]];
+
+
+        //点击"学院"
+        //开始获取列表
+        var academy_columnDatazh = [[
+     {
+         field: '学院名称', align: 'left', title: '学院名称', width: 50, formatter: function (value, row, index) {
+             var words = row["学院名称"];
+             if (row["学院名称"] == "") {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '指导成绩', align: 'center', title: '指导成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["指导成绩"];
+             if (row["指导成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '评阅成绩', align: 'center', title: '评阅成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["评阅成绩"];
+             if (row["评阅成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '评阅专家成绩', align: 'center', title: '评阅专家成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["评阅专家成绩"];
+             if (row["评阅专家成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '答辩成绩', align: 'center', title: '答辩成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["答辩成绩"];
+             if (row["答辩成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '中期考评成绩', align: 'center', title: '中期考评成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["中期考评成绩"];
+             if (row["中期考评成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '规范审查成绩', align: 'center', title: '规范审查成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["规范审查成绩"];
+             if (row["规范审查成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+      {
+          field: '第二评阅成绩', align: 'center', title: '第二评阅成绩', width: 50, formatter: function (value, row, index) {
+              var words = row["第二评阅成绩"];
+              if (row["第二评阅成绩"] == null) {
+                  words = "-";
+              }
+              return words;
+          }
+      },
+        {
+            field: 'operate', title: '操作', align: 'left', width: 60,
+            formatter: function (value, row, index) {
+                var str = "";
+                str += '<a class="listA" onclick=setBindingAcademy(' + row["学院编号"] + ',"' + row["学院名称"] + '") >修改</a>&nbsp;|&nbsp;';
+                str += '<a class="listA" onclick="delBindingAcademy(' + row["学院编号"] + ')" >删除</a>';
+                return str;
+            }
+        }
+        ]];
+
+
+        $("#statisticsByAcademy").on("click", function () {
+
+            // //学院专业
+            // $.post(
+            //"../Handler/BaseSettingsHandler.ashx?action=GetAcademieSpecialties",
+            //{ sn: schoolNo, type: 1 },
+            //function (result) {
+            //    $('#dvList').html(result);
+            //    AcademiesAndSpecialties($("#academieslistMenuModule"));
+            //    //AcademiesAndSpecialties(undefined, $("#Specialties1"));
+            //}
+            //);
+
+            var academy_list = $("#list");
+            var academy_url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+            var academy_paramsData = {
+                action: "GetAcademiesSwDataList"
+            };
+            var academy_idField = "学院编号";
+            GteTable(academy_list, academy_url, academy_columnDatazh, academy_paramsData, academy_idField);
+
+        });
+        //查询
+        function search1() {
+            var academy_list = $("#list");
+            var academy_url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+            var academy_paramsData = {
+                action: "GetAcademiesSwDataList",
+                academiesname: $("#zhacademiesName").textbox('getText')
+                //specialtiesname: $("#zhSpecialtiesName").textbox('getText'),
+                //subjectName: $("#zhSubjectName").textbox('getText')
+            };
+            var academy_idField = "学院编号";
+            GteTable(academy_list, academy_url, academy_columnDatazh, academy_paramsData, academy_idField);
+
+        }
+
+        //学院点击修改
+        function setBindingAcademy(id,name) {
+            $("#xueyuanshuoming").html($("#shuoming").html());       
+            $("#academyID").val(id);
+            GetUserRoles();
+
+            $("#academyspan_teaacher").empty();
+            $("#academyspan_teaacher").append(getRoleName(3));
+            $("#academyspan_zhuanye").empty();
+            $("#academyspan_zhuanye").append(getRoleName(4));
+            $("#academyspan_zhuanjia").empty();
+            $("#academyspan_zhuanjia").append(getRoleName(9));
+
+            //打开弹窗
+            $('#SetBindingAcademy').dialog({
+                title: '修改' + name + '',
+                showType: null,
+                style: {
+                }
+            });
+
+            $("#SetBindingAcademy").dialog('open');
+            $('#SetBindingAcademy').window('center');
+
+            //获取评分权重
+            $.ajax({
+                url: "../Handler/SchoolWeight.ashx?action=GetAcademiesSwDataList&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    academyid: id
+                },
+
+                success: function (data) {
+                    if (data.isSuccess) {
+                      
+                        if (data.rows[0].指导成绩 == null) {
+                            $("#academyZhiDao").textbox({ value: 0 });
+                        } else {
+                            $("#academyZhiDao").textbox({ value: data.rows[0].指导成绩 });
+                        }
+                        if (data.rows[0].评阅成绩 == null) {
+                            $("#academyPingYue").textbox({ value: 0 });
+                        } else {
+                            $("#academyPingYue").textbox({ value: data.rows[0].评阅成绩 });
+                        }
+                        if (data.rows[0].答辩成绩 == null) {
+                            $("#academyDaBian").textbox({ value: 0 });
+                        } else {
+                            $("#academyDaBian").textbox({ value: data.rows[0].答辩成绩 });
+                        }
+                        if (data.rows[0].评阅专家成绩 == null) {
+                            $("#academyZhuanJia").textbox({ value: 0 });
+                        } else {
+                            $("#academyZhuanJia").textbox({ value: data.rows[0].评阅专家成绩 });
+                        }
+                        if (data.rows[0].中期考评成绩 == null) {
+                            $("#academyZhonmgQiKaoPing").textbox({ value: 0 });
+                        } else {
+                            $("#academyZhonmgQiKaoPing").textbox({ value: data.rows[0].中期考评成绩 });
+                        }
+                        if (data.rows[0].规范审查成绩 == null) {
+                            $("#academyGuiFanShenCha").textbox({ value: 0 });
+                        } else {
+                            $("#academyGuiFanShenCha").textbox({ value: data.rows[0].规范审查成绩 });
+                        }
+
+                        if (data.rows[0].第二评阅成绩 == null) {
+                            $("#academyDiErPingYueRen").textbox({ value: 0 });
+                        } else {
+                            $("#academyDiErPingYueRen").textbox({ value: data.rows[0].第二评阅成绩 });
+                        }
+
+                    };
+                }
+            });
+
+        }
+
+        //学院保存修改
+        $("#academyquanzhong_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            $.ajax({
+                beforeSend: function () {
+                    //获取4个框 用户输入的值
+                    var ZhiDao = $("input[name='academyZhiDao']").val();
+                    var PingYue = $("input[name='academyPingYue']").val();
+                    var ZhuanJia = $("input[name='academyZhuanJia']").val();
+                    var DaBian = $("input[name='academyDaBian']").val();
+                    var ZhonmgQiKaoPing = $("input[name='academyZhonmgQiKaoPing']").val();
+                    var GuiFanShenCha = $("input[name='academyGuiFanShenCha']").val();
+                    //先判断每一项都不为空
+                    var arr = [$("input[name='academyZhiDao']").val(), $("input[name='academyPingYue']").val(), $("input[name='academyZhuanJia']").val(), $("input[name='academyDaBian']").val(), $("input[name='academyZhonmgQiKaoPing']").val(), $("input[name='academyGuiFanShenCha']").val(), $("input[name='academyDiErPingYueRen']").val()]
+                    var arr1 = ['指导成绩不能为空', '专业负责人评阅成绩不能为空', '评阅专家成绩不能为空', '答辩成绩不能为空', '中期考评成绩不能为空', '规范审查成绩不能为空']
+                    var arr2 = ['指导成绩在0-1之间,最多保留两位小数', '专业负责人评阅成绩在0-1之间,最多保留两位小数', '评阅专家成绩在0-1之间,最多保留两位小数', '答辩成绩在0-1之间,最多保留两位小数', '中期考评成绩在0-1之间,最多保留两位小数', '规范审查成绩在0-1之间,最多保留两位小数', '第二评阅成绩在0-1之间,最多保留两位小数']
+                    var reg = /^[0-1]$|^0.[0-9][1-9]$|^0.[1-9]$/; //0.00-1之间
+                    for (var i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i])) {//每项在0-1之间
+                            alert(arr2[i]);
+                            return false;
+                            break;
+                        };
+                        if ($.trim(arr[i]) == "") {
+                            alert(arr1[i]);
+                            return false;
+                            break;
+                        };
+                    };
+
+                    ////4项加起来必须是 1      js计算机制不同,所以扩大为整再加,然后再除.
+                    //var num = arr.map(function (v, i) {
+                    //    return v * 100;
+                    //}).reduce(function (a, b) {
+                    //    return a + b;
+                    //});
+                    //if (num / 100 != 1) {
+                    //    alert("四个成绩权重相加必须等于1");
+                    //    return false;
+                    //}
+                    // 出现正在加载中 弹框
+                    open_loading();
+                },
+                url: "../Handler/SchoolWeight.ashx?action=SetScoringWeightData&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#academyquanzhong").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+                    //刷新列表
+                    $("#SetBindingAcademy").dialog('close');
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+        //点击删除绑定的学院
+        function delBindingAcademy(id) {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+
+            if (!confirm("确定要删除吗？")) {
+                return;
+            }
+            $.ajax({
+                url: "../Handler/SchoolWeight.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "DelAcademiesScoringWeightData",
+                    id: id,
+                    planid:planid,
+                    sn: schoolNo
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+                }
+            });
+
+        }
+
+        //"学院"结束
+
+        //绑定专业评分权重设置
+        //点击"专业" 选项卡
+
+        //开始获取列表
+        var academy_columnDatas = [[
+     { field: '学院名称', align: 'left', title: '学院名称', width: 50 },
+     { field: '专业名称', align: 'left', title: '专业名称', width: 50 },
+      //{ field: '名称', align: 'left', title: '名称', width: 50 },
+     {
+         field: '指导成绩', align: 'center', title: '指导成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["指导成绩"];
+             if (row["指导成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '评阅成绩', align: 'center', title: '评阅成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["评阅成绩"];
+             if (row["评阅成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '评阅专家成绩', align: 'center', title: '评阅专家成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["评阅专家成绩"];
+             if (row["评阅专家成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '答辩成绩', align: 'center', title: '答辩成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["答辩成绩"];
+             if (row["答辩成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '中期考评成绩', align: 'center', title: '中期考评成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["中期考评成绩"];
+             if (row["中期考评成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '规范审查成绩', align: 'center', title: '规范审查成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["规范审查成绩"];
+             if (row["规范审查成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '第二评阅成绩', align: 'center', title: '第二评阅成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["第二评阅成绩"];
+             if (row["第二评阅成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: 'operate', title: '操作', align: 'left', width: 60,
+         formatter: function (value, row, index) {
+             var str = "";
+             str += '<a class="listA" onclick=setBindingSpecialties(' + row["专业编号"] + ',"'+ row["专业名称"] + '") >修改</a>&nbsp;|&nbsp;';
+             str += '<a class="listA" onclick="delBindingSpecialties(' + row["ID"] + ')" >删除</a>';
+             return str;
+         }
+     }
+        ]];
+
+        var academy_list = $("#list");
+        //var academy_url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+        var academy_paramsData = {
+            action: "GetBindingSpecialtiesDataList"
+        };
+        var academy_idField = "ID";
+
+        $("#statisticsBySubmitter").on("click", function () {
+            var academy_url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+            GteTable(academy_list, academy_url, academy_columnDatas, academy_paramsData, academy_idField);
+
+        });
+        //查询
+        function search2() {
+            var academy_url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+            var academy_paramsData = {
+                action: "GetBindingSpecialtiesDataList",
+                specialtiesname: $("#SpecialtiesName").textbox('getText')
+            };
+            GteTable(academy_list, academy_url, academy_columnDatas, academy_paramsData, academy_idField);
+
+        }
+
+
+        //点击修改
+        function setBindingSpecialties(specialtieid,name) {      
+            $("#zhuanyeshuoming").html($("#shuoming").html());
+            $("#SpecialtiesID").val(specialtieid);
+            GetUserRoles();
+
+            $("#span_teaacherSpecialties").empty();
+            $("#span_teaacherSpecialties").append(getRoleName(3));
+            $("#span_zhuanyeSpecialties").empty();
+            $("#span_zhuanyeSpecialties").append(getRoleName(4));
+            $("#span_zhuanjiaSpecialties").empty();
+            $("#span_zhuanjiaSpecialties").append(getRoleName(9));
+
+            //打开弹窗
+            $('#SetBindingSpecialties').dialog({
+                title: '修改' + name + '',
+                showType: null,
+                style: {
+                }
+            });
+
+            $("#SetBindingSpecialties").dialog('open');
+            $('#SetBindingSpecialties').window('center');
+
+            //获取评分权重
+            $.ajax({
+                url: "../Handler/SchoolWeight.ashx?action=GetBindingSpecialtiesDataList&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    specialtieid: specialtieid
+                },
+                //data: specialtieid = specialtieid,
+                success: function (data) {
+                    if (data.isSuccess) {
+                        if (data.rows[0].指导成绩 == null) {
+                            $("#ZhiDaoSpecialtie").textbox({ value: 0 });
+                        } else {
+                            $("#ZhiDaoSpecialtie").textbox({ value: data.rows[0].指导成绩 });
+                        }
+                        if (data.rows[0].评阅成绩 == null) {
+                            $("#PingYueSpecialtie").textbox({ value: 0 });
+                        } else {
+                            $("#PingYueSpecialtie").textbox({ value: data.rows[0].评阅成绩 });
+                        }
+                        if (data.rows[0].答辩成绩 == null) {
+                            $("#DaBianSpecialtie").textbox({ value: 0 });
+                        } else {
+                            $("#DaBianSpecialtie").textbox({ value: data.rows[0].答辩成绩 });
+                        }
+                        if (data.rows[0].评阅专家成绩 == null) {
+                            $("#ZhuanJiaSpecialtie").textbox({ value: 0 });
+                        } else {
+                            $("#ZhuanJiaSpecialtie").textbox({ value: data.rows[0].评阅专家成绩 });
+                        }
+                        if (data.rows[0].中期考评成绩 == null) {
+                            $("#ZhonmgQiKaoPingSpecialtie").textbox({ value: 0 });
+                        } else {
+                            $("#ZhonmgQiKaoPingSpecialtie").textbox({ value: data.rows[0].中期考评成绩 });
+                        }
+                        if (data.rows[0].规范审查成绩 == null) {
+                            $("#GuiFanShenChaSpecialtie").textbox({ value: 0 });
+                        } else {
+                            $("#GuiFanShenChaSpecialtie").textbox({ value: data.rows[0].规范审查成绩 });
+                        }
+                        if (data.rows[0].第二评阅成绩 == null) {
+                            $("#DiErPingYueRenSpecialtie").textbox({ value: 0 });
+                        } else {
+                            $("#DiErPingYueRenSpecialtie").textbox({ value: data.rows[0].第二评阅成绩 });
+                        } 
+
+                    };
+                }
+            });
+
+        }
+
+        //保存修改
+        $("#zhuanyequanzhong_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            $.ajax({
+                beforeSend: function () {
+                    //获取4个框 用户输入的值
+                    var ZhiDao = $("input[name='ZhiDaoSpecialtie']").val();
+                    var PingYue = $("input[name='PingYueSpecialtie']").val();
+                    var ZhuanJia = $("input[name='ZhuanJiaSpecialtie']").val();
+                    var DaBian = $("input[name='DaBianSpecialtie']").val();
+                    //先判断每一项都不为空
+                    var arr = [$("input[name='ZhiDaoSpecialtie']").val(), $("input[name='PingYueSpecialtie']").val(), $("input[name='ZhuanJiaSpecialtie']").val(), $("input[name='DaBianSpecialtie']").val(), $("input[name='ZhonmgQiKaoPingSpecialtie']").val(), $("input[name='GuiFanShenChaSpecialtie']").val(), $("input[name='DiErPingYueRenSpecialtie']").val()]
+                    var arr1 = ['指导成绩不能为空', '专业负责人评阅成绩不能为空', '评阅专家成绩不能为空', '答辩成绩不能为空', '中期考评成绩不能为空', '规范审查成绩不能为空', '第二评阅成绩不能为空']
+                    var arr2 = ['指导成绩在0-1之间,最多保留两位小数', '专业负责人评阅成绩在0-1之间,最多保留两位小数', '评阅专家成绩在0-1之间,最多保留两位小数', '答辩成绩在0-1之间,最多保留两位小数', '中期考评成绩在0-1之间,最多保留两位小数', '规范审查成绩在0-1之间,最多保留两位小数', '第二评阅成绩在0-1之间,最多保留两位小数']
+                    var reg = /^[0-1]$|^0.[0-9][1-9]$|^0.[1-9]$/; //0.00-1之间
+                    for (var i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i])) {//每项在0-1之间
+                            alert(arr2[i]);
+                            return false;
+                            break;
+                        };
+                        if ($.trim(arr[i]) == "") {
+                            alert(arr1[i]);
+                            return false;
+                            break;
+                        };
+                    };
+
+                    ////4项加起来必须是 1      js计算机制不同,所以扩大为整再加,然后再除.
+                    //var num = arr.map(function (v, i) {
+                    //    return v * 100;
+                    //}).reduce(function (a, b) {
+                    //    return a + b;
+                    //});
+                    //if (num / 100 != 1) {
+                    //    alert("四个成绩权重相加必须等于1");
+                    //    return false;
+                    //}
+                    // 出现正在加载中 弹框
+                    open_loading();
+                },
+                url: "../Handler/SchoolWeight.ashx?action=SetSpecialtieScoringWeightData&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#specialtiesquanzhong").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+                    //刷新列表
+                    $("#SetBindingSpecialties").dialog('close');
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+
+        //点击删除绑定的专业
+        function delBindingSpecialties(id) {
+            if (!confirm("确定要删除吗？")) {
+                return;
+            }
+            $.ajax({
+                url: "../Handler/SchoolWeight.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "DelSpecialtieScoringWeightData",
+                    id: id,
+                    sn: schoolNo
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+                }
+            });
+
+        }
+
+        //添加绑定专业
+        var answerTeachersIDlist = "";//
+        $("#addBindingSpecialties").on("click", function () {
+            
+            $("#addzhuanyeshuoming").html($("#shuoming").html());
+            $("#XzSpecialties-name").html("");
+            $("#XzSpecialtiesList").html("");
+
+            answerTeachersIDlist = "";
+            GetUserRoles();
+
+            $("#span_addteaacherSpecialties").empty();
+            $("#span_addteaacherSpecialties").append(getRoleName(3));
+            $("#span_addzhuanyeSpecialties").empty();
+            $("#span_addzhuanyeSpecialties").append(getRoleName(4));
+            $("#span_addzhuanjiaSpecialties").empty();
+            $("#span_addzhuanjiaSpecialties").append(getRoleName(9));
+
+            //打开弹窗
+            $('#SetAddBindingSpecialties').dialog({
+                title: '添加绑定的专业',
+                showType: null,
+                style: {
+                }
+            });
+
+            $("#SetAddBindingSpecialties").dialog('open');
+            $('#SetAddBindingSpecialties').window('center');
+
+
+        });
+        //选择添加专业
+
+
+        $("#xuanze").on("click", function () {
+
+            var columnData = [[
+              { field: '专业名称', align: 'center', title: '专业名称', width: 40 },
+              { field: '专业编号', align: 'center', title: '专业编号', width: 40 },
+              { field: '学院名称', align: 'center', title: '学院名称', width: 40 },
+              { field: '学院编号', align: 'center', title: '学院编号', width: 40 },
+              {
+                  field: 'operate', title: '选择', align: 'center', width: 40,
+                  formatter: function (value, row, index) {
+                      return str = '<a class="listA" href="javascript:AnswerTeachersModel(\'' + index + '\')">选择</a>';
+                  }
+              }
+            ]];
+
+            var objectId = $("#Specialties-list");
+            var url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+            var paramsData = {
+                action: "GetSpecialtiesDataList"
+            };
+            var idField = "专业编号";
+
+            //加载列表
+            GteTable(objectId, url, columnData, paramsData, idField);
+
+            //打开弹窗
+            $('#addSpecialties').dialog({
+                title: '选择绑定的专业',
+                showType: null,
+                style: {
+                }
+            });
+
+            $("#addSpecialties").dialog('open');
+            $('#addSpecialties').window('center');
+
+
+
+            // 查询
+            $("#SpecialtiesSearch").unbind();
+            $("#SpecialtiesSearch").on("click", function () {
+                paramsData = {
+                    action: "GetSpecialtiesDataList",
+                    specialtieName: $("#Specialtie-name").textbox("getText")
+                }
+                //加载列表
+                GteTable(objectId, url, columnData, paramsData, idField);
+            });
+
+
+            //确定事件
+            $("#addSpecialties-sure").unbind();
+            $("#addSpecialties-sure").on("click", function () {
+                answerTeachersIDlist = "";
+                answerTeachers_name = "";
+                if ($("#XzSpecialtiesList").find("span").length > 0) {
+                    var answerText = "";
+                    for (var i = 0; i < $("#XzSpecialtiesList").find("span").length; i++) {
+                        //var textanswerTeachers = $($($("#AnswerTeachersList").find("span")[i]).find("label")).text();
+                        //answerTeachers_name += textanswerTeachers.substring(0, textanswerTeachers.length - 1).split("(")[0] + "$" + $($($("#AnswerTeachersList").find("span")[i]).find("b")).text() + "$" + textanswerTeachers.substring(0, textanswerTeachers.length - 1).split("(")[1] + ",";
+                        //// 记录答辩教师姓名
+                        answerTeachersIDlist += $($($("#XzSpecialtiesList").find("span")[i]).find("b")).text() + ',';
+                        answerText += '<i class="margl">' + $($($("#XzSpecialtiesList").find("span")[i]).find("label")).text() + '</i>';
+                    }
+                    //answerTeachers_name = answerTeachers_name.substring(0, answerTeachers_name.length - 1);
+                    answerTeachersIDlist = answerTeachersIDlist.substring(0, answerTeachersIDlist.length - 1);
+                    $("#XzSpecialties-name").html(answerText);
+
+                    $("#addSpecialties").dialog("close");
+                } else {
+                    //myMessage("请选择专业！");
+                    $("#XzSpecialties-name").html("");
+
+                    $("#addSpecialties").dialog("close");
+                }
+            })
+            // 取消事件
+            $("#addSpecialties-clear").unbind();
+            $("#addSpecialties-clear").on("click", function () {
+                $("#addSpecialties").dialog("close");
+            })
+
+
+
+        });
+        //选择
+        function AnswerTeachersModel(index) {
+            var isAdd = true;
+            var txt = $($("#XzSpecialtiesList").find("span")).find("b");
+            for (var i = 0; i <= txt.length; i++) {
+                if ($(txt[i]).text() == $("#Specialties-list").datagrid("getData").rows[index]["专业编号"]) {
+                    isAdd = false;
+                    break;
+                }
+            }
+            if (isAdd) {
+                $("#XzSpecialtiesList").append("<span><b style='display:none;'>" + $("#Specialties-list").datagrid("getData").rows[index]["专业编号"] + "|" + $("#Specialties-list").datagrid("getData").rows[index]["学院编号"] + "</b><label>" + $("#Specialties-list").datagrid("getData").rows[index]["专业名称"] + "" + "</label><i></i></span>");
+            } else {
+                return;
+            }
+        }
+
+        $(function () {
+            // 点击X号  删除
+            $("body").on("click", ".gxf_right_selected>span>i", function () {
+                $(this).parent().remove();
+            });
+        });
+
+        //添加专业绑定
+        $("#addzhuanyequanzhong_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            if (!answerTeachersIDlist) {
+                myMessage("请选择专业！");
+                return false;
+            }
+
+            $.ajax({
+                beforeSend: function () {
+                    //获取4个框 用户输入的值
+                    var ZhiDao = $("input[name='AddZhiDaoSpecialtie']").val();
+                    var PingYue = $("input[name='AddPingYueSpecialtie']").val();
+                    var ZhuanJia = $("input[name='AddZhuanJiaSpecialtie']").val();
+                    var DaBian = $("input[name='AddDaBianSpecialtie']").val(); 
+                    //先判断每一项都不为空
+                    var arr = [$("input[name='AddZhiDaoSpecialtie']").val(), $("input[name='AddPingYueSpecialtie']").val(), $("input[name='AddZhuanJiaSpecialtie']").val(), $("input[name='AddDaBianSpecialtie']").val(), $("input[name='AddZhonmgQiKaoPingSpecialtie']").val(), $("input[name='AddGuiFanShenChaSpecialtie']").val(), $("input[name='AddDiErPingYueRenSpecialtie']").val()]
+                    var arr1 = ['指导成绩不能为空', '专业负责人评阅成绩不能为空', '评阅专家成绩不能为空', '答辩成绩不能为空', '中期考评成绩不能为空', '规范审查成绩不能为空', '第二评阅成绩不能为空']
+                    var arr2 = ['指导成绩在0-1之间,最多保留两位小数', '专业负责人评阅成绩在0-1之间,最多保留两位小数', '评阅专家成绩在0-1之间,最多保留两位小数', '答辩成绩在0-1之间,最多保留两位小数', '中期考评成绩在0-1之间,最多保留两位小数', '规范审查成绩在0-1之间,最多保留两位小数', '第二评阅成绩在0-1之间,最多保留两位小数']
+                    var reg = /^[0-1]$|^0.[0-9][1-9]$|^0.[1-9]$/; //0.00-1之间
+                    for (var i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i])) {//每项在0-1之间
+                            alert(arr2[i]);
+                            return false;
+                            break;
+                        };
+                        if ($.trim(arr[i]) == "") {
+                            alert(arr1[i]);
+                            return false;
+                            break;
+                        };
+                    };
+
+                    ////4项加起来必须是 1      js计算机制不同,所以扩大为整再加,然后再除.
+                    //var num = arr.map(function (v, i) {
+                    //    return v * 100;
+                    //}).reduce(function (a, b) {
+                    //    return a + b;
+                    //});
+                    //if (num / 100 != 1) {
+                    //    alert("四个成绩权重相加必须等于1");
+                    //    return false;
+                    //}
+                    // 出现正在加载中 弹框
+                    open_loading();
+                },
+                url: "../Handler/SchoolWeight.ashx?action=AddSpecialtieScoringWeightData&sn=" + schoolNo + "&specialtieID=" + answerTeachersIDlist + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#addspecialtiesquanzhong").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+
+                    //刷新列表
+                    $("#SetAddBindingSpecialties").dialog('close');
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+        //绑定专业评分权重设置完成
+
+        //绑定课题类型评分权重设置
+        //点击"课题类型" 选项卡
+        //开始获取列表
+        var subject_columnDatas = [[
+     //{ field: '学院名称', align: 'left', title: '学院名称', width: 50 },
+     //{ field: '专业名称', align: 'left', title: '专业名称', width: 50 },
+     { field: '名称', align: 'left', title: '课题类型', width: 50 },
+     {
+         field: '指导成绩', align: 'center', title: '指导成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["指导成绩"];
+             if (row["指导成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '评阅成绩', align: 'center', title: '评阅成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["评阅成绩"];
+             if (row["评阅成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '评阅专家成绩', align: 'center', title: '评阅专家成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["评阅专家成绩"];
+             if (row["评阅专家成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+     {
+         field: '答辩成绩', align: 'center', title: '答辩成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["答辩成绩"];
+             if (row["答辩成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+       {
+           field: '中期考评成绩', align: 'center', title: '中期考评成绩', width: 50, formatter: function (value, row, index) {
+               var words = row["中期考评成绩"];
+               if (row["中期考评成绩"] == null) {
+                   words = "-";
+               }
+               return words;
+           }
+       },
+     {
+         field: '规范审查成绩', align: 'center', title: '规范审查成绩', width: 50, formatter: function (value, row, index) {
+             var words = row["规范审查成绩"];
+             if (row["规范审查成绩"] == null) {
+                 words = "-";
+             }
+             return words;
+         }
+     },
+      {
+          field: '第二评阅成绩', align: 'center', title: '第二评阅成绩', width: 50, formatter: function (value, row, index) {
+              var words = row["第二评阅成绩"];
+              if (row["第二评阅成绩"] == null) {
+                  words = "-";
+              }
+              return words;
+          }
+      },
+     {
+         field: 'operate', title: '操作', align: 'left', width: 60,
+         formatter: function (value, row, index) {
+             var str = "";
+             str += '<a class="listA" onclick=setSubjectBinding(' + row["ID"] + ',"' + row["名称"] + '") >修改</a>&nbsp;|&nbsp;';
+             str += '<a class="listA" onclick="delSubjectBinding(' + row["ID"] + ')" >删除</a>';
+             return str;
+         }
+     }
+        ]];
+
+        var subject_list = $("#list");
+        //var subject_url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+        var subject_paramsData = {
+            action: "GetBindingSubjectsDataList"
+        };
+        var subject_idField = "ID";
+
+        $("#statisticsByPro").on("click", function () {
+            var subject_url = "../Handler/SchoolWeight.ashx?sn=" + schoolNo + "&planid=" + planid + "";
+            GteTable(subject_list, subject_url, subject_columnDatas, subject_paramsData, subject_idField);
+
+        });
+
+        //点击绑定课题
+        $("#addBindingSubject").on("click", function () {
+            $("#addketishuoming").html($("#shuoming").html());           
+            $("#objecttitletype").html("");
+            GetUserRoles();
+
+            $("#span_addteaacherSubject").empty();
+            $("#span_addteaacherSubject").append(getRoleName(3));
+            $("#span_addzhuanyeSubject").empty();
+            $("#span_addzhuanyeSubject").append(getRoleName(4));
+            $("#span_addzhuanjiaSubject").empty();
+            $("#span_addzhuanjiaSubject").append(getRoleName(9));
+
+            var myArray = new Array()
+            //获取已经绑定的课题类型数组
+            $.ajax({
+                url: '../Handler/SchoolWeight.ashx',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    action: 'GetBindingSubjectsDataList',
+                    planid:planid,
+                    sn: schoolNo
+                },
+                success: function (data) {
+                    if (data.isSuccess) {
+
+
+                        $.each(data.rows, function (index, value) {
+                            myArray.push(value["课题类型ID"]);
+                        });
+
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+
+
+            //加载课题题目类型
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "GetSubjectType",
+                    planNum:planid,
+                    sn: schoolNo
+                },
+                success: function (data) {
+                    if (data.isSuccess) {
+
+                        var titleTypeHtml = "";
+                        $.each(data.rows, function (index, value) {
+
+                            if (myArray.length > 0) {
+
+                                var rs = true;
+                                for (var i = 0; i < myArray.length; i++) {
+                                    if (value["ID"] == myArray[i]) {
+                                        rs = false;
+                                    }
+                                }
+                                if (rs) {
+                                    titleTypeHtml += ' <input id="objecttitleType' + value["ID"] + '" type="checkbox" name="objecttitleType" class="" value=' + value["ID"] + ' /><label for="objecttitleType' + value["ID"] + '">' + value["名称"] + '</label>';
+                                }
+
+                            }
+                            else {
+                                titleTypeHtml += ' <input id="objecttitleType' + value["ID"] + '" type="checkbox" name="objecttitleType" class="" value=' + value["ID"] + ' /><label for="objecttitleType' + value["ID"] + '">' + value["名称"] + '</label>';
+                            }
+
+
+                        });
+                        $("#objecttitletype").html(titleTypeHtml);
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+
+
+
+            //打开弹窗
+            $('#SetAddBindingSubject').dialog({
+                title: '添加绑定课题类型',
+                showType: null,
+                style: {
+                }
+            });
+
+            $("#SetAddBindingSubject").dialog('open');
+            $('#SetAddBindingSubject').window('center');
+
+
+        });
+
+        //添加绑定课题类型
+        $("#addsubjectquanzhong_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+
+            var chk_value = "";
+            $('input[name="objecttitleType"]:checked').each(function () {
+                //chk_value.push($(this).val());
+                chk_value += $(this).val() + ',';
+            });
+            chk_value = chk_value.substring(0, chk_value.length - 1);
+
+            if (!chk_value) {
+                myMessage("请选择课题类型！");
+                return false;
+            }
+
+            $.ajax({
+                beforeSend: function () {
+                    //获取4个框 用户输入的值
+                    var ZhiDao = $("input[name='AddZhiDaoSubject']").val();
+                    var PingYue = $("input[name='AddPingYueSubject']").val();
+                    var ZhuanJia = $("input[name='AddZhuanJiaSubject']").val();
+                    var DaBian = $("input[name='AddDaBianSubject']").val(); 
+                    //先判断每一项都不为空
+                    var arr = [$("input[name='AddZhiDaoSubject']").val(), $("input[name='AddPingYueSubject']").val(), $("input[name='AddZhuanJiaSubject']").val(), $("input[name='AddDaBianSubject']").val(), $("input[name='AddZhonmgQiKaoPingSubject']").val(), $("input[name='AddGuiFanShenChaSubject']").val(), $("input[name='AddDiErPingYueRenSubject']").val()]
+                    var arr1 = ['指导成绩不能为空', '专业负责人评阅成绩不能为空', '评阅专家成绩不能为空', '答辩成绩不能为空', '中期考评成绩不能为空', '规范审查成绩不能为空', '第二评阅成绩不能为空']
+                    var arr2 = ['指导成绩在0-1之间,最多保留两位小数', '专业负责人评阅成绩在0-1之间,最多保留两位小数', '评阅专家成绩在0-1之间,最多保留两位小数', '答辩成绩在0-1之间,最多保留两位小数', '中期考评成绩在0-1之间,最多保留两位小数', '规范审查成绩在0-1之间,最多保留两位小数', '第二评阅成绩在0-1之间,最多保留两位小数']
+                    var reg = /^[0-1]$|^0.[0-9][1-9]$|^0.[1-9]$/; //0.00-1之间
+                    for (var i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i])) {//每项在0-1之间
+                            alert(arr2[i]);
+                            return false;
+                            break;
+                        };
+                        if ($.trim(arr[i]) == "") {
+                            alert(arr1[i]);
+                            return false;
+                            break;
+                        };
+                    };
+
+                    ////4项加起来必须是 1      js计算机制不同,所以扩大为整再加,然后再除.
+                    //var num = arr.map(function (v, i) {
+                    //    return v * 100;
+                    //}).reduce(function (a, b) {
+                    //    return a + b;
+                    //});
+                    //if (num / 100 != 1) {
+                    //    alert("四个成绩权重相加必须等于1");
+                    //    return false;
+                    //}
+                    // 出现正在加载中 弹框
+                    open_loading();
+                },
+                url: "../Handler/SchoolWeight.ashx?action=AddSubjectTypeScoringWeightData&sn=" + schoolNo + "&dictionariesID=" + chk_value + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#addSubjectquanzhong").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+
+                    //刷新列表
+                    $("#SetAddBindingSubject").dialog('close');
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+
+
+        //课题类型点击修改
+        function setSubjectBinding(id,name) {
+            $("#xiugaiketishuoming").html($("#shuoming").html());           
+            $("#subjectID").val(id);
+            GetUserRoles();
+
+            $("#subjectspan_teaacher").empty();
+            $("#subjectspan_teaacher").append(getRoleName(3));
+            $("#subjectspan_zhuanye").empty();
+            $("#subjectspan_zhuanye").append(getRoleName(4));
+            $("#subjectspan_zhuanjia").empty();
+            $("#subjectspan_zhuanjia").append(getRoleName(9));
+
+            //打开弹窗
+            $('#SetBindingSubject').dialog({
+                title: '绑定'+name+'',
+                showType: null,
+                style: {
+                }
+            });
+
+            $("#SetBindingSubject").dialog('open');
+            $('#SetBindingSubject').window('center');
+
+            //获取评分权重
+            $.ajax({
+                url: "../Handler/SchoolWeight.ashx?action=GetBindingSubjectsDataList&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    subjectid: id
+                },
+
+                success: function (data) {
+                    if (data.isSuccess) {
+                        
+
+                        $("#subjectZhiDao").textbox({ value: data.rows[0].指导成绩 });
+                        $("#subjectPingYue").textbox({ value: data.rows[0].评阅成绩 });
+                        $("#subjectDaBian").textbox({ value: data.rows[0].答辩成绩 });
+                        $("#subjectZhuanJia").textbox({ value: data.rows[0].评阅专家成绩 });
+                        if (data.rows[0].指导成绩 == null) {
+                            $("#subjectZhiDao").textbox({ value: 0 });
+                        } else {
+                            $("#subjectZhiDao").textbox({ value: data.rows[0].指导成绩 });
+                        }
+                        if (data.rows[0].评阅成绩 == null) {
+                            $("#subjectPingYue").textbox({ value: 0 });
+                        } else {
+                            $("#subjectPingYue").textbox({ value: data.rows[0].评阅成绩 });
+                        }
+                        if (data.rows[0].答辩成绩 == null) {
+                            $("#subjectDaBian").textbox({ value: 0 });
+                        } else {
+                            $("#subjectDaBian").textbox({ value: data.rows[0].答辩成绩 });
+                        }
+                        if (data.rows[0].评阅专家成绩 == null) {
+                            $("#subjectZhuanJia").textbox({ value: 0 });
+                        } else {
+                            $("#subjectZhuanJia").textbox({ value: data.rows[0].评阅专家成绩 });
+                        }
+                        if (data.rows[0].中期考评成绩 == null) {
+                            $("#subjectZhonmgQiKaoPingt").textbox({ value: 0 });
+                        } else {
+                            $("#subjectZhonmgQiKaoPingt").textbox({ value: data.rows[0].中期考评成绩 });
+                        }
+                        if (data.rows[0].规范审查成绩 == null) {
+                            $("#subjectGuiFanShenCha").textbox({ value: 0 });
+                        } else {
+                            $("#subjectGuiFanShenCha").textbox({ value: data.rows[0].规范审查成绩 });
+                        }
+                        
+                        if (data.rows[0].第二评阅成绩 == null) {
+                            $("#subjectDiErPingYueRen").textbox({ value: 0 });
+                        } else {
+                            $("#subjectDiErPingYueRen").textbox({ value: data.rows[0].第二评阅成绩 });
+                        }
+
+                    } else {
+                        $("#subjectZhiDao").textbox({ value: 0 });
+                        $("#subjectPingYue").textbox({ value: 0 });
+                        $("#subjectDaBian").textbox({ value: 0 });
+                        $("#subjectZhuanJia").textbox({ value: 0 });
+                        $("#subjectZhonmgQiKaoPingt").textbox({ value: 0 });
+                        $("#subjectGuiFanShenCha").textbox({ value: 0 });
+                        $("#subjectDiErPingYueRen").textbox({ value: 0 });
+
+                    }
+                }
+            });
+
+        }
+
+        //保存修改
+        $("#subjectquanzhong_btn").on("click", function () {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            $.ajax({
+                beforeSend: function () {
+                    //获取4个框 用户输入的值
+                    var ZhiDao = $("input[name='subjectZhiDao']").val();
+                    var PingYue = $("input[name='subjectPingYue']").val();
+                    var ZhuanJia = $("input[name='subjectZhuanJia']").val();
+                    var DaBian = $("input[name='subjectDaBian']").val();
+                    //先判断每一项都不为空
+                    var arr = [$("input[name='subjectZhiDao']").val(), $("input[name='subjectPingYue']").val(), $("input[name='subjectZhuanJia']").val(), $("input[name='subjectDaBian']").val(), $("input[name='subjectZhonmgQiKaoPingt']").val(), $("input[name='subjectGuiFanShenCha']").val(), $("input[name='subjectDiErPingYueRen']").val()]
+                    var arr1 = ['指导成绩不能为空', '专业负责人评阅成绩不能为空', '评阅专家成绩不能为空', '答辩成绩不能为空', '中期考评成绩不能为空', '规范审查成绩不能为空', '第二评阅成绩不能为空']
+                    var arr2 = ['指导成绩在0-1之间,最多保留两位小数', '专业负责人评阅成绩在0-1之间,最多保留两位小数', '评阅专家成绩在0-1之间,最多保留两位小数', '答辩成绩在0-1之间,最多保留两位小数', '中期考评成绩在0-1之间,最多保留两位小数', '规范审查成绩在0-1之间,最多保留两位小数', '第二评阅成绩在0-1之间,最多保留两位小数']
+                    var reg = /^[0-1]$|^0.[0-9][1-9]$|^0.[1-9]$/; //0.00-1之间
+                    for (var i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i])) {//每项在0-1之间
+                            alert(arr2[i]);
+                            return false;
+                            break;
+                        };
+                        if ($.trim(arr[i]) == "") {
+                            alert(arr1[i]);
+                            return false;
+                            break;
+                        };
+                    };
+
+                    ////4项加起来必须是 1      js计算机制不同,所以扩大为整再加,然后再除.
+                    //var num = arr.map(function (v, i) {
+                    //    return v * 100;
+                    //}).reduce(function (a, b) {
+                    //    return a + b;
+                    //});
+                    //if (num / 100 != 1) {
+                    //    alert("四个成绩权重相加必须等于1");
+                    //    return false;
+                    //}
+                    // 出现正在加载中 弹框
+                    open_loading();
+                },
+                url: "../Handler/SchoolWeight.ashx?action=SetSubjectScoringWeightData&sn=" + schoolNo + "&planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: $("#subjectquanzhong").serialize(),
+                success: function (data) {
+                    myMessage(data.message);
+                    //刷新列表
+                    $("#SetBindingSubject").dialog('close');
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+                },
+                complete: function () {
+                    close_loading();
+                }
+            });
+        });
+
+        //点击删除绑定的课题类型
+        function delSubjectBinding(id) {
+            if (planid == 0 || planid == "" || planid == undefined || planid == null) {
+                myMessage("请正确设置学年！");
+                return false;
+            }
+            if (!confirm("确定要删除吗？")) {
+                return;
+            }
+            $.ajax({
+                url: "../Handler/SchoolWeight.ashx?planid=" + planid + "",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "DelSubjectScoringWeightData",
+                    id: id,
+                    sn: schoolNo
+                },
+                success: function (data) {
+                    myMessage(data.message);
+                    $('#list').datagrid('reload'); //重新加载
+                    $('#list').datagrid("unselectAll");
+                }
+            });
+
+        }
+
+
+
+        //绑定课题类型评分权重设置完成
+
+    </script>
+</body>
+</html>

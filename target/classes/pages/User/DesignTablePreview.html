@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/kindeditor/kindeditor.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/kindeditor/lang/zh_CN.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+</head>
+<body>
+
+    <div class="main">
+        <!-- 预览模版 -->
+        <div class="gxf_problem gxf_problem_title">
+            <div><h2 id="previewModelTitle"><span></span>模板预览 </h2></div>
+            <div class="gxf_designTable_content">
+                <ul id="previewModel1" class="gxf_designTable_box"></ul>
+                <div id="previewModel2" style="width: 900px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var schoolNo = getUrlParam("sn");
+        var tableID = getUrlParam("tableID");
+        var tableName = getUrlParam("tableName");
+        //文件类型
+        var filetype = [
+            { name: "课题", value: '11', selected: true },
+            { name: "任务书", value: '13' },
+            { name: "开题报告", value: '12' },
+            { name: "课题修改申请", value: '14' },
+            { name: "中期报告", value: '0' },
+            { name: "教师中期报告", value: '15' },
+            { name: "教秘中期报告", value: '17' },
+            { name: "专业负责人中期报告", value: '16' },
+            { name: "院长中期报告", value: '18' },
+            { name: "管理员中期报告", value: '19' },
+            { name: "文献综述", value: '38' },
+            { name: "指导记录", value: '39' },
+            { name: "答辩记录", value: '46' },
+            { name: "答辩意见", value: '47' },
+            { name: "指导教师评阅意见书(成绩)", value: '7' },
+            { name: "评阅专家评阅意见书(成绩)", value: '8' },
+            { name: "专业负责人评阅意见书(成绩)", value: '9' },
+            { name: "答辩录入员评阅意见书(成绩)", value: '10' },
+            { name: "中期考评成绩", value: '23' },
+            { name: "规范审查成绩", value: '24' },
+            { name: "前期检查(学院)", value: '40' },
+            { name: "前期检查(专业)", value: '41' },
+            { name: "前期检查(班级)", value: '42' },
+            { name: "中期检查(学院)", value: '20' },
+            { name: "中期检查(专业)", value: '21' },
+            { name: "中期检查(班级)", value: '22' },
+            { name: "后期检查(学院)", value: '43' },
+            { name: "后期检查(专业)", value: '44' },
+            { name: "后期检查(班级)", value: '45' },
+            { name: "审核课题", value: '25' },
+            { name: "审核课题修改申请", value: '26' },
+            { name: "审核任务书", value: '27' },
+            { name: "审核开题报告", value: '28' },
+            { name: "审核中期报告", value: '29' },
+            { name: "审核指导记录", value: '30' },
+            { name: "审核外文译文", value: '31' },
+            { name: "审核文献综述", value: '32' },
+            { name: "审核论文", value: '33' },
+            { name: "审核中期检查(学院)", value: '34' },
+            { name: "审核中期检查(专业)", value: '35' },
+            { name: "审核中期检查(班级)", value: '36' },
+            { name: "审核答辩成绩", value: '37' },
+            { name: "成绩", value: '1' },
+            { name: "中期检查", value: '3' },
+            { name: "前期检查", value: '2' },
+            { name: "前期检查工作总结", value: '4' },
+            { name: "中期检查工作总结", value: '5' },
+            { name: "毕业论文工作总结", value: '6' }
+        ];
+
+        
+        $(function () {
+            if (tableName && tableName.indexOf(")") >= 0) {
+                var Name = tableName.split(")");
+                var words = "";
+                $.each(filetype, function (index, r) {
+                    if (Name[1] == r.value) {
+                        words = r.name;
+                    }
+                });
+            };
+            $("#previewModelTitle").html("<span></span>" + Name[0] + ")" + words + "--自定义模板预览");
+
+            $.ajax({
+                url: "../Handler/DesignTableHandler.ashx",
+                data: {
+                    action: "GetDeginTableModelList",
+                    sn: schoolNo,
+                    tableID: tableID
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess) {
+                        var richTextId = [];// 富文本ID
+                        var newStr = "";
+                        var DesignTableHtml = "";
+                        DesignTableHtml += '<div style="margin-bottom: 10px;">'
+                                                    + '<input type="radio" name="DataTableID" value="' + data.rows[0]["表名ID"] + '" id="radis"/>'
+                                                    + '<label for="radis"> xxx评阅意见书的表头</label></div>'
+                                                    + '<table id="table_' + data.rows[0]["表名ID"] + '" class="tab-review"><tbody>';
+                        if (data.rows[0]["类型"] == 5 || data.rows[0]["类型"] == 8) {
+                            $.each(data.rows, function (index, value) {
+                                var leixing = value["类型"];
+                                var timu = value["题目"].split("|");
+                                var isTrueFalse = true;
+                                for (var a = 0; a < data.rows.length; a++) {
+                                    if (a < index && timu[0] == data.rows[a]["题目"].split("|")[0]) {
+                                        isTrueFalse = false;
+                                        break;
+                                    };
+                                };
+                                // 判断第一项是否为标题类型
+                                if (data.rows[0]["类型"] == 8) {
+                                    // 规范审查成绩
+                                    if (isTrueFalse) {
+                                        if (index == 0) {
+                                            DesignTableHtml += '<tr class="tr1">';
+                                            for (var j = 0; j < timu.length - 2; j++) {
+                                                DesignTableHtml += '<td style="width: 300px;">' + timu[j] + '</td>';
+                                            };
+                                            DesignTableHtml += '<td style="width: 240px;">登陆角色评分</td></tr>';
+                                        } else if (index > 0) {
+                                            DesignTableHtml += '<tr class="tr2">'
+                                            for (var k = 0; k < timu.length - 2; k++) {
+                                                DesignTableHtml += '<td><div class="tab-lef">' + timu[k].replace(/#cnkibrcnki#/g, '<br />') + '</div></td>';
+                                            };
+                                            DesignTableHtml += '<td><input type="hidden" value="15" /><input class="rev-inp" type="text" id="txt' + value["ID"] + '" value="" name="com001" /></td></tr>';
+                                        };
+                                    };
+                                } else if (leixing == '5') {
+                                    //  评阅意见书（教师，专业负责人，评阅专家等等）
+                                    if (isTrueFalse) {
+                                        DesignTableHtml += '<tr class="tr1"><td colspan="' + (timu.length - 1) + '"><div class="tab-h">' + timu[0] + '</div></td></tr>';
+                                        DesignTableHtml += '<tr class="tr1">'
+                                        for (var j = 0; j < timu.length - 3; j++) {
+                                            DesignTableHtml += '<td style="width: 300px;"></td>';
+                                        };
+                                        DesignTableHtml += '<td style="width: 100px;">打分区间</td><td style="width: 200px;">登陆角色评分</td></tr>';
+                                    };
+                                    DesignTableHtml += '<tr class="tr2">'
+                                    for (var k = 1; k < timu.length - 2; k++) {
+                                        if (k == 1) {
+                                            DesignTableHtml += '<td>' + timu[k].replace(/#cnkibrcnki#/g, '<br />') + '</td>';
+                                        } else {
+                                            DesignTableHtml += '<td><div class="tab-lef">' + timu[k].replace(/#cnkibrcnki#/g, '<br />') + '</div></td>';
+                                        };
+                                    };
+                                    DesignTableHtml += '<td>' + value["限制"] + '</td><td><input type="hidden" value="15" /><input class="rev-inp" type="text" id="txt' + value["ID"] + '" value="" name="com001" /></td></tr>';
+                                };
+                                // 表尾
+                                if (index == data.rows.length - 1) {
+                                    DesignTableHtml += '<tr class="tr2"><td colspan="' + (timu.length - 1) + '"><div class="tableTail">xxx评阅意见书的表尾</div></td></tr>';
+                                };
+                            });
+                            DesignTableHtml += '</tbody></table>';
+                            $("#previewModel2").html(DesignTableHtml);
+                            $("#previewModel1").hide();
+                        } else {
+                            $.each(data.rows, function (index, v) {
+                                var leixing = v["类型"];
+                                var zhushi = (v["注释"] || "");
+                                var TMleixing = v["标题类型"];
+                                if (TMleixing == 0) {
+                                    if (leixing == "0") {// 文本
+                                        var txt = v['限制'];
+                                        var idName = 'txt_' + v["ID"] + '_' + v["列名"]
+                                        if (txt == "" || txt == null) {//文本默认  
+                                            newStr += '<li>'
+                                                         + '<p>' + v['题目'] + '<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></p>'
+                                                         + '<input id="' + idName + '" type="text" class="easyui-textbox" data-options="multiline:true,height:100" style="width:100%">'
+                                                         + '</li>';
+                                        } else {
+                                            txt = txt.split("-")[1];
+                                            if (txt <= 80) { // 文本小
+                                                newStr += '<li>'
+                                                         + '<p>' + v['题目'] + '<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></p>'
+                                                         + '<input id="' + idName + '" type="text" class="easyui-textbox" data-options="multiline:true,height:30" style="width:100%"/>'
+                                                         + '</li>';
+                                            } else { // 文本大
+                                                newStr += '<li>'
+                                                         + '<p>' + v['题目'] + '<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></p>'
+                                                         + '<input id="' + idName + '" type="text" class="easyui-textbox" data-options="multiline:true,height:100" style="width:100%">'
+                                                         + '</li>';
+                                            };
+                                        };
+                                    };
+                                    if (leixing == "1") {//数字
+                                        var idName = 'txt_' + v["ID"] + '_' + v["列名"];
+                                        newStr += '<li>'
+                                                    + '<p>' + v['题目'] + '<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></p>'
+                                                    + '<input id="' + idName + '" type="text" class="easyui-numberbox" data-options="height:30" style="width:100%"/>'
+                                                    + '</li>';
+                                    };
+                                    if (leixing == "2") {//单选
+                                        var idName = 'radio_' + v["ID"] + '_' + v["列名"];
+                                        newStr += '<li>'
+                                                    + '<p>' + v['题目'] + '<span class="statement margl">' + zhushi + '</span></p>'
+                                                    + '<div class="designTable_radio">';
+                                        if (v["中文列名"] !== "") {
+                                            var raido = v["中文列名"].split(",");
+                                            for (var i = 0; i < raido.length; i++) {
+                                                if (v["默认项"] && v["默认项"].indexOf(raido[i]) >= 0) {
+                                                    newStr += '<input class="margl" type="radio" id="' + idName + i + '" name="' + idName + '" value="' + i + '" checked ="checked"  />' + '<label for="' + idName + i + '">' + raido[i] + '</label>';
+                                                } else {
+                                                    newStr += '<input class="margl" type="radio" id="' + idName + i + '" name="' + idName + '" value="' + i + '" />' + '<label for="' + idName + i + '">' + raido[i] + '</label>';
+                                                };
+                                            };;
+                                        };
+                                        newStr += '</div></li>';
+                                    };
+                                    if (leixing == "3") {//多选
+                                        var idName = '';
+                                        newStr += '<li>'
+                                                    + '<p>' + v['题目'] + '<span class="statement margl">' + zhushi + '</span></p>'
+                                                    + '<div class="designTable_radio">';
+                                        if (v["中文列名"] !== "") {
+                                            var raido = v["中文列名"].split(",");
+                                            var id = v["列名"].split(",")
+                                            for (var i = 0; i < raido.length; i++) {
+                                                idName = 'checkbox_' + v["ID"] + '_' + id[i];
+                                                if (v["默认项"] && v["默认项"].indexOf(raido[i]) >= 0) {
+                                                    newStr += '<input class="margl" type="checkbox" id="' + idName + '" value="' + i + '" checked="checked"/>' + '<label for="' + idName + '">' + raido[i] + '</label>';
+                                                } else {
+                                                    newStr += '<input class="margl" type="checkbox" id="' + idName + '" value="' + i + '" />' + '<label for="' + idName + '">' + raido[i] + '</label>';
+                                                };
+                                            };
+                                        };
+                                        newStr += '</div></li>';
+                                    };
+                                    if (leixing == "4") {//时间
+                                        var idName = 'txt_' + v["ID"] + '_' + v["列名"];
+                                        //newStr += '<li>'
+                                        //            + '<p>' + v['题目'] + '<span class="statement margl">' + zhushi + '</span></p>'
+                                        //            + '<input id="' + v["列名"] + v["ID"] + '" type="text" class="easyui-textbox" data-options="multiline:true,height:30" />'
+                                        //            + '</li>';
+                                    };
+                                    if (leixing == "6") {//富文本
+                                        var idName = 'txt_' + v["ID"] + '_' + v["列名"];
+                                        richTextId.push(idName);
+                                        newStr += '<li>'
+                                                    + '<p>' + v["题目"] + '<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></p>'
+                                                    + '<textarea class="ad-txt" id="' + idName + '" name="' + idName + '" style="width: 100%; height: 500px;"></textarea>'
+                                                    + '</li>';
+                                    };
+                                    if (leixing == 7) {//只显示标题 不显示内容
+                                        newStr += '<li><p>' + v["题目"] + '<span class="statement margl">' + zhushi + '</span></p></li>';
+                                    };
+                                } else if (TMleixing == 1) { //二级自定义标题
+                                    if (leixing == "0") {//文本
+                                        var name = "txt_" + v['ID'] + "_" + v['列名'];
+                                        var txtLen = v['限制'];
+                                        if (txtLen == "" || txtLen == null) {
+                                            newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                         + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + ' <span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></h3>'
+                                                         + '<input id="txt_' + v['ID'] + '_' + v['列名'] + '" type="text" class="easyui-textbox" data-options="multiline:true,height:100" style="width:100%">'
+                                                         + '</div></li>';
+                                        } else {
+                                            txtLen = txtLen.split("-");
+                                            if (txtLen[1] <= 80) {// 文本长度小于80
+                                                newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                         + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + ' <span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></h3>'
+                                                         + '<input id="txt_' + v['ID'] + '_' + v['列名'] + '" type="text" class="easyui-textbox" data-options="multiline:true,height:30" style="width:100%">'
+                                                         + '</div></li>';
+                                            } else {// 文本长度大于
+                                                newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                         + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + ' <span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></h3>'
+                                                         + '<input id="txt_' + v['ID'] + '_' + v['列名'] + '" type="text" class="easyui-textbox" data-options="multiline:true,height:100" style="width:100%">'
+                                                         + '</div></li>';
+                                            };
+                                        };
+                                    };
+                                    if (leixing == "1") {//数字
+                                        var name = "txt_" + v['ID'] + "_" + v['列名'];
+                                        newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                    + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + '<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></h3>'
+                                                    + '<input id="txt_' + v['ID'] + '_' + v['列名'] + '" type="text" class="easyui-numberbox" data-options="multiline:true,height:30" style="width:100%">'
+                                                    + '</div></li>';
+                                    };
+                                    if (leixing == "2") {//单选
+                                        var idName = 'radio_' + v["ID"] + '_' + v["列名"];
+                                        newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                    + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + '<span class="statement margl">' + zhushi + '</span></h3>'
+                                                    + '<div class="designTable_radio">';
+                                        if (v["中文列名"] !== "") {
+                                            var raido = v["中文列名"].split(",");
+                                            for (var i = 0; i < raido.length; i++) {
+                                                if (v["默认项"] && v["默认项"].indexOf(raido[i]) >= 0) {
+                                                    newStr += '<input class="margl" type="radio" id="' + idName + i + '" name="' + idName + '" value="' + i + '"  checked="checked"/>' + ' <label class="margr" for="' + idName + i + '">' + raido[i] + '</label>';
+                                                } else {
+                                                    newStr += '<input class="margl" type="radio" id="' + idName + i + '" name="' + idName + '" value="' + i + '" />' + ' <label class="margr" for="' + idName + i + '">' + raido[i] + '</label>';
+                                                };
+                                            };
+                                        };
+                                        newStr += '</div></li>';
+                                    };
+                                    if (leixing == "3") {//多选
+                                        var idName = '';
+                                        newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                    + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + '<span class="statement margl">' + zhushi + '</span></h3>'
+                                                    + '<div class="designTable_radio">';
+                                        if (v["中文列名"] !== "") {
+                                            var raido = v["中文列名"].split(",");
+                                            var id = v["列名"].split(",")
+                                            for (var i = 0; i < raido.length; i++) {
+                                                idName = 'checkbox_' + v["ID"] + '_' + id[i];
+                                                if (v["默认项"] && v["默认项"].indexOf(raido[i]) >= 0) {
+                                                    newStr += '<input class="margl" type="checkbox" id="' + idName + '" value="' + i + '" checked = "checked"/>' + ' <label class="margr"  for="' + idName + '">' + raido[i] + '</label>';
+                                                } else {
+                                                    newStr += '<input class="margl" type="checkbox" id="' + idName + '" value="' + i + '" />' + ' <label class="margr"  for="' + idName + '">' + raido[i] + '</label>';
+                                                };
+                                            };
+                                        };
+                                        newStr += '</div></li>';
+                                    };
+                                    if (leixing == "4") {//时间
+                                        var name = "txt_" + v['ID'] + "_" + v['列名'];
+                                        newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                    + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + '<span class="statement margl">' + zhushi + '</span></h3>'
+                                                    + '<div style="width:958px; background:#fff;border:1px solid #ddd; padding:8px 10px;">'
+                                                    + '<input id="' + name + '" class="easyui-datetimebox" data-options="showSeconds:false,editable: false,height:26,width:180" panelheight="260" />'
+                                                    //+ '<span>至</span>'
+                                                    //+ '<input id="TimeEnd" class="easyui-datetimebox" data-options="showSeconds:false,editable: false,height:26,width:180" panelheight="260" />'
+                                                    + '</div></li>';
+                                    };
+                                    if (leixing == "6") {//富文本
+                                        var name = "txt_" + v['ID'] + "_" + v['列名'];
+                                        richTextId.push(name);
+                                        newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                    + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + ' <span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">' + zhushi + '</span></h3>'
+                                                    + '<textarea class="ad-txt" id="' + name + '" name="' + name + '" style="width: 100%; height: 500px;"></textarea>'
+                                                    + '</div></li>';
+                                    };
+                                    if (leixing == 7) {//只显示标题 不显示内容
+                                        newStr += '<li><div class="gxf_designTable_secondTitle">'
+                                                    + '<h3 class="gxf_designTable_secondTitle_Title"><i> </i>' + v["题目"] + ' <span class="statement margl">' + zhushi + '</span></h3>'
+                                                    + '</div></li>';
+                                    };
+                                };
+                            });
+                            // 页面添加html
+                            $("#previewModel1").html(newStr);
+                            $.parser.parse("#previewModel1");
+                            if (richTextId.length > 0) {
+                                // 富文本编辑框初始化
+                                initKindEditor(richTextId);
+                            }
+                        };
+                    };
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+                complete: function () {
+                    //var writerTextList = dataList.substring(0, dataList.length - 1).split(',');
+                    //for (var i = 0; i < writerTextList.length; i = i + 2) {
+                    //    if (writerTextList[i + 1] == 0 || writerTextList[i + 1] == 1) {
+                    //        showWriteTextNumber.createNew("previewModel", writerTextList[i]);
+                    //    }
+                    //}
+                }
+            });
+        });
+
+        // 输入时 显示字符数
+        var showWriteTextNumber = {
+            createNew: function (divID, inputID) {
+                $("#" + divID).keyup("#" + inputID, function () {
+                    $("#" + inputID).prev().find(".writerText>i").html(" " + $("#" + inputID).textbox("getText").length + " ");
+                });
+            }
+        };
+    </script>
+</body>
+</html>
+

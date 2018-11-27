@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表</title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 15px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <!--<p>1.&nbsp;</p>
+
+            <p>2.&nbsp;</p>-->
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学校编号：</span>
+                        </dt>
+                        <dd>
+                            <input id="SchoolID" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学校名称：</span>
+                        </dt>
+                        <dd>
+                            <input id="SchoolName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+             
+
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" onclick="search()" />
+                            <input type="hidden" id="nameorder" name="nameorder" />
+                        </dd>
+                    </dl>
+
+                </li>
+            </ul>
+           
+        </div>
+        <div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li id="exportExcel">
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'">导出Excel表格</a>&nbsp; &nbsp;
+                    <div id="mm1" style="width:150px;">
+                        <div class="selAll">全部账号</div>
+                        <div class="selected">选中账号</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+    <script>   
+        function GteTables(objectId, url, columnData, paramsData, idField, showPagination, rownumbers) {
+            if (showPagination == undefined) {
+                showPagination = true;
+            };
+            if (rownumbers == undefined) {
+                rownumbers = true;
+            };
+
+            var dtd = $.Deferred(); //在函数内部，新建一个Deferred对象
+
+            $(objectId).datagrid({
+                loadMsg: '正在加载数据，请稍等......',
+                url: url,
+                method: 'POST',
+                queryParams: paramsData,
+                lines: true,
+                idField: idField,
+                striped: true,
+                fitColumns: true,
+                rownumbers: rownumbers,
+                pagination: showPagination,
+                pageNumber: 1,
+                nowrap: false,
+                pageSize: 10,
+                showFooter: true,
+                checkOnSelect: true,
+                columns: columnData,
+                singleSelect: false,
+                selectOnCheck: true,
+                scrollbarSize: 0,
+
+                onLoadSuccess: function (data) {
+                    //alert(data.message);
+                    if (data && !data.isSuccess) {
+                    
+                        if (console && console.error) {
+                            console.error("错误代码：" + (data.errorCode || "") + "，错误消息：" + (data.message || ""));
+                        }
+                    }
+                    $('#nameorder').val(data.message);
+                    dtd.resolve(data); // 改变Deferred对象的执行状态，触发done()
+                },
+                onLoadError: function (data) {
+                    //alert("列表加载异常");
+                    if (console && console.error) {
+                        console.error(data);
+                    }
+
+                    dtd.reject(data); // 改变Deferred对象的执行状态，触发fail()
+                }
+            });
+            $(objectId).datagrid('getPager').pagination({
+                showPageList: false,
+                beforePageText: '当前是第',
+                afterPageText: '页，共{pages}页',
+                displayMsg: '当前显示从第{from}条到{to}条，共{total}条记录'
+            });
+
+            return dtd.promise(); // 返回promise对象
+        }
+        //页面加载完成  再加载表格
+        $(function () {    
+            GteTables(objectId, url, columnData, paramsData, idField);
+        });
+
+        var columnData = [[
+               { field: 'ID', checkbox: true },
+               { field: '学校编号', align: 'center', title: '学校编号', width: 10 },
+               { field: '学校名称', align: 'center', title: '大学名称', width: 10 },
+               {
+                   field: '学生总数', align: 'center', title: '学生总数', width: 10, sortable: true
+              
+               },
+               { field: '检测次数', align: 'center', title: '检测次数', width: 10, sortable: true },
+               { field: '课题总数', align: 'center', title: '课题总数', width: 10, sortable: true },
+               { field: '统计时间', align: 'center', title: '统计时间', width: 10, sortable: true }
+                        
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/DataStatisticsHandler.ashx";
+        var paramsData = {
+            action: "GetList",
+            sn: "1"
+        };
+        var idField = "ID";
+        // 查询操作
+        function search() {
+            var schoolname = $("#SchoolName").textbox('getText');
+            var schoolid = $("#SchoolID").textbox('getText');
+            //var operationtype = $("#OperationType").combobox('getValue');
+
+            paramsData = {
+                action: "GetList",
+                schoolname: schoolname,
+                schoolid: schoolid,             
+                sn: "1"
+            };
+            GteTables(objectId, url, columnData, paramsData, idField);
+        }
+
+      
+        // 导出Excel表格
+        // 导出Excel表格    选中部分
+        $("#exportExcel .selected").on("click", function () {
+            var name;
+            var order;
+            var nameorder = $('#nameorder').val();
+            if (nameorder.indexOf('|')) {
+
+                var nameorderarry = nameorder.split('|');
+                name = nameorderarry[0];
+                order = nameorderarry[1];
+            }
+            var data = $('#list').datagrid('getSelections');
+            var dataList = "";
+            for (var i = 0; i < data.length; i++) {
+                dataList += data[i].ID + ",";
+            }
+            if (dataList.length <= 0) {
+                myMessage("请至少选择一个！")
+                return false;
+            }
+            dataList = dataList.substring(0, dataList.length - 1);
+
+            var exportExcel = "export_excel";
+            var dataParams = {
+                sort: name,
+                order: order,
+                range: "",
+                idlist: dataList,
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/DataStatisticsHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+
+        }) ;
+
+        // 导出Excel表格    全部
+        $("#exportExcel .selAll").on("click", function () {
+            var exportExcel = "export_excel";
+
+            var schoolname = $("#SchoolName").textbox('getText');
+            var schoolid = $("#SchoolID").textbox('getText');
+
+
+            var name;
+            var order;       
+            var nameorder = $('#nameorder').val();
+            if (nameorder.indexOf('|')) {
+
+                var nameorderarry = nameorder.split('|');
+                name = nameorderarry[0];
+                order = nameorderarry[1];
+            }
+        
+
+            var dataParams = {
+                schoolname: schoolname,
+                schoolid: schoolid,
+                sort: name,
+                order:order,
+                range: "all",
+                idlist: "",
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/DataStatisticsHandler.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+        });
+    </script>
+
+</body>
+</html>

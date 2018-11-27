@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.signalR-2.2.2.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/signalr/hubs"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+    <style>
+        #ProgressBarBox {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 9999;
+        }
+
+        .ProgressBar {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -200px;
+            width: 400px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="gxf_tips">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <p>1.<a href="../Template/导入课题模板.xlsx" class="span_dianji gxf_underline">导入课题模板<i></i></a>，请鼠标右键点击左侧的"导入课题模板Excel格式示例"，选择"目标另存为"，把Excel格式示例文件保存到您的计算机。</p>
+            <p>2.导入的课题全部为"师生互选"课题，导入前请确认已配好课题自动审核流程</p>
+            <p>3.如果导入失败，请根据提示信息修改后重新上传文件导入数据</p>
+        </div>
+    </div>
+
+    <div class="main">
+        <ul id="proBoxDiv">
+            <li class="margt">
+                <span style="display:inline-block; width: 200px;text-align: right;">学年：</span>
+                <select id="schoolYearCreate" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+            </li>
+            <li class="margt">
+                <span style="display:inline-block; width: 200px; text-align: right;">课题信息的Excel文件：</span>
+                <input class="easyui-textbox" id="txtFileName" style="width: 285px;" />
+                <span id="spanButtonPlaceholder"></span>
+                <input type="hidden" id="file_id" value="" />
+                <div id="divFileProgressContainer" style="margin-left: 204px;"></div>
+            </li>
+            <li class="margt">
+                <span style="display:inline-block; width: 200px;"> </span>
+                <input id="improtExcel" class="formBtn" type="button" value="导入excel" />
+            </li>
+        </ul>
+        <!-- 成功后列表 -->
+        <div id="proListBox" style="display: none;">
+            <div class="rightbox clearfix">
+                <div id="previewMsg" style="margin: 10px 0;"></div>
+                <ul class="form clearfix">
+                    <li>
+                        <dl>
+                            <dt>
+                                <sapn>学年：</sapn>
+                            </dt>
+                            <dd>
+                                <select id="schoolYear" class="easyui-combobox" name="dept" style="width:170px;" editable="false"></select>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li style="text-align: left;">
+                        <input id="insertImport" class="formBtn " type="button" value="确定导入" />
+                        <input id="clearImport" class="formBtn margl" type="button" value="取消导入" />
+                    </li>
+                </ul>
+            </div>
+            <table id="previewlist" style="width:100%;"></table>
+        </div>
+    </div>
+    <!-- 进度条 -->
+    <div id="ProgressBarBox" style="display: none;">
+        <div class="ProgressBar">
+            <div id="ProgressBar" class="easyui-progressbar" style="width:400px;"></div>
+        </div>
+    </div>
+    <script>
+
+        var schoolNo = getUrlParam("sn");
+
+        $(function () {
+            initSchoolYearWord(schoolNo)
+        });
+
+        var url = "../Handler/ProjectHandler.ashx";
+        var params = {};
+        var file_type = "*.xls;*.xlsx;";
+        var swfu = swfinit(url, params, file_type);
+        // 上传
+        $("#improtExcel").on("click", function () {
+            var planNum = $("#schoolYearCreate").combobox("getValue");
+            if (!isNumber(planNum) || planNum <= 0) {
+                myMessage("请选择计划编号");
+                return;
+            }
+            var str = $("#txtFileName").textbox("getText");
+            if (str == "") {
+                myMessage("请选择文件");
+                document.getElementById("divFileProgressContainer").style.display = "none";
+                return;
+            } else {
+                swfu.setPostParams({
+                    'action': "ReceiveFile",
+                    'planNum':$("#schoolYearCreate").combobox("getValue"),
+                    'sn': schoolNo
+                });
+                var fileid = document.getElementById("file_id").value;
+                swfu.startUpload(fileid);
+                document.getElementById("divFileProgressContainer").style.display = "";
+            }
+        });
+
+        // 上传成功后加载表格
+        function uploadSuccessCallback() {
+            $("#proBoxDiv").hide();
+            $("#proListBox").show();
+            $("#schoolYear").combobox("setValue", $("#schoolYearCreate").combobox("getValue"));
+            $("#schoolYear").combobox("disable");
+
+
+            var columnData = [[
+                { field: 'StudentName', align: 'center', title: '学生姓名', width: 30 },
+                { field: 'StudentNum', align: 'center', title: '学号', width: 30 },
+                { field: 'Academy', align: 'center', title: '学院名称', width: 30 },
+                { field: 'Specialty', align: 'center', title: '专业名称', width: 30 },
+                { field: 'ProjectName', align: 'center', title: '课题题目', width: 50 },
+                { field: 'TeacherName', align: 'center', title: '教师姓名', width: 30 },
+                { field: 'TeacherNum', align: 'center', title: '教师编号', width: 30 },
+                { field: 'ProjectSource', align: 'center', title: '题目来源', width: 30 },
+                { field: 'ProjectType', align: 'center', title: '题目类型', width: 30 }
+            ]];
+            var objectId = $("#previewlist");
+            var url = "../Handler/ProjectHandler.ashx";
+            var paramsData = {
+                action: "PreviewInfo",
+                sn: schoolNo
+            };
+            var idField = "MID";
+            GteTable(objectId, url, columnData, paramsData, idField);
+        }
+
+        // 最后确认上传
+        $("#insertImport,#clearImport").on("click", function () {
+            var importNum = 0;
+            var $_this = $(this);
+
+            if ($_this.attr('id') == 'insertImport') {
+                importNum = 1;
+            } else if ($(this).attr('id') == 'clearImport') {
+                importNum = 0
+            } else {
+                myMessage("出错了！");
+                return;
+            }
+           
+            $.ajax({
+                url: "../Handler/ProjectHandler.ashx",
+                data: {
+                    'action': "ImportProject",
+                    'sn': schoolNo,
+                    'planNum': $("#schoolYear").combobox("getValue"),
+                    'import': importNum
+                },
+                dataType: "json",
+                type: "POST",
+                beforeSend: function () {
+                    if ($_this.attr('id') == 'insertImport') {
+                        // 进度条
+                        progressHub();
+                        $("#insertImport,#clearImport").hide();
+                        $("#ProgressBarBox").show();
+                    }
+                },
+                success: function (data) {
+                    alert(data.message);
+                    if (data.isSuccess) {
+                        refreshTab(getCurrentTabTitle());
+                    } else {
+                        $("#insertImport,#clearImport").show();
+                    }
+                },
+                complete: function () {
+                    $("#ProgressBarBox").hide();
+                    $('#ProgressBar').progressbar({ value: 0 });
+                }
+            });
+        });
+
+        
+
+      /**
+       * 更新数据库进度条
+       */
+        function progressHub() {
+            var myHub = $.connection.progressHub;
+            var progressBarBox = $("#ProgressBarBox");
+            myHub.client.setProgress = function (value) {
+                //console.log(value);
+                if (value <= 100) {
+                    if (progressBarBox.is(":hidden")) {
+                        progressBarBox.show();
+                    }
+                    $('#ProgressBar').progressbar({ value: value });
+                }
+                if (value > 100) {
+                    $("#ProgressBarBox").hide();
+                    $('#ProgressBar').progressbar({ value: 0 });
+                }
+            };
+            $.connection.hub.start().done(function () {
+                $("#insertImport,#clearImport").show();
+            }).fail(function () {
+                alert("连接服务器失败");
+            });
+        }
+
+        //加载计划编号下拉框
+        function initSchoolYearWord(schoolNo) {
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx",
+                type: "post",
+                data:{
+                    action: "GetSchoolYear",
+                    sn: schoolNo
+                },
+                dataType: "json",
+                success: function (datas) {
+                    var myArray = new Array()
+                    if (datas.isSuccess == true) {
+                        close_loading();
+                        var schoolYearTypes = datas.dataList.schoolYearTypes;
+                        if (schoolYearTypes && schoolYearTypes.length > 0) {
+                            $.each(schoolYearTypes, function (index, item) {
+                                if (!checkValIsUndefinedOrNull(item["计划编号"]) && !checkValIsUndefinedOrNull(item['学年'])) {
+                                    if (index == 0) {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": true });
+                                    } else if (item["是否默认学年"] == 1) {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": true });
+                                        myArray[0]["selected"] = false;
+                                    } else {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": false });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        close_loading();
+                    }
+                    $("#schoolYearCreate,#schoolYear").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+                }
+            });
+        };
+    </script>
+</body>
+</html>

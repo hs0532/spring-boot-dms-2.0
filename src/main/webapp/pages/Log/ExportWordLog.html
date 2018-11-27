@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL日志列表</title>
+    <script type="text/javascript" src="../Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/swfupload.css?r=20171201132130" />
+
+  
+  
+</head>
+<body>
+    <div id="" class="gxf_tips" style="margin-bottom: 15px;">
+        <div class="gxf_tip">
+            <i></i>信息提示
+        </div>
+        <div>
+            <!--<p>1.&nbsp;</p>
+
+            <p>2.&nbsp;</p>-->
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>数据库：</span>
+                        </dt>
+                        <dd>
+                            <input id="SelectDb" style="width:170px; " class="easyui-combobox" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>           
+
+                <li>
+                    <dl>
+                        <dt>
+                            <span>表名称：</span>
+                        </dt>
+                        <dd>
+                            <input id="SelectDbTables" style="width:170px; " class="easyui-combobox" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>               
+                <li>
+                    <dl>
+                        <dt>
+                            <span>级：</span>
+                        </dt>
+                        <dd>
+                            <input id="LevelList" style="width:170px; " class="easyui-combobox" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>  
+                <li>
+                    <dl>
+                        <dt>
+                            <span>记录方式：</span>
+                        </dt>
+                        <dd>
+                            <input id="Logger" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>         
+                <li>
+                    <dl>
+                        <dt>
+                            <span>日志：</span>
+                        </dt>
+                        <dd>
+                            <input id="LogContents" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>异常：</span>
+                        </dt>
+                        <dd>
+                            <input id="ExceptionContents" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>程序名称：</span>
+                        </dt>
+                        <dd>
+                            <input id="ProgramName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                
+                <li>
+                    <dl>
+                        <dt>
+                            <span>开始时间：</span>
+                        </dt>
+                        <dd>
+                            <input id="ExecutionStartTime" style="width:170px;" class="easyui-datetimebox" panelheight="260" style="width:170px;" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>
+
+                <li>
+                    <dl>
+                        <dt>
+                            <span>结束时间：</span>
+                        </dt>
+                        <dd>
+                            <input id="ExecutionEndTime" style="width:170px;" class="easyui-datetimebox" panelheight="260" style="width:170px;" data-options="showSeconds: false,editable: false" />
+                        </dd>
+                    </dl>
+                </li>
+
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" onclick="search()" />
+                        </dd>
+                    </dl>
+
+                </li>
+            </ul>
+        </div>
+        <div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li id="exportExcel">
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mm1'">导出Excel表格</a>&nbsp; &nbsp;
+                    <div id="mm1" style="width:150px;">
+                        <div class="selAll">全部</div>
+                        <div class="selected">选中</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+     
+            <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+   
+        <!--<span  style=" display: block; height: 80px; overflow: hidden;"></span>-->
+    </div>
+    <script type="text/javascript">
+
+
+        //级别
+        var LevelArry = [
+            { name: "请选择", value: 0 },
+            { name: "FATAL", value:"FATAL"},
+            { name: "ERROR", value: "ERROR"},
+            { name: "WARN", value: "WARN"},
+            { name: "INFO", value: "INFO"},
+            { name: "DEBUG", value: "DEBUG"}
+        ];
+        //页面加载完成  再加载表格
+        $(function () {
+            $("#LevelList").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: LevelArry
+            });
+            //获取所有的日志数据库
+            getLogDB();
+            //获取所有表名称
+            //getTables();
+            paramsData = {
+                action: "GetList",
+                selectDbTables: "",
+                logcontents: "",
+                exceptioncontents: "",
+                programname: "",
+                executionstarttime: "",
+                executionendtime: "",
+                sn: "1"
+            };
+
+            GteTable(list, url, columnData, paramsData, idField);
+        });
+
+        var columnData = [[
+              { field: 'Id', checkbox: true },
+              { field: 'LogDate', align: 'center', title: '日期', width: 20 },
+              { field: 'Thread', align: 'center', title: '线程', width: 10 },
+              { field: 'Level', align: 'center', title: '级', width: 10 },
+              { field: 'Logger', align: 'center', title: '记录方式', width: 20 },
+              { field: 'FileName', align: 'center', title: '地址', width: 30 },
+              { field: 'LineNum', align: 'center', title: '行数', width: 10 },
+              { field: 'Message', align: 'center', title: '日志', width: 30 },
+              {
+                  field: 'Exception', align: 'center', title: '异常', width: 30, formatter: function (value, row, index) {
+                      var exception = row["Exception"];
+                      var zhi = '';
+                      if (exception == null || exception == undefined || exception == '') { }
+                      else {
+                          zhi = "<span title='" + exception + "' style='  display: block; height:200px; overflow: hidden;'>'" + exception + "'</span>";                       
+                      }
+                      return zhi;
+                  }
+              },             
+              { field: 'AppDomain', align: 'center', title: '程序', width: 30 }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/ExportWordLog.ashx";
+        var idField = "Id";
+        // 查询操作
+        function search() {
+
+            var selectDb = $("#SelectDb").combobox('getValue');//获取数据库和ip
+            var selectDbTables = $("#SelectDbTables").combobox('getValue');
+            var selectLevel = $("#LevelList").combobox('getValue');//级别
+            var logger = $("#Logger").textbox('getText');//记录方式
+            
+            var logcontents = $("#LogContents").textbox('getText');
+            var exceptioncontents = $("#ExceptionContents").textbox('getText');//异常信息
+            var programname = $("#ProgramName").textbox('getText');       //程序名称
+            var executionStartTime = $("#ExecutionStartTime").textbox('getText');
+            var executionEndTime = $("#ExecutionEndTime").textbox('getText');
+
+
+            if (selectDb == "") {
+                myMessage('请选择数据库！');
+                return false;
+            }
+            if (selectDbTables == "") {
+                myMessage('请选择数据库表！');
+                return false;
+            }        
+
+            paramsData = {
+                action: "GetList",
+                selectDb:selectDb,
+                selectDbTables: selectDbTables,
+                selectLevel: selectLevel,
+                logger:logger,
+                logcontents: logcontents,
+                exceptioncontents: exceptioncontents,
+                programname: programname,           
+                executionstarttime: executionStartTime,
+                executionendtime: executionEndTime,
+                sn: "1"
+            };
+            GteTable(list, url, columnData, paramsData, idField);
+        }         
+
+        //获取所有的数据库
+
+        var DBArray = new Array()
+        function getLogDB() {
+            $.ajax({
+                url: "../Handler/ExportWordLog.ashx?action=GetDB&sn=1",
+                type: "post",
+                dataType: "json",
+                data: {
+                },
+                success: function (datas) {
+
+                    $("#SelectDb").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        onClick: function (record) {
+                            if (record["value"] != "")                             
+                            selectdatabase(record["value"]);
+                        }
+                    });
+
+
+                    var dbstring = datas.dataList;
+                    var dbstringlist = dbstring.split(',');
+                    DBArray.push({ name: '选择', value: 0, select: true });
+                    var n = 0;
+                    for (var i = 0; i < dbstringlist.length; i++) {
+                     
+                        var dbip = dbstringlist[i].split('-');
+                       
+                        DBArray.push({ name: dbip[0], value: dbstringlist[i] });
+                    }                 
+                    $("#SelectDb").combobox("loadData", DBArray);
+
+                }
+            });
+
+        }
+
+        function selectdatabase(value) {
+
+            $.ajax({
+                url: "../Handler/ExportWordLog.ashx?action=GetTables&sn=1",
+                type: "post",
+                dataType: "json",
+                data: {
+                    dbip: value
+                },
+                success: function (datas) {
+                    var myArray = new Array()
+                    var operationtypestring = datas.dataList;
+                    var operationtypelist = operationtypestring.split(',');
+                    myArray.push({ name: '选择', value: 0, select: true });
+                    for (var i = operationtypelist.length-1; i >= 0; i--) {
+
+                        myArray.push({ name: operationtypelist[i], value: operationtypelist[i] });
+                    }
+                    $("#SelectDbTables").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+
+                }
+            });
+
+            //清空数据     
+            $('#LogContents').textbox('setValue',"");
+            $("#ExceptionContents").textbox('setValue',"");//异常信息
+            $("#ProgramName").textbox('setValue', "");       //程序名称
+            $("#ExecutionStartTime").textbox('setValue', "");
+            $("#ExecutionEndTime").textbox('setValue', "");                 
+            $("#list").datagrid("loadData", { total: 0, rows: [] });
+        }
+
+        // 导出Excel表格
+        // 导出Excel表格    选中部分
+        $("#exportExcel .selected").on("click", function () {
+
+            var data = $('#list').datagrid('getSelections');
+            var dataList = "";
+            for (var i = 0; i < data.length; i++) {
+                dataList += data[i].Id + ",";
+            }
+            if (dataList.length <= 0) {
+                myMessage("请至少选择一个！")
+                return false;
+            }
+            dataList = dataList.substring(0, dataList.length - 1);
+
+            var exportExcel = "export_excel";
+            var selectDb = $("#SelectDb").combobox('getValue');//获取数据库和ip
+            var selectDbTables = $("#SelectDbTables").combobox('getValue');
+            var selectLevel = $("#LevelList").combobox('getValue');//级别
+            var logger = $("#Logger").textbox('getText');//记录方式
+
+            var logcontents = $("#LogContents").textbox('getText');
+            var exceptioncontents = $("#ExceptionContents").textbox('getText');//异常信息
+            var programname = $("#ProgramName").textbox('getText');       //程序名称
+            var executionStartTime = $("#ExecutionStartTime").textbox('getText');
+            var executionEndTime = $("#ExecutionEndTime").textbox('getText');
+
+            var dataParams = {
+                selectDb: selectDb,
+                selectDbTables: selectDbTables,
+                selectLevel: selectLevel,
+                logger: logger,
+                logcontents: logcontents,
+                exceptioncontents: exceptioncontents,
+                programname: programname,
+                executionstarttime: executionStartTime,
+                executionendtime: executionEndTime,
+                range: "",
+                idlist: dataList,
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/ExportWordLog.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+
+        });
+
+        // 导出Excel表格    全部
+        $("#exportExcel .selAll").on("click", function () {
+            var exportExcel = "export_excel";
+
+            var selectDb = $("#SelectDb").combobox('getValue');//获取数据库和ip
+            var selectDbTables = $("#SelectDbTables").combobox('getValue');
+            var selectLevel = $("#LevelList").combobox('getValue');//级别
+            var logger = $("#Logger").textbox('getText');//记录方式
+
+
+            var logcontents = $("#LogContents").textbox('getText');
+            var exceptioncontents = $("#ExceptionContents").textbox('getText');//异常信息
+            var programname = $("#ProgramName").textbox('getText');       //程序名称
+            var executionStartTime = $("#ExecutionStartTime").textbox('getText');
+            var executionEndTime = $("#ExecutionEndTime").textbox('getText');
+
+            var dataParams = {
+                selectDb: selectDb,
+                selectDbTables: selectDbTables,
+                selectLevel: selectLevel,
+                logcontents: logcontents,
+                logger: logger,
+                exceptioncontents: exceptioncontents,
+                programname: programname,
+                executionstarttime: executionStartTime,
+                executionendtime: executionEndTime,
+                range: "all",
+                idlist: "",
+                sn: "1"
+            };
+            var params = $.param(dataParams);
+            var url = "../Handler/ExportWordLog.ashx?action=GetExcel" + "&" + params;
+            $('<form method="post" action="' + url + '"></form>').appendTo('body').submit().remove();
+            delete dataParams[exportExcel];
+            $('#list').datagrid("unselectAll");
+        });
+
+    </script>
+
+</body>
+</html>

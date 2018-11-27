@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表</title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+</head>
+<body>
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>用户名：</span>
+                        </dt>
+                        <dd>
+                            <input id="UserName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>系统类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="SystemType" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>短信类别：</span>
+                        </dt>
+                        <dd>
+                            <input id="SmsType" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>手机号：</span>
+                        </dt>
+                        <dd>
+                            <input id="PhoneNum" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt style="width: auto;">
+                            <span>校验客户端结果：</span>
+                        </dt>
+                        <dd>
+                            <select id="CheckState" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>发送状态：</span>
+                        </dt>
+                        <dd>
+                            <select id="SendState" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>短信平台：</span>
+                        </dt>
+                        <dd>
+                            <select id="PlatformType" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: auto;">
+                    <dl>
+                        <dt style="width:auto;">
+                            <span>客户端发送时间：</span>
+                        </dt>
+                        <dd style="width:auto;">
+                            <input id="BeginTime" class="easyui-datetimebox" data-options="showSeconds:false,editable: false" panelheight="260" />
+                            <b>至</b>
+                            <input id="EndTime" class="easyui-datetimebox" data-options="showSeconds:false,editable: false" panelheight="260" />
+                        </dd>
+                    </dl>
+                </li>
+                <li class="search">
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="search" type="button" value="查询" />
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <!--<div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li><input class="formBtn" id="addSms" type="button" value="添加" /></li>
+            </ul>
+        </div>-->
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="ShowSmsModel" class="easyui-dialog" data-options="closed:true" style="width:500px; height: 600px; text-align:center; padding: 10px">
+            <ul id="showModelBox" class="clearfix" style="line-height: 30px;"></ul>
+        </div>
+    </div>
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="UpdataSmsModel" class="easyui-dialog" data-options="closed:true" style="width:400px; height: 300px; text-align:center; padding: 10px">
+            <ul class="clearfix">
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">用户名：</div>
+                    <div style="width:240px; float:left; text-align:left;"><input id="UserName1" style="width:170px;" class="easyui-textbox" prompt="用户名不能为空" /></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">密码：</div>
+                    <div style="width:240px; float:left; text-align:left;"><input id="password1" name="name" class="easyui-textbox easyui-passwordbox" style="width: 170px;" prompt="不修改时，请勿填写密码" data-options="showEye:false" /></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">系统类型：</div>
+                    <div style="width:240px; float:left; text-align:left;"><select id="SystemType1" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">状态：</div>
+                    <div style="width:240px; float:left; text-align:left;"><select id="state1" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">IP范围：</div>
+                    <div style="width:240px; float:left; text-align:left;"> <input id="IPrange1" style="width:170px;" class="easyui-textbox" /></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">短信类别：</div>
+                    <div style="width:240px; float:left; text-align:left;"><input id="SmsType1" style="width:170px;" class="easyui-textbox" /></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="delModel" class="easyui-dialog" style="width:400px;height:200px;text-align:center; padding:10px 30px;" data-options="closed:true"></div>
+    <script type="text/javascript">
+        //系统类型
+        var systemType = [
+            { name: "请选择", value: -1, selected: true },
+            { name: "GP", value: 0 },
+            { name: "COWebService", value: 1 },
+            { name: "DMS", value: 2 }
+        ];
+        // 校验客户端结果状态
+        var checkState = [
+            { name: "请选择", value: 0, selected: true },
+            { name: "发送成功", value: 1 },
+            { name: "参数有误", value: -1 },
+            { name: "未发送就已超时", value: -2 },
+            { name: "手机号格式有误", value: -3 },
+            { name: "账号错误orIP范围错误", value: -4 },
+            { name: "一天内同一号码请求已超过次数", value: -5 },
+            { name: "短信内容格式有误", value: -6 },
+            { name: "插入到发送队列失败", value: -7 },
+            { name: "异常", value: -8 },
+            { name: "密钥无效", value: -9 },
+            { name: "短信内容过长", value: -10 }
+        ];
+         // 发送状态
+        var sendState = [
+            { name: "请选择", value: 0, selected: true },
+            { name: "发送成功", value: 1 },
+            { name: "发送失败", value: -1 },
+            { name: "发送时已经超期", value: -2 },
+            { name: "发送异常", value: -3 }
+        ];
+        // 短信平台 
+        var platformType = [
+            { name: "请选择", value: 0, selected: true },
+            { name: "亿美", value: 1 },
+            { name: "CNKI", value: 2 }
+        ];
+        //页面加载完成  再加载表格
+        $(function () {
+            $("#SystemType").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: systemType
+            });
+            $("#CheckState").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: checkState
+            });
+            $("#SendState").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: sendState
+            });
+            $("#PlatformType").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: platformType
+            });
+            GteTable(objectId, url, columnData, paramsData, idField);// 加载列表
+        });
+        var columnData = [[
+               { field: 'Id', checkbox: true, },
+               { field: 'UserName', align: 'center', title: '短信用户', width: 20 },
+               { field: 'SystemType', align: 'center', title: '系统类型', width: 20, },
+               { field: 'MessType', align: 'center', title: '短信类别', width: 20 },
+               { field: 'TelNumber', align: 'center', title: '手机号', width: 20 },
+               { field: 'IPAddress', align: 'center', title: '客户端IP', width: 20 },
+               {
+                   field: 'CheckState', align: 'center', title: '校验客户端结果', width: 20,
+                   formatter: function (value, row, index) {
+                       var str = "";
+                       if (row['CheckState'] !== 0) {
+                           $.each(checkState, function (i, v) {
+                               if (row['CheckState'] == v['value']) {
+                                   str = v['name'];
+                               }
+                           });
+                       };
+                       return str;
+                   }
+               },
+               { field: 'Times', align: 'center', title: '请求次数', width: 20 },
+               { field: 'RequestTime', align: 'center', title: '客户端发送时间', width: 25 },
+               {
+                   field: 'PlatformType', align: 'center', title: '短信平台', width: 20,
+                   formatter: function (value, row, index) {
+                       var str = "";
+                       if (row['PlatformType'] !== 0) {
+                           $.each(platformType, function (i, v) {
+                               if (row['PlatformType'] == v['value']) {
+                                   str = v['name'];
+                               }
+                           });
+                       };
+                       return str;
+                   }
+               },
+               { field: 'SendTime', align: 'center', title: '短信发送时间', width: 25 },
+               {
+                   field: 'SendState', align: 'center', title: '短信发送状态', width: 20,
+                   formatter: function (value, row, index) {
+                       var str = "";
+                       if (row['SendState'] !== 0) {
+                           $.each(sendState, function (i, v) {
+                               if (row['SendState'] == v['value']) {
+                                   str = v['name'];
+                               }
+                           });
+                       };
+                       return str;
+                   }
+               },
+               {
+                   field: 'operate', title: '操作', align: 'center', width: 30,
+                   formatter: function (value, row, index) {
+                       var str = '<a class="listA" style="display: inline-block;" href="javascript:showSms(' + index + ');" >查看</a>';
+                       return str;
+                   }
+               }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/SmsHandler.ashx";
+        var paramsData = {
+            action: "GetSmsLogs",
+            sn: "1"
+        };
+        var idField = "Id";
+
+        // 查询操作
+        $("#search").on('click', function () {
+            paramsData = {
+                action: "GetSmsLogs",
+                userName: $("#UserName").textbox('getText'),
+                systemType: $("#SystemType").combobox('getText'),
+                messType: $("#SmsType").textbox('getText'),
+                phoneNum: $("#PhoneNum").textbox('getText'),
+                checkState: $("#CheckState").combobox('getValue'),
+                sendState: $("#SendState").combobox('getValue'),
+                platformType: $("#PlatformType").combobox('getValue'),
+                clientBeginTime: $("#BeginTime").textbox('getText'),
+                clientEndTime: $("#EndTime").textbox('getText'),
+                sn: "1"
+            };
+            GteTable(list, url, columnData, paramsData, idField);
+        });
+        // 查看
+        function showSms(index) {
+            $.ajax({
+                url: "../Handler/SmsHandler.ashx",
+                type: "post",
+                dataType: "json",
+                data: {
+                    action: "GetSmsLogById",
+                    id: $("#list").datagrid("getData").rows[index]["Id"],
+                    sendId: $("#list").datagrid("getData").rows[index]["SendId"],
+                    sn: "1"
+                },
+                success: function (data) {
+                    if (data.isSuccess) {  
+                        var checkStateTxt="";
+                        var sendStateTxt = "";
+                        var platformTypeTxt = "";
+                        if (data.rows[0]['CheckState'] != 0) {
+                            $.each(checkState, function (i, v) {
+                                if (data.rows[0]['CheckState'] == v['value']) {
+                                    checkStateTxt = v['name'];
+                                };
+                            });
+                        };
+                        if (data.rows[0]['SendState'] != 0) {
+                            $.each(sendState, function (i, v) {
+                                if (data.rows[0]['SendState'] == v['value']) {
+                                    sendStateTxt = v['name'];
+                                };
+                            });
+                        };
+                        if (data.rows[0]['PlatformType'] != 0) {
+                            $.each(platformType, function (i, v) {
+                                if (data.rows[0]['PlatformType'] == v['value']) {
+                                    platformTypeTxt = v['name'];
+                                };
+                            });
+                        };
+                        var str = '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">用户名：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['UserName'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">系统类型：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['SystemType'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">短信类别：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['MessType'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">客户端发送时间：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['RequestTime'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">短信服务收到请求的时间：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['ReceiveTime'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">手机号：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['TelNumber'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">短信内容：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['SmsContent'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">客户端IP：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['IPAddress'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">校验客户端结果：</div><div style="width:320px; float:left; text-align:left;">' + checkStateTxt + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">请求次数：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['Times'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">校验客户端结果信息：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['Message'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">短信平台：</div><div style="width:320px; float:left; text-align:left;">' + platformTypeTxt + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">短信发送时间：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['SendTime'] || "") + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">短信发送状态：</div><div style="width:320px; float:left; text-align:left;">' + sendStateTxt + '</div></li>'
+                                    + '<li class="clearfix"><div style="width:150px; float:left; text-align:right;">短信发送结果信息：</div><div style="width:320px; float:left; text-align:left;">' + (data.rows[0]['SendMessage'] || "") + '</div></li>';
+                        $("#showModelBox").html(str);
+                        //打开弹窗
+                        $('#ShowSmsModel').dialog({
+                            title: '查看',
+                            buttons: [
+                                {
+                                    text: '确定',
+                                    handler: function () {
+                                        $('#list').datagrid("clearSelections");
+                                        $("#ShowSmsModel").dialog("close");
+                                    }
+                                }
+                            ]
+                        });
+                        $("#ShowSmsModel").dialog('open').window('center');
+                    } else {
+                        myMessage(data.message);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        };
+
+    </script>
+</body>
+</html>
+

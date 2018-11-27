@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <title>DMS</title>
+    <script type="text/javascript" src="Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" href="Themes/default/base.css" />
+    <link rel="stylesheet" href="Themes/default/easyui.css" />
+
+    <style type="text/css">
+        body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, th, td, p, blockquote, pre, form, fieldset, legend, input, button, textarea, hr {
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        input, textarea, button, form, fieldset {
+            border: 0;
+            outline: none;
+        }
+
+        table {
+            color: #333;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        body {
+            font: 12px/1.5 Arial;
+        }
+
+        select, input, button {
+            vertical-align: middle;
+            font-size: 100%;
+        }
+
+        img {
+            border: 0;
+        }
+
+        .clear {
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+            font: 0/0 arial;
+        }
+
+        .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+            font-size: 0;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+        /* Hides from IE-mac \*/
+        * html .clearfix {
+            height: 1%;
+        }
+
+        .clearfix {
+            display: block;
+            min-height: 0;
+        }
+
+        .post {
+            position: relative;
+        }
+        /*相对定位*/
+        a {
+            text-decoration: none;
+            outline: none;
+        }
+        /*针对firefox等*/
+        html {
+            overflow: -moz-scrollbars-vertical;
+        }
+        /*在Firefox浏览器下始终显示滚动条；不同浏览器的显示效果都将一致*/
+        html, body {
+            height: 100%;
+            width: 100%;
+            font-family: "微软雅黑";
+            font-size: 14px;
+        }
+        /*==========contents部分==开始==========*/
+        .wap_current {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(Images/bg.jpg);
+            background-size: cover, 100%;
+            background-attachment: fixed;
+            background-position: 50% 50%;
+            background-color: #E0DEC1;
+        }
+
+        .wap_content {
+            margin: 0 !important;
+            position: relative;
+            overflow: auto;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+        }
+
+        /*==========contents部分==结束==========*/
+
+        /*===========登录页==开始==============*/
+        .the_style {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            margin-left: -400px;
+            width: 800px;
+            text-align: center;
+        }
+
+        .pTs_a {
+            font-size: 60px;
+            font-family: "站酷高端黑" "微软雅黑";
+            color: #fff;
+            opacity: 0.5;
+        }
+
+        .pTs_b {
+            font-size: 24px;
+            font-family: "微软雅黑";
+            color: #fff;
+            opacity: 0.5;
+            margin-top: -10px;
+        }
+
+        .logo_box {
+            color: #333;
+            position: absolute;
+            padding: 83px 0 0 46px;
+            width: 300px;
+            height: 192px;
+            top: 50%;
+            left: 50%;
+            margin-top: -117px;
+            margin-left: -173px;
+            background: url(Images/login_bg.png) no-repeat center top;
+        }
+
+            .logo_box .pL_a {
+                padding-bottom: 18px;
+            }
+
+            .logo_box .pL_b {
+                padding: 5px 0;
+            }
+
+            .logo_box p label {
+                font-size: 14px;
+                vertical-align: middle;
+                display: inline-block;
+                width: 58px;
+            }
+
+            .logo_box .pL_txt {
+                width: 186px;
+                height: 16px;
+                padding: 5px 5px;
+                background: #fff;
+                vertical-align: middle;
+                border-radius: 3px;
+            }
+
+            .logo_box .pL_txt_yz {
+                width: 83px;
+                height: 16px;
+                padding: 5px 5px;
+                background: #fff;
+                vertical-align: middle;
+                border-radius: 3px;
+            }
+
+            .logo_box .pL_yzm {
+                display: inline-block;
+                height: 28px;
+                margin-left: 10px;
+                width: 94px;
+                text-align: center;
+                cursor: pointer;
+                vertical-align: middle;
+            }
+
+            .logo_box .pL_btn {
+                width: 196px;
+                height: 25px;
+                background: #30757d;
+                vertical-align: middle;
+                border-radius: 3px;
+                cursor: pointer;
+                color: #fff;
+                font-weight: bold;
+            }
+
+                .logo_box .pL_btn:hover {
+                    background: #357880;
+                }
+        /*===========登录页==结束==============*/
+    </style>
+</head>
+<body>
+    <div class="wap_current">
+    </div>
+    <div class="wap_content">
+        <div class="logo_box">
+            <div class="the_style">
+                <p class="pTs_a">
+                    毕设账号管理系统
+                </p>
+            </div>
+            <p class="pL_a">
+                <label>
+                    账&nbsp;&nbsp;&nbsp;号：
+                </label><input type="text" id="text_username" maxlength="20" class="pL_txt" />
+            </p>
+            <p class="pL_a">
+                <label>
+                    密&nbsp;&nbsp;&nbsp;码：
+                </label><input type="password" id="text_password" maxlength="20" class="pL_txt" />
+            </p>
+            <p class="pL_a">
+                <label>
+                    验证码：
+                </label><input type="text" id="text_checkcode" class="pL_txt_yz" /><span class="pL_yzm">
+                    <a class="a_ver">
+                        <img id="checkcode_img" src="" alt="验证码" title="请将图中的数字或者字母填写到左边的输入框中，如果看不清楚，请点击图片更换"
+                             style="cursor: pointer; height: 26px" onclick="load_checkcode()" />
+                    </a>
+                </span>
+            </p>
+            <p class="pL_b">
+                <label>
+                </label>
+                <input id="but_login" type="button" value="登陆" class="pL_btn" />
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function load_checkcode() {
+            $("#checkcode_img").attr("src", "login/checkPic?" + Math.random());
+        }
+        function login() {
+            $("#but_login").unbind();
+            $("#but_login").val("登录中...");
+            $.ajax({
+                url: "login/loginVerify",
+                data: {username: $("#text_username").val(), password: $("#text_password").val(), checkcode: $("#text_checkcode").val() },
+              
+                // dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess) {
+                        if (data.errorCode == 980) {
+                            //window.location = "Main.html";
+                            window.location = "PhoneBinding.html?r=" + (+new Date());
+                        } else {
+                        	window.location = "main";
+                        }
+                    }
+                    else {
+                        if (data.message == "7000") {
+                            load_checkcode();
+                            $.messager.alert('信息提示', "验证码失效！");
+                        }
+                        else if (data.message == "7001") {
+                            load_checkcode();
+                            $.messager.alert('信息提示', "验证码错误！");
+                        }
+                        else
+                            $.messager.alert('信息提示', data.message);
+                    }
+                },
+                complete: function () {
+                    set_login();
+                }
+            });
+        }
+        function set_login() {
+            $("#but_login").val("登陆");
+            $("#but_login").click(login);
+        }
+        $(document).ready(function () {
+            load_checkcode();
+            $("#but_login").click(login);
+            $(document).keyup(function (e) {
+                var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+                if (eCode == 13) {
+                    $("#but_login").trigger("click");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

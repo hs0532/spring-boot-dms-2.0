@@ -1,0 +1,737 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+</head>
+<body>
+    <div class="main">
+        <div class="rightbox clearfix">
+            <ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <span>学年：</span>
+                        </dt>
+                        <dd>
+                            <select id="schoolYearCreate" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>模板类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="fileType" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>题目类型：</span>
+                        </dt>
+                        <dd>
+                            <select id="proType" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>课题模式：</span>
+                        </dt>
+                        <dd>
+                            <select id="cmbProjectSelectionMode" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>表名：</span>
+                        </dt>
+                        <dd>
+                            <input id="TableName" style="width:170px;" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>院系：</span>
+                        </dt>
+                        <dd>
+                            <select id="Academies" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>专业：</span>
+                        </dt>
+                        <dd>
+                            <select id="Specialties" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                        </dd>
+                    </dl>
+                </li>
+                <li style="width: 440px; height: auto;">
+                    <dl>
+                        <dt>
+                            <span>篇名：</span>
+                        </dt>
+                        <dd style="width: 340px; ">
+                            <input type="text" id="txtFileName" class="easyui-textbox" data-options="width:285,readonly:true" />
+                            <span id="spanButtonPlaceholder"></span>
+                            <div id="divFileProgressContainer" style="width:285px;display:flex"></div>
+                            <input type="hidden" id="file_id" value="" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <span>&nbsp;</span>
+                        </dt>
+                        <dd>
+                            <input class="formBtn" id="create" type="button" value="上传" />
+                            <input class="formBtn margl" id="search" type="button" value="查询" />
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+    <!--删除模版  -->
+    <div id="delModel" class="easyui-dialog" data-options="closed:true" style=" width: 400px; height: 200px; text-align:center; padding: 6px; "> </div>
+
+    <!-- 院系详细信息弹框 -->
+    <div style="width:0px;height:0px;overflow:hidden; ">
+        <div id="AcademiesModel" class="easyui-dialog" data-options="closed:true" style=" width: 90%; height: 650px; text-align:left; padding: 5px;">
+            <div style="padding: 10px 0">
+                <div id="xuanze" style=" padding: 8px; border: 1px solid #ccc; background-color: #fafafa;">
+                    <span>学年：</span><select id="schoolYears" class="easyui-combobox" style="width: 170px;" editable="false"></select>
+                    <input id="yuanxi1" type="radio" name="yuanxi" class="margl" value="0" checked="checked" /><label for="yuanxi1">全校</label>
+                    <input id="yuanxi2" type="radio" name="yuanxi" class="margl" value="1" /><label for="yuanxi2">部分院系</label>
+                    <input class="formBtn margl" id="addwordYuanXi" type="button" value="添加院系专业" />
+                </div>
+                <ul id="AcademiesBox" style="border: 1px solid #ccc; border-top: none; background-color: #fafafa; padding: 10px 20px 0 20px; display: none; height: 200px; overflow-y: auto !important;"></ul>
+            </div>
+            <div>
+                <h4 style="text-align: center" id="AcademiesModelFirst"></h4>
+                <table id="AcademiesModelList" style="width:100%; border: 1px solid #ccc"></table>
+                <h4 style="text-align: center" id="AcademiesModelLast"></h4>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var schoolNo = getUrlParam("sn"); //学校编号
+        var file_type = "*.docx;";
+        var swfu;
+
+        //文件类型
+        var filetype = [
+            { name: "请选择", value: 0 },
+            { name: "课题信息", value: 1 },
+            { name: "开题报告", value: 2 },
+            { name: "任务书", value: 3 },
+            { name: "中英文译文", value: 4 },
+            { name: "中期报告", value: 5 },
+            { name: "文献综述", value: 6 },
+            { name: "指导教师评阅意见书", value: 7 },
+            { name: "评阅专家评阅意见书", value: 8 },
+            { name: "指导记录", value: 9 },
+            { name: "答辩记录表", value: 10 },
+            { name: "答辩登记表", value: 11 },
+            { name: "论文", value: 12 },
+            { name: "专业负责人评阅意见书", value: 13 },
+            { name: "答辩录入员评阅意见书", value: 14 },
+            { name: "课题修改申请", value: 17 },
+            { name: "其他", value: 16 },
+            { name: "中期考评成绩意见书", value: 18 },
+            { name: "规范审查成绩意见书", value: 19 },
+            { name: "封面", value: 20 },
+            { name: "成绩评定表", value: 21 },
+            { name: "中期检查表(学院)", value: 22 },
+            { name: "中期检查表(专业)", value: 23 },
+            { name: "中期检查表(班级)", value: 24 },
+            { name: "手册", value: 25 },
+            { name: "前期检查表(学院)", value: 26 },
+            { name: "前期检查表(专业)", value: 27 },
+            { name: "前期检查表(班级)", value: 28 },
+            { name: "后期检查表(学院)", value: 29 },
+            { name: "后期检查表(专业)", value: 30 },
+            { name: "后期检查表(班级)", value: 31 }
+        ];
+        //课题选择模式
+        var projectSelectionMode = [
+            { name: "请选择", value: -1 },
+            { name: "师生互选课题", value: 1 },
+            { name: "指定学生课题", value: 2 },
+            { name: "学生申报课题", value: 3 },
+            { name: "团队课题", value: 4 }
+        ];
+
+        //页面加载完成  再加载表格
+        $(document).ready(function () {
+            // 计划编号下拉框
+            initSchoolYearWord(schoolNo);
+            //学院专业
+            $.post("../Handler/BaseSettingsHandler.ashx?action=GetAcademieSpecialties", { sn: schoolNo, type: 1 }, function (result) {
+                $('body').append(result);
+                AcademiesAndSpecialties($("#Academies"), $("#Specialties"));
+            });
+
+            // 文件类型
+            $("#fileType").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: filetype
+            });
+
+            // 课题选择模式
+            $("#cmbProjectSelectionMode").combobox({
+                valueField: "value",
+                textField: "name",
+                data: projectSelectionMode
+            });
+            $("#cmbProjectSelectionMode").combobox("setValue", -1);
+
+            //设置模板文件扩展名
+            $("#fileType").combobox({
+                onChange: function (n, o) {
+                    if (n == 16) {
+                        file_type = "*.docx;*.zip;";
+                    } else {
+                        file_type = "*.docx;";
+                    };
+                    if (swfu) {
+                        swfu.setFileTypes(file_type, file_type);
+                    };
+                }
+            });
+            //加载列表
+            GteTable(objectId, url, columnData, paramsData, idField);
+            uploadWordType();
+        });
+
+
+        //列表
+        var columnData = [[
+            { field: 'ID', checkbox: true },
+            { field: '学年', align: 'center', title: '学年', width: 10 },
+            { field: '名称', align: 'center', title: '名称', width: 25 },
+            {
+                field: '类型', align: 'center', title: '类型', width: 10,
+                formatter: function (value, row, index) {
+                    var words = "";
+                    $.each(filetype, function (index, r) {
+                        if (row["类型"] == r.value) {
+                            words = r.name;
+                        };
+                    });
+                    return words;
+                }
+            },
+            { field: '字典名称', align: 'center', title: '题目类型', width: 10 },
+            {
+                field: '课题选择模式', align: 'center', title: '课题模式', width: 10,
+                formatter: function (value, row, index) {
+                    var words = "";
+                    $.each(projectSelectionMode, function (index, r) {
+                        if (r.value > 0 && row["课题选择模式"] == r.value) {
+                            words = r.name;
+                        };
+                    });
+                    return words;
+                }
+            },
+            { field: '表名', align: 'center', title: '表名', width: 25 },
+            { field: '上传时间', align: 'center', title: '上传时间', width: 20 },
+            {
+                field: 'operate', title: '操作', align: 'center', width: 20,
+                formatter: function (value, row, index) {
+                    var acaCount = row['AcaCount'] || 0;
+                    var firstAcaNum = row["FirstAcaNum"] || -1;
+                    var opeText = "院系";
+                    if (acaCount == 1 && firstAcaNum <= 0) {
+                        opeText = "全校";
+                    };
+                    var str = "";
+                    str = '<a class="listA"  href="javascript:DeleteWordtype(' + index + ')">删除</a>&nbsp;|&nbsp;';
+                    str += '<a class="listA"  href="javascript:QueryTableByTableIdAndSchoolNumWord(' + index + ')" >' + opeText + '( ' + acaCount + ' )</a>&nbsp;|&nbsp;';
+
+                    var downUrl = row["DownUrl"] || "javascript:;";
+                    str += "<a class='listA' href='" + downUrl + "'>下载</a>";
+                    return str;
+                }
+            }
+        ]];
+        var idField = "ID";
+        var objectId = $("#list");
+        var url = "../Handler/WordTemplateHandler.ashx";
+        var paramsData = {
+            action: "GetWordType",
+            sn: schoolNo
+        };
+        // 查询
+        $("#search").on('click', function () {
+            paramsData = {
+                action: "GetWordType",
+                sn: schoolNo,
+                xuenianbianhao: $('#schoolYearCreate').combobox('getValue'),
+                leixing: $('#fileType').combobox('getValue'),
+                leixingid: $('#proType').combobox('getValue'),
+                biaoming: $('#TableName').textbox('getText'),
+                projectSelectionMode: $("#cmbProjectSelectionMode").combobox("getValue")
+            };
+            GteTable(objectId, url, columnData, paramsData, idField);
+        });
+
+        //上传模板
+        function uploadWordType() {
+            var url = "../Handler/WordTemplateHandler.ashx";
+            var params = {};
+            swfu = swfinit(url, params, file_type);
+
+            $("#create").on("click", function () {
+                var fileid = $("#file_id").val();
+                if (checkValIsUndefinedOrNull(fileid)) {
+                    myMessage("请选择模板文件");
+                    return;
+                }
+                var planNum = $("#schoolYearCreate").combobox("getValue");
+                if (!isNumber(planNum) || planNum <= 0) {
+                    myMessage("请选择学年");
+                    return;
+                }
+                var wordType = $("#fileType").combobox("getValue");
+                if (!isNumber(wordType) || wordType <= 0) {
+                    myMessage("请选择模板类型");
+                    return;
+                }
+                var proSelMode = $("#cmbProjectSelectionMode").combobox("getValue");
+                //if (!isNumber(proSelMode) || proSelMode <= 0) {
+                //    myMessage("请选择课题选择模式");
+                //    return;
+                //}
+
+                var listtemplate = {
+                    'action': "UploadWordType",
+                    "biaoming": $("#TableName").textbox("getText"),
+                    "leixing": wordType,
+                    "leixingid": $("#proType").combobox("getValue") || -1,
+                    "xuenianbianhao": planNum,
+                    "yuanxibianhao": $("#Academies").combobox("getValue"),
+                    "zhuanyebianhao": $("#Specialties").combobox("getValue"),
+                    "fileCount": 1,
+                    'sn': schoolNo,
+                    "projectSelectionMode": proSelMode
+                };
+
+                swfu.setPostParams(listtemplate);
+                swfu.startUpload(fileid);
+                document.getElementById("divFileProgressContainer").style.display = "flex";
+            });
+        };
+
+        //上传成功后调用
+        function uploadSuccessCallback() {
+            document.getElementById("divFileProgressContainer").style.display = "none";
+            $("#txtFileName").textbox("setText", "");
+            $("#file_id").val("");
+            $("#TableName").textbox("setText", "");
+            $('#list').datagrid('reload');//重新加载
+        };
+
+        //删除
+        function DeleteWordtype(index) {
+            $("#delModel").text("你确定要删除名称为(" + $("#list").datagrid("getData").rows[index]["名称"] + ") 且表名为(" + ($("#list").datagrid("getData").rows[index]["表名"] || "空") + ")的这一行吗？");
+            $("#delModel").dialog({
+                title: "删除",
+                buttons: [{
+                    text: '确定',
+                    handler: function () {
+                        $.ajax({
+                            url: "../Handler/WordTemplateHandler.ashx",
+                            data: {
+                                action: "DeleteWordType",
+                                id: $("#list").datagrid("getData").rows[index]["ID"],
+                                xuenianbianhao: $("#list").datagrid("getData").rows[index]["计划编号"],
+                                sn: schoolNo
+                            },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (data) {
+                                myMessage(data.message);
+                                if (data.isSuccess) {
+                                    $("#delModel").dialog("close");
+                                    $('#list').datagrid("unselectAll");
+                                    $('#list').datagrid('reload');//重新加载
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $("#delModel").dialog("close");
+                        $('#list').datagrid("unselectAll");
+                    }
+                }]
+            });
+            $("#delModel").dialog('open').window('center');
+        };
+
+        //院系
+        function QueryTableByTableIdAndSchoolNumWord(index) {
+            var tempHtml = "";
+            $.each(xz_list, function (index, value) {
+                if (index > 0) {
+                    tempHtml += '<li style="border-top: 1px solid #ccc; margin-bottom: 10px;"><div>'
+                        + '<input id="Academie' + value["xy_bh"] + '" class="Academies" type="checkbox" name="name" value="' + value["xy_bh"] + '" /><label for="Academie' + value["xy_bh"] + '"> ' + value["xy"] + '</label>'
+                        + '<span class="zhuanye" style="display: none;">'
+                        + '<input id="Academie' + value["xy_bh"] + '_1"  class="quanbuzhuanye margl" type="radio" name="Academie_' + value["xy_bh"] + '"  value="0" checked="checked" /><label for="Academie' + value["xy_bh"] + '_1"> 所有专业</label>'
+                        + '<input id="Academie' + value["xy_bh"] + '_2" class="bufenzhuanye margl" type="radio" name="Academie_' + value["xy_bh"] + '"  value="1" /><label for="Academie' + value["xy_bh"] + '_2"> 部分专业</label>'
+                        + '</span></div><div class="SpecialtiesBox" style="padding-left:10px ; display: none;">';
+                    $.each(value["z"], function (idx, val) {
+                        if (idx > 0) {
+                            tempHtml += '<input id="Specialties_' + val["zy_bh"] + '" type="checkbox" class="margl Specialties" value="' + value["xy_bh"] + "$" + val["zy_bh"] + '" /><label for="Specialties_' + val["zy_bh"] + '"> ' + val["zy"] + '</label>'
+                        }
+                    });
+                    tempHtml += '</div></li>';
+                }
+            });
+            $("#AcademiesBox").html(tempHtml);
+
+            $("#AcademiesModelFirst").html("名称：" + $("#list").datagrid("getData").rows[index]["名称"]);
+            $("#AcademiesModelLast").html("表名：" + $("#list").datagrid("getData").rows[index]["表名"]);
+            var columnData = [[
+                { field: 'wdId', checkbox: true },
+                { field: '学年', align: 'center', title: '学年', width: 40 },
+                //{ field: '学院编号', align: 'center', title: '学院编号', width: 40 },
+                {
+                    field: '学院名称', align: 'center', title: '学院名称', width: 40,
+                    formatter: function (value, row, index) {
+                        return (row["学院编号"] <= 0) ? "全校" : row["学院名称"];
+                    }
+                },
+                //{ field: '专业编号', align: 'center', title: '专业编号', width: 40 },
+                {
+                    field: '专业名称', align: 'center', title: '专业名称', width: 40,
+                    formatter: function (value, row, index) {
+                        return (row["专业编号"] <= 0) ? "全部专业" : row["专业名称"];
+                    }
+                }
+            ]];
+            var objectId = $("#AcademiesModelList");
+            var url = "../Handler/WordTemplateHandler.ashx";
+            var paramsData = {};
+            var idField = "ID";
+
+            $("#AcademiesModel").dialog({ title: "院系专业" });
+            $("#AcademiesModel").dialog('open').window('center');
+
+            // 学年下拉框 初始化 和 改变值时 刷新列表
+            $("#schoolYears").combobox({
+                onLoadSuccess: function (data) {
+                    $("#schoolYears").combobox("setValue", $("#list").datagrid("getData").rows[index]["计划编号"]);
+                    paramsData = {
+                        action: "GetWordTypeById",
+                        id: $("#list").datagrid("getData").rows[index]["ID"],
+                        xuenianbianhao: $("#schoolYears").combobox("getValue"),
+                        sn: schoolNo
+                    };
+                    GteTable(objectId, url, columnData, paramsData, idField);
+                    getAcademiesDetails($("#list").datagrid("getData").rows[index]["ID"], $("#list").datagrid("getData").rows[index]["学校编号"]);
+                },
+                onChange: function (newValue, oldValue) {
+                    if (newValue != oldValue && newValue > 0 && oldValue > 0) {
+                        paramsData = {
+                            action: "GetWordTypeById",
+                            id: $("#list").datagrid("getData").rows[index]["ID"],
+                            xuenianbianhao: newValue,
+                            sn: schoolNo
+                        };
+                        GteTable(objectId, url, columnData, paramsData, idField);
+                        getAcademiesDetails($("#list").datagrid("getData").rows[index]["ID"], $("#list").datagrid("getData").rows[index]["学校编号"]);
+                    };
+                }
+            });
+
+            // 添加院系
+            $("#AcademiesModel").off("click", "#addwordYuanXi").on("click", "#addwordYuanXi", function () {
+                $("#delModel").text("你确定要添加你选中的所有院系专业吗？");
+                $("#delModel").dialog({
+                    title: "添加院系专业",
+                    buttons: [{
+                        text: '确定',
+                        handler: function () {
+                            var planNum = $("#schoolYears").combobox("getValue");
+                            if (!isNumber(planNum) || planNum <= 0) {
+                                myMessage("请选择学年");
+                                return;
+                            };
+                            var xy_zy = "";
+                            // 全校
+                            if ($("#yuanxi1").is(":checked") == true) {
+                                xy_zy = '0$0,';
+                            }
+                                //  部分院系
+                            else if ($("#yuanxi2").is(":checked") == true) {
+                                var xyHtml = $(".Academies");
+                                //
+                                for (var i = 0; i < xyHtml.length; i++) {
+                                    // 院系选中
+                                    if ($(xyHtml[i]).is(":checked") == true) {
+                                        // 全部专业
+                                        if ($(xyHtml[i]).parent().find(".quanbuzhuanye").is(":checked") == true) {
+                                            xy_zy += $(xyHtml[i]).val() + "$0,";
+                                        }
+                                        // 部分专业
+                                        if ($(xyHtml[i]).parent().find(".bufenzhuanye").is(":checked") == true) {
+                                            var zy_xy = "";
+                                            var zyHtml = $(xyHtml[i]).parent().parent().find(".SpecialtiesBox>.Specialties");
+                                            for (var j = 0; j < zyHtml.length; j++) {
+                                                if ($(zyHtml[j]).is(":checked") == true) {
+                                                    zy_xy += $(zyHtml[j]).val() + ",";
+                                                }
+                                            }
+                                            // 未选中专业提示
+                                            if (zy_xy == "") {
+                                                myMessage("您选中学院（" + $(xyHtml[i]).next().html() + "）专业不能为空！");
+                                                return;
+                                            }
+                                            xy_zy += zy_xy;
+                                        }
+                                    }
+                                }
+                            };
+                            // 未选中院系提示
+                            if (xy_zy == "") {
+                                myMessage("院系不能为空！");
+                                return;
+                            };
+                            xy_zy = xy_zy.substring(0, xy_zy.length - 1);
+
+                            $.ajax({
+                                url: "../Handler/WordTemplateHandler.ashx",
+                                data: {
+                                    action: "AddWordDepartment",
+                                    sn: schoolNo,
+                                    tableid: $("#list").datagrid("getData").rows[index]["ID"],
+                                    chosenNums: xy_zy,
+                                    xuenianbianhao: planNum
+                                },
+                                dataType: "json",
+                                type: "POST",
+                                success: function (data) {
+                                    myMessage(data.message);
+                                    if (data.isSuccess) {
+                                        $("#delModel").dialog("close");
+                                        $('#AcademiesModelList').datagrid('reload');//重新加载
+                                        $('#list').datagrid('reload');//重新加载
+                                    };
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $("#delModel").dialog("close");
+                        }
+                    }]
+                });
+                $("#delModel").dialog('open').window('center');
+            });
+        };
+
+        // 选中已添加专业
+        function getAcademiesDetails(id, sn) {
+            var planNum = $("#schoolYears").combobox("getValue");
+            if (!isNumber(planNum) || planNum <= 0) {
+                myMessage("请选择学年");
+                return;
+            };
+            $.ajax({
+                url: "../Handler/WordTemplateHandler.ashx",
+                data: {
+                    action: "GetWordDepartment",
+                    tableid: id,
+                    xuenianbianhao: planNum,
+                    sn: schoolNo
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess) {
+                        $.each(data.rows, function (i, v) {
+                            if (v["学院编号"] > 0) {
+                                $("#yuanxi2").prop("checked", "checked");
+                                $("#AcademiesBox").show();
+                                $("#Academie" + v["学院编号"]).prop("checked", "checked");
+                                $("#Academie" + v["学院编号"]).parent().find(".zhuanye").show();
+                                if (v["专业编号"] > 0) {
+                                    $("#Academie" + v["学院编号"]).parent().find(".zhuanye #Academie" + v["学院编号"] + "_2").prop("checked", "checked");
+                                    $("#Academie" + v["学院编号"]).parent().next(".SpecialtiesBox").show();
+                                    $("#Specialties_" + v["专业编号"]).prop("checked", "checked");
+                                }
+                            } else {
+                                $("#yuanxi1").prop("checked", "checked");
+                                $("#AcademiesBox").hide();
+                            }
+                        });
+                    } else {
+                        $("#yuanxi1").prop("checked", "checked");
+                        $("#AcademiesBox").hide();
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        };
+
+        // 点击选中部分院系
+        $("#xuanze>#yuanxi1,#xuanze>#yuanxi2").on("click", function () {
+            if ($("#yuanxi1").is(":checked") == true) {
+                $("#AcademiesBox").hide();
+            } else if ($("#yuanxi2").is(":checked") == true) {
+                $(".Academies").prop("checked", false);
+                $(".zhuanye").hide();
+                $(".SpecialtiesBox").hide();
+                $("#AcademiesBox").show();
+            };
+        });
+
+        // 点击选中学院
+        $("#AcademiesModel").on("click", "#AcademiesBox li .Academies", function () {
+            if ($(this).is(":checked") == true) {
+                $(this).parent().find("span").show();
+                $(this).parent().find("span .quanbuzhuanye").prop("checked", "checked");
+            } else {
+                $(this).parent().find("span").hide();
+                $(this).parent().parent().find(".SpecialtiesBox").hide();
+            };
+        });
+
+        // 点击选中部分专业
+        $("#AcademiesModel").on("click", "#AcademiesBox li .zhuanye", function () {
+            if ($(this).find(".quanbuzhuanye").is(":checked") == true) {
+                $(this).parent().parent().find(".SpecialtiesBox").hide();
+            };
+            if ($(this).find(".bufenzhuanye").is(":checked") == true) {
+                $(this).parent().parent().find(".SpecialtiesBox").show();
+                $(this).parent().parent().find(".SpecialtiesBox .Specialties").prop("checked", "checked");
+            };
+        });
+
+        //加载计划编号下拉框
+        function initSchoolYearWord(schoolNo) {
+            $.ajax({
+                url: "../Handler/BaseSettingsHandler.ashx?action=GetSchoolYear&sn=" + schoolNo,
+                type: "post",
+                dataType: "json",
+                success: function (datas) {
+                    var myArray = new Array();
+                    if (datas.isSuccess) {
+                        var schoolYearTypes = datas.dataList.schoolYearTypes;
+                        schoolYearTypes.unshift({ '计划编号': '0', '学年': '请选择', "是否默认学年": 0 });
+                        if (schoolYearTypes && schoolYearTypes.length > 0) {
+                            $.each(schoolYearTypes, function (index, item) {
+                                if (!checkValIsUndefinedOrNull(item["计划编号"]) && !checkValIsUndefinedOrNull(item['学年'])) {
+                                    if (index == 0) {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": true });
+                                    } else if (item["是否默认学年"] == 1) {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": true });
+                                        myArray[0]["selected"] = false;
+                                    } else {
+                                        myArray.push({ 'value': item["计划编号"], 'name': item["学年"], "selected": false });
+                                    };
+                                }
+                            });
+                        }
+                    }
+                    $("#schoolYearCreate,#schoolYears").combobox({
+                        valueField: 'value',
+                        textField: 'name',
+                        data: myArray
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+                complete: function () {
+                    $("#schoolYearCreate").combobox({
+                        onChange: function (n, o) {
+                            if (n != o) {
+                                getProjectType(schoolNo, n);// 题目类型
+                            };
+                        }
+                    });
+                }
+            });
+        };
+
+        // 课题题目类型
+        function getProjectType(schoolNo, schoolYears) {
+            $.ajax({
+                url: '../Handler/BaseSettingsHandler.ashx',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    action: 'GetSubjectType',
+                    sn: schoolNo,
+                    planNum: schoolYears
+                },
+                success: function (data) {
+                    if (data.isSuccess) {
+                        var proType = [{ name: "请选择", value: 0 }];
+                        $.each(data.rows, function (index, value) {
+                            proType.push({ 'name': value["名称"], 'value': value["ID"] });
+                        });
+                        // 题目类型
+                        $("#proType").combobox({
+                            valueField: 'value',
+                            textField: 'name',
+                            data: proType
+                        });
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户课题字典设置</title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+</head>
+<body>
+    <div class="main">
+        <div class="rightbox clearfix">
+            <div class=" clearfix">
+                <ul class="form clearfix">
+                    <li>
+                        <dl>
+                            <dt>
+                                <span>学年：</span>
+                            </dt>
+                            <dd>
+                                <select id="schoolyear" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <!--<ul class="form clearfix">
+                <li>
+                    <dl>
+                        <dt>
+                            <sapn>名称：</sapn>
+                        </dt>
+                        <dd>
+                            <input id="add_name" class="easyui-textbox" />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <input class="formBtn" id="add_list" type="button" value="添加" />
+
+                    </dl>
+                </li>
+            </ul>-->
+            <div class="table">
+                <table id="list" style="width:100%;"> </table>
+            </div>
+            <br />
+            <div class="table">
+                <table id="listsource" style="width:100%;"> </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="popup" class="easyui-dialog" data-options="closed:true" style="text-align:center; padding-top:10px;">
+        <ul class="addFormBuild">
+            <li style="width:130px;">名称：</li>
+            <li style="width:240px;  text-align:left">
+                <input id="rowname" type="text" class="easyui-textbox" data-options="width:160,height:24">
+            </li>
+            <li style="width:130px;"></li>
+            <li style=" width:240px;  text-align:left;  margin-top:20px; ">
+                <input class=" formBtn" id="change" type="button" name="name" value="确认并返回" />
+            </li>
+        </ul>
+    </div>
+   
+
+    <script type="text/javascript" th:inline="none">
+        var sn = getUrlParam('sn');
+        var planid = 0;
+        $(document).ready(function () {
+            load_school_year();//获取计划编号
+            ////加载 用户课题字典类型 列表
+            //GteTable(objectId, url, columnData, paramsData, idField, false);
+            ////加载 用户课题字典来源 列表
+            //GteTable(objectIds, url, columnDatas, paramsDatas, idField, false);
+        });
+
+       function refreshmethods() {
+           //加载 用户课题字典类型 列表
+           var objectId = $("#list");        
+           var url = "../Handler/BaseSettingsHandler.ashx";
+           var columnData = [[
+        { field: '名称', align: 'left', title: '课题题目类型名称', width: 30 },
+        {
+            field: 'operate', title: '操作', align: 'center', width: 20,
+            formatter: function (value, row, index) {
+                var str = '<a class="listA" href="javascript:amend(\'' + index + '\')"  >修改</a>&nbsp;';
+                return str;
+            }
+        }
+           ]];
+           var columnDatas = [[
+                   { field: '名称', align: 'left', title: '课题题目来源名称', width: 30 },
+                   {
+                       field: 'operate', title: '操作', align: 'center', width: 20,
+                       formatter: function (value, row, index) {
+                           var str = '<a class="listA" href="javascript:amends(\'' + index + '\')"  >修改</a>&nbsp;';
+                           return str;
+                       }
+                   }
+           ]];
+           var paramsData = {
+               action: "GetDictList",
+               fenlei: 1,
+               planid: planid,
+               sn: sn
+           }; 
+           var idField = "ID";
+
+
+           var objectIds = $("#listsource");
+           var paramsDatas = {
+               action: "GetDictList",
+               fenlei: 2,
+               planid: planid,
+               sn: sn
+           };      
+           $("#popup").dialog('close');//关闭模态框
+           GteTable(objectId, url, columnData, paramsData, idField, false);
+           //加载 用户课题字典来源 列表
+           GteTable(objectIds, url, columnDatas, paramsDatas, idField, false);
+
+       
+       }
+       function plan_select(sel_id) {
+           if (sel_id == undefined) {
+               planid = $("#plan").combobox('getValue');
+           }
+           else {
+               planid = sel_id;
+           }
+           refreshmethods();
+       }
+       function load_school_year() {
+           $.ajax({
+               url: "../Handler/ManagerHandler.ashx?sn=" + sn,
+               data: { "action": "GetPlanList" },
+               dataType: "json",
+               type: "POST",
+               success: function (data) {
+                   if (data.isSuccess == true) {
+                       $("#schoolyear").combobox({
+                           valueField: '计划编号',
+                           textField: '学年',
+                           onClick: function (record) {
+                               if (record["计划编号"] != "")
+                                   plan_select(record["计划编号"]);
+                           }                       
+                       });
+
+                       var temp_ar = new Array();
+
+                       $.each(data.rows, function (i, n) {
+                           if (data.rows[i]["是否默认学年"] == "1") {
+                               temp_ar.push({ "计划编号": data.rows[i]["计划编号"], "学年": data.rows[i]["学年"], "selected": true });
+                               planid = data.rows[i]["计划编号"];
+                           }
+                           else {
+                               temp_ar.push({ "计划编号": data.rows[i]["计划编号"], "学年": data.rows[i]["学年"] });
+                           }
+                       });
+
+                       $("#schoolyear").combobox("loadData", temp_ar);
+
+                       refreshmethods();
+                     
+                   }
+                   else {
+                                      
+                   }
+               }
+           });
+       }
+
+           
+        //修改操作
+        function amend(index) {
+            $("#rowname").textbox({ value: $("#list").datagrid("getData").rows[index]["名称"] });
+            $("#change").unbind();//清空事件队列;
+            //打开弹框
+            $("#popup").dialog({
+                title: '修改',
+                width: 500,
+                height: 200,
+                top: 50,
+                left: 500
+            });
+            $("#popup").dialog('open');
+            $('#popup').window('center');
+            //打开弹框
+
+            //点击修改
+            $("#change").on("click", function () {
+                var MingCheng = $("#rowname").val();
+                if (CheckData(MingCheng) == false) {
+                    return false;
+                };
+                // 出现正在加载中 弹框
+                open_loading();
+                $.ajax({
+                    url: "../Handler/BaseSettingsHandler.ashx?action=UpdateDictData",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        DictID: $("#list").datagrid("getData").rows[index]["ID"],
+                        fenlei: 1,
+                        DictName: $("#rowname").val(),
+                        sn: sn
+                    },
+                    success: function (data) {
+                        myMessage(data.message);
+                        $('#list').datagrid('reload');//重新加载
+                        $("#popup").dialog('close');//关闭模态框
+                    },
+                    complete: function () {
+                        // 关闭 正在加载弹框
+                        close_loading();
+                    }
+                });
+            });
+        };
+
+        //修改课题来源操作
+        function amends(index) {
+            $("#rowname").textbox({ value: $("#listsource").datagrid("getData").rows[index]["名称"] });
+            $("#change").unbind();//清空事件队列;
+            //打开弹框
+            $("#popup").dialog({
+                title: '修改',
+                width: 500,
+                height: 200,
+                top: 50,
+                left: 500
+            });
+            $("#popup").dialog('open');
+            $('#popup').window('center');
+            //打开弹框
+
+            //点击修改
+            $("#change").on("click", function () {
+                var MingCheng = $("#rowname").val();
+                if (CheckData(MingCheng) == false) {
+                    return false;
+                };
+                // 出现正在加载中 弹框
+                open_loading();
+                $.ajax({
+                    url: "../Handler/BaseSettingsHandler.ashx?action=UpdateDictData",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        DictID: $("#listsource").datagrid("getData").rows[index]["ID"],
+                        fenlei: 2,
+                        DictName: $("#rowname").val(),
+                        planid: planid,
+                        sn: sn
+                    },
+                    success: function (data) {
+                        myMessage(data.message);                      
+                        $('#listsource').datagrid('reload');//重新加载
+                        $("#popup").dialog('close');//关闭模态框
+                    },
+                    complete: function () {
+                        // 关闭 正在加载弹框
+                        close_loading();
+                    }
+                });
+            });
+        };
+        //数据验证
+        function CheckData(MingCheng) {
+            if (checkValIsUndefinedOrNull(MingCheng)) {
+                myMessage("名称不能为空");           
+                return false;
+            }
+            if (MingCheng.length > 50) {
+                myMessage("名称过长");             
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

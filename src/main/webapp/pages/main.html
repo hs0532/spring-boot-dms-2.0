@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <title>DMS</title>
+    <script type="text/javascript" src="static/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="static/Scripts/jquery.extend.js"></script>
+    <script type="text/javascript" src="static/Scripts/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="static/Scripts/constant.js"></script>
+    <script type="text/javascript" src="static/Scripts/common.js"></script>
+    <link rel="stylesheet" href="static/Themes/default/base.css" />
+    <link rel="stylesheet" href="static/Themes/default/easyui.css" />
+    <!--<link rel="stylesheet" href="Themes/default/dms.css" />-->
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',collapsible:false,border:false">
+        <div class="banner clearfix">
+            <div class="bannerLeft">
+                <p class="G-paper">大学生毕业设计（论文）管理系统 </p>
+            </div>
+            <div class="middle"></div>
+            <div class="bannerRight">
+                <p class="john"><span th:text="'用户名：'+${username}">  </span> &nbsp;欢迎使用系统</p>
+                <p class="quitChunk">
+                    <a href="#" style="display:none"><i></i></a>
+                    <a href="#" style="display:none"><i></i></a>
+                    <a id="quit" href="javascript:system_quit()"><i></i>退出</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="menu" class="menus" data-options="region:'west',split:false,border:false,collapsible:false"
+         style="width:230px;border:0;background-color: #2c3b42;padding:0; margin:0;">
+        <!--左侧盒子菜单-->
+        <div class="leftbox">
+            <h3><i></i><span class="role_name">管理员</span></h3>
+            <ul id="nav" class="nav">
+                <li>
+                
+                    <a class="tier" href="#"><i class="accountEphor"></i>数据库管理<svg class="icon" aria-hidden="true"><use xlink:href="#icon-gengduo"></use></svg></a>
+                    <ul class="secondaryMenu">
+                        <li><a class="towtier" href="javascript:addTab('数据库列表','pages/DataBaseList')"><i></i>数据库列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="tier" href="#"><i class="teachers"></i>用户管理<svg class="icon" aria-hidden="true"><use xlink:href="#icon-gengduo"></use></svg></a>
+                    <ul class="secondaryMenu">
+                        <li><a class="towtier" href="javascript:addTab('用户列表','pages/user')"><i></i>用户列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="tier" href="#"><i class="deriveDocument"></i>日志管理<svg class="icon" aria-hidden="true"><use xlink:href="#icon-gengduo"></use></svg></a>
+                    <ul class="secondaryMenu">
+                        <li><a class="towtier" href="javascript:addTab('管理员日志','pages/log')"><i></i>管理员日志</a></li>
+                        <li><a class="towtier" href="javascript:addTab('SQL日志','pages/SqlLogList')"><i></i>SQL日志</a></li>
+                        <li><a class="towtier" href="javascript:addTab('Word导出日志','pages/ExportWordLog')"><i></i>Word导出日志</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="tier" href="#"><i class="statisticsMessage"></i>数据统计<svg class="icon" aria-hidden="true"><use xlink:href="#icon-gengduo"></use></svg></a>
+                    <ul class="secondaryMenu">
+                        <li><a class="towtier" href="javascript:addTab('数据统计','pages/StatisticsList')"><i></i>统计列表</a></li>
+                        <li><a class="towtier" href="javascript:addTab('登陆数据统计','pages/LandingStatistics')"><i></i>登陆统计列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="tier" href="#"><i class="courseDocument"></i>短信服务<svg class="icon" aria-hidden="true"><use xlink:href="#icon-gengduo"></use></svg></a>
+                    <ul class="secondaryMenu">
+                        <li><a class="towtier" href="javascript:addTab('短信用户列表','pages/SmsUserList')"><i></i>短信用户列表</a></li>
+                        <li><a class="towtier" href="javascript:addTab('短信列表','pages/SmsList')"><i></i>短信列表</a></li>
+                        <li><a class="towtier" href="javascript:addTab('短信平台列表','pages/PlatformsList')"><i></i>短信平台列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="tier" href="#"><i class="detection"></i>用户设置<svg class="icon" aria-hidden="true"><use xlink:href="#icon-gengduo"></use></svg></a>
+                    <ul class="secondaryMenu">
+                        <li><a class="towtier" href="javascript:addTab('修改密码','pages/Password')"><i></i>修改密码</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="con" data-options="region:'center',border:false" style="background:#eee; overflow-y:hidden !important;">
+        <div id="tt" class="easyui-tabs" style="height:100%"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	
+            $(".tier").on("click", function () {
+                $(this).parent().siblings().children(".secondaryMenu").slideUp(400);
+                $(this).next().toggle(300);
+                $(this).parent().siblings().find("i").removeClass("variation");
+                $(this).parent().siblings().find("a").removeClass("towtierr");
+                $(this).addClass("hover").parent("li").siblings().children("a").removeClass("hover");
+            });
+
+            $(".towtier").on("click", function () {
+                $(this).addClass("towtierr").parent().siblings().find("a").removeClass("towtierr");
+                $(this).find("i").addClass("variation");
+                $(this).parent().siblings().find("i").removeClass("variation");
+            });
+            $('.easyui-layout').layout();
+        });
+       
+
+        function system_quit() {
+            $.ajax({
+                url: "login/exit",
+                data: { "action": "ExitSystem", "sn": "1" },
+                async: false,
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.isSuccess == true) {
+                        window.location = "login";
+                    };
+                }
+            });
+        };
+        //添加Tab
+        function addTab(title, url, one, close) {
+            //school_load(false);
+            if (one == undefined) {
+                one = true;
+            };
+            if (close == undefined) {
+                close = true;
+            };
+            if (one && $('#tt').tabs('exists', title)) {
+                $('#tt').tabs('select', title);
+            } else {
+                var src = url || "";
+                if (url.indexOf("?") >= 0) {
+                    src += "&";
+                } else {
+                    src += "?";
+                };
+                src += "r=" + Math.random();
+
+                var content = '<iframe scrolling="auto" frameborder="0"  src="' + src + '" style="width:100%;height:100%;"></iframe>';
+                $('#tt').tabs('add', {
+                    title: title,
+                    content: content,
+                    height: '34px',
+                    closable: close,
+                    tools: [{
+                        iconCls: 'icon-mini-refresh',
+                        handler: function () {
+                            refreshTab2(getCurrentTab());
+                        }
+                    }]
+                    //, iconCls: 'icon-reload' //刷新按钮
+                });
+            };
+        };
+
+        //获取当前Tab
+        function getCurrentTab() {
+            var tab = $('#tt').tabs('getSelected');
+            //var index = $('#tab').tabs('getTabIndex',tab);
+            return tab;
+            //var menuName=parent.$('#mainTabs').tabs('getSelected').panel('options').title;
+        };
+
+        //刷新Tab
+        function refreshTab(title) {
+            if (!title || title == "") {
+                return;
+            };
+            if ($('#tt').tabs('exists', title)) {
+                var currTab = $('#tt').tabs('getTab', title),
+                    iframe = $(currTab.panel('options').content),
+                    content = '<iframe scrolling="auto" frameborder="0"  src="' + iframe.attr('src') + '" style="width:100%;height:100%;"></iframe>';
+                $('#tt').tabs('update', { tab: currTab, options: { content: content, closable: currTab.panel('options').closable } });
+            };
+        };
+        /**
+         * 刷新Tab
+         * @param {any} tab 标签页面
+         */
+        function refreshTab2(tab) {
+            if (tab) {
+                var iframe = $(tab.panel('options').content),
+                    content = '<iframe scrolling="auto" frameborder="0"  src="' + iframe.attr('src') + '" style="width:100%;height:100%;"></iframe>';
+                $('#tt').tabs('update', { tab: tab, options: { content: content, closable: tab.panel('options').closable } });
+            };
+        };
+        //关闭Tab
+        function closeTab(title, id) {
+            if (id == undefined || id == "") {
+                if (!title || title == "") {
+                    return;
+                };
+                if ($('#tt').tabs('exists', title)) {
+                    $('#tt').tabs('close', title);
+                };
+            } else {
+                //var tab = getCurrentTab();
+                //var index = $('#tt').tabs('getTabIndex',tab);
+                //console.log(index);
+                //$('#tt').tabs('close', index);
+                var temp = $("#tt").tabs('tabs');
+                for (var i = 1; i < temp.length; i++) {
+                    if (temp[i].panel('options').title == title) {
+                        var temp_content = temp[i].panel('options').content;
+                        var temp_url = $(temp_content).prop("src");
+                        if (getStringParam(temp_url, "id") == id) {
+                            $('#tt').tabs('close', i);
+                            break;
+                        };
+                    };
+                };
+            };
+        };
+
+        function loadMain() {
+            window.location.reload();
+        };
+    </script>
+</body>
+</html>

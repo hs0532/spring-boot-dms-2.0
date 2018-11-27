@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <title></title>
+    <script type="text/javascript" src="../static/Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/constant.js?r=20171201132130"></script>
+
+    <script type="text/javascript" src="../static/Scripts/swfupload.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../static/Scripts/swfupload.handlers.js?r=20171201132130"></script>
+    <link rel="stylesheet" href="../static/Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/easyui.css?r=20171201132130" />
+    <link rel="stylesheet" href="../static/Themes/default/swfupload.css?r=20171201132130" />
+    <style>
+        .checkStatistics{
+            /*margin:5px 20px 10px 20px;*/
+            margin: 5px 0 10px;
+            float: left;
+            padding: 0 1%;
+            border-right: 1px solid #ccc;
+        }
+        .checkStatistics li{
+            line-height: 34px;
+            border-bottom: 1px dashed #ccc;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="SAdetection">
+            <h4 class="SAtitle" style="border-bottom: 1px solid #ccc;">检测统计</h4>
+            <div class="clearfix">
+                <ul class="checkStatistics" style="width: 16%;">
+                    <li>  &nbsp; </li>
+                    <li id="liCheckError" title=""> 检测失败 </li>
+                    <li> 检测失败(格式内容) </li>
+                    <li> 未检测</li>
+                    <li> 检测中 </li>
+                    <li> 最新检测成功时间 </li>
+                </ul>
+                <ul class="checkStatistics" style="width: 25%;">
+                    <li>  论文检测统计 </li>
+                    <li id="thesisCheckError"> </li>
+                    <li id="thesisInfoError"> </li>
+                    <li id="noCheckThesis"> </li>
+                    <li id="thesisChecking"> </li>
+                    <li id="thesisCheckSuccess"> </li>
+                </ul>
+                <ul class="checkStatistics" style="width: 25%;">
+                    <li>  开题报告检测统计 </li>
+                    <li id="openCheckError"> </li>
+                    <li id="openInfoError"> </li>
+                    <li id="noCheckOpen"> </li>
+                    <li id="openChecking"> </li>
+                    <li id="openCheckSuccess"> </li>
+                </ul>
+                <ul class="checkStatistics" style="border: none; width: 25%;">
+                    <li>  外文译文检测统计 </li>
+                    <li id="foreignCheckError"> </li>
+                    <li id="foreignInfoError"> </li>
+                    <li id="noCheckForeign"> </li>
+                    <li id="foreignChecking"> </li>
+                    <li id="foreignCheckSuccess"> </li>
+                </ul>
+            </div>
+        </div>
+        <input class="formBtn" id="TestLogin" type="button" value="测试登录服务" />
+        <div style="margin-top:10px; border: 1px solid #ccc; padding: 10px; display: none;" id="testLoginText"></div>
+    </div>
+
+    <script type="text/javascript">
+
+        var sn = getUrlParam('sn');
+
+        $(function () {
+            getErrorOfCheckResult();
+            // 论文
+            getDatas(4, -1, "thesisCheckError");
+            getDatas(4, -2, "thesisInfoError");
+            getDatas(4, 0, "noCheckThesis");
+            getDatas(4, 1, "thesisChecking");
+            getDatas(4, 2, "thesisCheckSuccess");
+            // 开题报告
+            getDatas(1, -1, "openCheckError");
+            getDatas(1, -2, "openInfoError");
+            getDatas(1, 0, "noCheckOpen");
+            getDatas(1, 1, "openChecking");
+            getDatas(1, 2, "openCheckSuccess");
+            // 外文译文
+            getDatas(2, -1, "foreignCheckError");
+            getDatas(2, -2, "foreignInfoError");
+            getDatas(2, 0, "noCheckForeign");
+            getDatas(2, 1, "foreignChecking");
+            getDatas(2, 2, "foreignCheckSuccess");
+        });
+
+        function getDatas(opeType, type, statisticsHtmlID) {
+            $.ajax({
+                url: "../Handler/CheckStatisticsHandler.ashx",
+                data: {
+                    action: "GetCheckData",
+                    sn: sn,
+                    opeType: opeType,
+                    type: type
+                },
+                dataType: "json",
+                type: "POST"
+            }).done(function (data) {
+                if (data.isSuccess) {
+                    $("#" + statisticsHtmlID).text(data.dataList["obj"]);
+                } else {
+                    $("#" + statisticsHtmlID).text(-1);
+                    myMessage(data.message);
+                }
+            });
+        };
+
+        /**
+         * 检测结果错误码
+         */
+        function getErrorOfCheckResult() {
+            $.ajax({
+                url: "../Handler/CheckStatisticsHandler.ashx",
+                data: {
+                    action: "GetErrorOfCheckResult",
+                    sn: sn
+                },
+                dataType: "json",
+                type: "POST"
+            }).done(function(data) {
+                if (data.isSuccess) {
+                    $("#liCheckError").attr("title", data.message);
+                }
+            }).fail(function(err) {
+                console.log(err);
+            });
+        }
+
+        // 测试登陆服务
+        $("#TestLogin").on('click', function () {
+            $.ajax({
+                url: "../Handler/CheckStatisticsHandler.ashx",
+                data: {
+                    action: "TestLoginService",
+                    sn: sn
+                },
+                dataType: "json",
+                type: "POST"
+            }).done(function (data) {
+                $("#testLoginText").text(data.message);
+                $("#testLoginText").show();
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表</title>
+    <script type="text/javascript" src="../Scripts/jquery.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.extend.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/jquery.easyui.min.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/common.js?r=20171201132130"></script>
+    <script type="text/javascript" src="../Scripts/constant.js?r=20171201132130"></script>
+
+    <link rel="stylesheet" href="../Themes/default/base.css?r=20171201132130" />
+    <link rel="stylesheet" href="../Themes/default/easyui.css?r=20171201132130" />
+</head>
+<body>
+    <div class="main">
+        <div class="gxf_studentList_tabs clearfix">
+            <ul class="clearfix">
+                <li><input class="formBtn" id="addSms" type="button" value="添加短信平台" /></li>
+            </ul>
+        </div>
+        <table id="list" style="width:100%; border: 1px solid #ccc"></table>
+    </div>
+
+
+    <div style="width:0; height: 0; overflow: hidden;">
+        <div id="UpdataSmsModel" class="easyui-dialog" data-options="closed:true" style="width:400px; height: 200px; text-align:center; padding: 10px">
+            <ul class="clearfix">
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">短信平台：</div>
+                    <div style="width:240px; float:left; text-align:left;"><select id="platformType" class="easyui-combobox" style="width: 170px;" editable="false" data-options="panelHeight:'auto'"></select></div>
+                </li>
+                <li class="clearfix margt">
+                    <div style="width:100px; float:left; text-align:right;">余额：</div>
+                    <div style="width:240px; float:left; text-align:left;"> <input id="balance" style="width:170px;" class="easyui-textbox" /></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="delModel" class="easyui-dialog" style="width:400px;height:200px;text-align:center; padding:10px 30px;" data-options="closed:true"></div>
+    <script type="text/javascript">
+        // 短信平台
+        var platformType = [
+            { name: "请选择", value: 0, selected: true },
+            { name: "亿美", value: 1 },
+            { name: "CNKI", value: 2 }
+        ];
+        //页面加载完成  再加载表格
+        $(function () {
+            $("#platformType").combobox({
+                valueField: 'value',
+                textField: 'name',
+                data: platformType
+            });
+            GteTable(objectId, url, columnData, paramsData, idField);// 加载列表
+        });
+        var columnData = [[
+               { field: 'Id', checkbox: true, },
+               {
+                   field: 'PlatformType', align: 'center', title: '短信平台', width: 20,
+                   formatter: function (value, row, index) {
+                       var str = "";
+                       if (row['PlatformType'] !== 0) {
+                           $.each(platformType, function (i, v) {
+                               if (row['PlatformType'] == v['value']) {
+                                   str = v['name'];
+                               }
+                           });
+                       };
+                       return str;
+                   }
+               },
+               { field: 'Balance', align: 'center', title: '余额', width: 20, },
+               { field: 'UpdateTime', align: 'center', title: '更新时间', width: 20 }
+        ]];
+        var objectId = $("#list");
+        var url = "../Handler/SmsHandler.ashx";
+        var paramsData = {
+            action: "GetPlatforms",
+            sn: "1"
+        };
+        var idField = "Id";
+
+        //添加
+        $("#addSms").on("click", function () {
+            $("#balance").textbox("setValue", "");
+            $("#platformType").combobox("setValue", 0);
+            //打开弹窗
+            $('#UpdataSmsModel').dialog({
+                title: '添加',
+                buttons: [
+                    {
+                        text: '添加',
+                        handler: function () {
+                            $.ajax({
+                                url: "../Handler/SmsHandler.ashx",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    action: "AddPlatforms",
+                                    balance: $("#balance").textbox("getText"),
+                                    platformType: $("#platformType").textbox("getValue"),
+                                    sn: "1"
+                                },
+                                success: function (data) {
+                                    if (data.isSuccess) {
+                                        $('#list').datagrid("reload");
+                                        $('#list').datagrid("clearSelections");
+                                        $("#UpdataSmsModel").dialog("close");
+                                    } else {
+                                        myMessage(data.message);
+                                    };
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: '取消',
+                        handler: function () {
+                            $('#list').datagrid("clearSelections");
+                            $("#UpdataSmsModel").dialog("close");
+                        }
+                    }
+                ]
+            });
+            $("#UpdataSmsModel").dialog('open').window('center');
+        });
+
+    </script>
+</body>
+</html>
+
